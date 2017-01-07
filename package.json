@@ -1,0 +1,46 @@
+{
+  "name": "data-capsule",
+  "version": "1.0.0",
+  "author": {
+    "name": "Shahar Talmi",
+    "email": "shahart@wix.com",
+    "url": ""
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "wix-node-build start",
+    "pretest": "wix-node-build lint && wix-node-build build",
+    "build": ":",
+    "test": "wix-node-build test",
+    "release": "wix-node-build release"
+  },
+  "dependencies": {
+    "co": "^4.6.0"
+  },
+  "private": false,
+  "devDependencies": {
+    "babel-preset-es2015": "~6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "chai": "~3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "describe-jsdom": "^1.1.2",
+    "node-localstorage": "^1.3.0",
+    "sinon": "^1.17.7",
+    "wix-node-build": "latest"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "wix/esnext"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}
