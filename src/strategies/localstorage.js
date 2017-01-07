@@ -1,7 +1,7 @@
 /* global localStorage */
 'use strict';
 
-const {STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR} = require('../constants');
+const {STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR, NOT_FOUND} = require('../constants');
 
 function getCacheKey(key, options) {
   return getCachePrefix(options) + KEY_SEPARATOR + key;
@@ -28,8 +28,12 @@ class LocalStorageStrategy {
   }
 
   getItem(key, options) {
-    key = getCacheKey(key, options);
-    return Promise.resolve(localStorage.getItem(key));
+    const value = localStorage.getItem(getCacheKey(key, options));
+    if (value) {
+      return Promise.resolve(value);
+    } else {
+      return Promise.reject(NOT_FOUND);
+    }
   }
 
   removeItem(key, options) {

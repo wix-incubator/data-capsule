@@ -1,5 +1,7 @@
 'use strict';
 
+const {NOT_FOUND} = require('./constants');
+
 function validateNamespace(options) {
   if (!options.namespace) {
     throw new Error('namespace is required');
@@ -38,7 +40,7 @@ function validateFound(data) {
   if (data.value && !isExpired(data)) {
     return data.value;
   } else {
-    throw 'not found';
+    throw NOT_FOUND;
   }
 }
 

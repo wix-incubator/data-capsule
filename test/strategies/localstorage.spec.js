@@ -2,7 +2,7 @@ const co = require('co');
 const sinon = require('sinon');
 const {expect} = require('chai');
 const {LocalStorage} = require('node-localstorage');
-const {LocalStorageCapsule} = require('../../src');
+const {NOT_FOUND, LocalStorageCapsule} = require('../../src');
 
 describe('localstorage-strategy', () => {
   beforeEach(() => {
@@ -64,7 +64,7 @@ describe('localstorage-strategy', () => {
 
   it('should result in rejection if item is not found', co.wrap(function* () {
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
-    yield expect(capsule.getItem('shahata')).to.be.rejectedWith('not found');
+    yield expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
   }));
 
   it('should treat expiration as not found', co.wrap(function* () {
@@ -72,7 +72,7 @@ describe('localstorage-strategy', () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
     yield capsule.setItem('shahata', 123, {expiration: 2});
     clock.tick(2000);
-    yield expect(capsule.getItem('shahata')).to.be.rejectedWith('not found');
+    yield expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
     clock.restore();
   }));
 
@@ -81,7 +81,7 @@ describe('localstorage-strategy', () => {
     yield capsule.setItem('shahata', 123);
     expect(yield capsule.getItem('shahata')).to.equal(123);
     yield capsule.removeItem('shahata');
-    yield expect(capsule.getItem('shahata')).to.be.rejectedWith('not found');
+    yield expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
   }));
 
   it('should get all items', co.wrap(function* () {

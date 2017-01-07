@@ -1,17 +1,16 @@
 /* global window */
 'use strict';
 
-const {STORAGE_PREFIX} = require('../constants');
-const greedySplit = require('../utils/greedy-split');
-let counter = 0;
+const {STORAGE_PREFIX, toError} = require('../constants');
+const greedySplit = require('greedy-split');
 const pending = {};
 
 function sendCommand(method, params, options) {
-  const id = `${Date.now()}-${++counter}`;
+  const id = `${Date.now()}-${Math.random()}`;
   const message = [STORAGE_PREFIX, options.token, id, method, JSON.stringify(params)].join('|');
   options.target.postMessage(message, options.origin);
   return new Promise((resolve, reject) => {
-    pending[id] = {resolve, reject};
+    pending[id] = {resolve, reject: reason => reject(toError(reason))};
   });
 }
 
@@ -22,7 +21,7 @@ function readCommands(options) {
       pending[id][method](params ? JSON.parse(params) : undefined);
       delete pending[id];
     }
-  });
+  }, true);
 }
 
 class FrameStorageStrategy {

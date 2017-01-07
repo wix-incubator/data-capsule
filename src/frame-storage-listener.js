@@ -2,7 +2,7 @@
 'use strict';
 
 const co = require('co');
-const greedySplit = require('./utils/greedy-split');
+const greedySplit = require('greedy-split');
 const {STORAGE_PREFIX} = require('./constants');
 
 class FrameStorageListener {
@@ -14,15 +14,17 @@ class FrameStorageListener {
     const storageStrategy = this.storageStrategy;
     this._listener = co.wrap(function* (e) {
       const [target, token, id, method, params] = greedySplit(e.data, '|', 5);
-      if (target === STORAGE_PREFIX && verifier(e.origin, e.source, token)) {
+      const respond = (method, param) => {
+        const message = [target + 'Done', token, id, method, JSON.stringify(param)].join('|');
+        (e.source || window).postMessage(message, e.origin || '*');
+      };
+
+      if (target === STORAGE_PREFIX && verifier(e.source, e.origin, token)) {
         const invoke = storageStrategy[method].bind(storageStrategy);
         try {
-          const result = yield invoke(...JSON.parse(params));
-          const message = [target + 'Done', token, id, 'resolve', JSON.stringify(result)].join('|');
-          (e.source || window).postMessage(message, e.origin || '*');
+          respond('resolve', yield invoke(...JSON.parse(params)));
         } catch (reason) {
-          const message = [target + 'Done', token, id, 'reject', JSON.stringify(reason)].join('|');
-          (e.source || window).postMessage(message, e.origin || '*');
+          respond('reject', reason.message);
         }
       }
     });

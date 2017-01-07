@@ -4,7 +4,7 @@ A pluggable capsule for storing key/value data for your application.
 
 Following plugins support is built in:
 1. LocalStorage automatically managed and auto-cleaned to never exceed quota.
-2. RemoteStorage can be configured simple interface to store the key/value on your server.
+2. RemoteStorage can be configured simple interface to store the key/value on your server & uses LocalStorage to cache values on the client.
 3. FrameStorage is a nice way to offload storage request from frame to parent window. Parent window can use LocalStorage, RemoteStorage or any other plugin you can think of.
 
 ## installation
@@ -34,7 +34,7 @@ In host window:
 import {FrameStorageListener, LocalStorageStrategy} from 'data-capsule';
 
 const listener = new FrameStorageListener(new LocalStorageStrategy());
-listener.start((origin, source, token) => token === 'secret');
+listener.start((source, origin, token) => token === 'secret');
 //...
 listener.stop();
 ```
@@ -45,7 +45,7 @@ In frame window:
 import {DataCapsule, FrameStorageStrategy} from 'data-capsule';
 
 const capsule = new DataCapsule({
-  strategy: new FrameStorageStrategy(window, '*', 'secret'),
+  strategy: new FrameStorageStrategy(window.top, '*', 'secret'),
   namespace: 'wix'
 });
 await capsule.setItem('shahata', 123);
