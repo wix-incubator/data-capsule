@@ -1,5 +1,6 @@
 const errors = {
-  NOT_FOUND: new Error('Key was not found in capsule')
+  NOT_FOUND: new Error('Key was not found in capsule'),
+  SERVER_ERROR: new Error('Failed to perform operarion on server')
 };
 
 function toError(str) {
@@ -11,5 +12,6 @@ module.exports = {
   KEY_SEPARATOR: '#',
   STORAGE_PREFIX: 'capsule',
   NOT_FOUND: errors.NOT_FOUND,
+  SERVER_ERROR: errors.SERVER_ERROR,
   toError
 };

@@ -88,10 +88,10 @@ describe('localstorage-strategy', () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix', scope: 'scope'});
     yield capsule.setItem('shahata1', 123);
     yield capsule.setItem('shahata2', 456);
-    expect(yield capsule.getAllItems()).to.eql([
-      {key: 'shahata1', value: 123, namespace: 'wix', scope: 'scope'},
-      {key: 'shahata2', value: 456, namespace: 'wix', scope: 'scope'}
-    ]);
+    expect(yield capsule.getAllItems()).to.eql({
+      shahata1: 123,
+      shahata2: 456
+    });
   }));
 
   it('should get all items filtering other namespaces/scopes', co.wrap(function* () {
@@ -99,9 +99,7 @@ describe('localstorage-strategy', () => {
     yield capsule.setItem('shahata1', 123);
     yield capsule.setItem('shahata2', 456, {namespace: 'wix1'});
     yield capsule.setItem('shahata3', 789, {scope: 'scope1'});
-    expect(yield capsule.getAllItems()).to.eql([
-      {key: 'shahata1', value: 123, namespace: 'wix', scope: 'scope'}
-    ]);
+    expect(yield capsule.getAllItems()).to.eql({shahata1: 123});
   }));
 
   it('should get all items when user controls filtering', co.wrap(function* () {
@@ -110,14 +108,8 @@ describe('localstorage-strategy', () => {
     yield capsule.setItem('shahata', 2, {namespace: 'wix1', scope: 'scope1'});
     yield capsule.setItem('shahata', 3, {namespace: 'wix1', scope: 'scope2'});
     yield capsule.setItem('shahata', 4, {namespace: 'wix2', scope: 'scope1'});
-    expect(yield capsule.getAllItems({namespace: 'wix1', scope: 'scope1'})).to.eql([
-      {key: 'shahata', value: 2, namespace: 'wix1', scope: 'scope1'}
-    ]);
-    expect(yield capsule.getAllItems({namespace: 'wix1'})).to.eql([
-      {key: 'shahata', value: 1, namespace: 'wix1', scope: ''},
-      {key: 'shahata', value: 2, namespace: 'wix1', scope: 'scope1'},
-      {key: 'shahata', value: 3, namespace: 'wix1', scope: 'scope2'}
-    ]);
+    expect(yield capsule.getAllItems({namespace: 'wix1', scope: 'scope1'})).to.eql({shahata: 2});
+    expect(yield capsule.getAllItems({namespace: 'wix1'})).to.eql({shahata: 1});
   }));
 
   it('should get all items filtering expired', co.wrap(function* () {
@@ -126,9 +118,14 @@ describe('localstorage-strategy', () => {
     yield capsule.setItem('shahata1', 123);
     yield capsule.setItem('shahata2', 456, {expiration: 2});
     clock.tick(2000);
-    expect(yield capsule.getAllItems()).to.eql([
-      {key: 'shahata1', value: 123, namespace: 'wix', scope: 'scope'}
-    ]);
+    expect(yield capsule.getAllItems()).to.eql({shahata1: 123});
     clock.restore();
   }));
+
+  it('should accept json scope', co.wrap(function* () {
+    const capsule = new LocalStorageCapsule({namespace: 'wix'});
+    yield capsule.setItem('shahata', 1, {scope: {userId: 123}});
+    expect(yield capsule.getAllItems({scope: {userId: 123}})).to.eql({shahata: 1});
+  }));
+
 });

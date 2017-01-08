@@ -1,8 +1,9 @@
 'use strict';
 
-const LocalStorageStrategy = require('./strategies/localstorage');
+const LocalStorageStrategy = require('./strategies/local-storage');
 const FrameStorageStrategy = require('./strategies/frame-storage');
 const FrameStorageListener = require('./frame-storage-listener');
+const WixStorageStrategy = require('./strategies/wix-storage');
 const DataCapsule = require('./data-capsule');
 const {NOT_FOUND} = require('./constants');
 
@@ -16,5 +17,6 @@ module.exports = {
   FrameStorageListener,
   FrameStorageStrategy,
   LocalStorageStrategy,
-  LocalStorageCapsule
+  LocalStorageCapsule,
+  WixStorageStrategy
 };

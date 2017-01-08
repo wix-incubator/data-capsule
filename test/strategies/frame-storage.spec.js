@@ -33,8 +33,6 @@ describe.jsdom('frame-storage-strategy', () => {
 
   it('should get all items', co.wrap(function* () {
     yield capsule.setItem('shahata', 123, {namespace: 'wix'});
-    expect(yield capsule.getAllItems({namespace: 'wix'})).to.eql([
-      {key: 'shahata', namespace: 'wix', scope: '', value: 123}
-    ]);
+    expect(yield capsule.getAllItems({namespace: 'wix'})).to.eql({shahata: 123});
   }));
 });
