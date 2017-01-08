@@ -3,9 +3,9 @@
 A pluggable capsule for storing key/value data for your application.
 
 Following plugins support is built in:
-1. LocalStorage automatically managed and auto-cleaned to never exceed quota.
-2. RemoteStorage can be configured simple interface to store the key/value on your server & uses LocalStorage to cache values on the client.
-3. FrameStorage is a nice way to offload storage request from frame to parent window. Parent window can use LocalStorage, RemoteStorage or any other plugin you can think of.
+ 1. LocalStorage automatically managed and auto-cleaned to never exceed quota.
+ 2. RemoteStorage can be configured simple interface to store the key/value on your server & uses LocalStorage to cache values on the client.
+ 3. FrameStorage is a nice way to offload storage request from frame to parent window. Parent window can use LocalStorage, RemoteStorage or any other plugin you can think of.
 
 ## installation
 
