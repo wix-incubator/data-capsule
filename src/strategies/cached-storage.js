@@ -2,11 +2,13 @@
 
 const co = require('co');
 const {NOT_FOUND} = require('../constants');
+const BaseStorage = require('../base-storage');
 const LocalStorageStrategy = require('./local-storage');
 const DELETED = '___DELETED___';
 
-class CachedStorageStrategy {
+class CachedStorageStrategy extends BaseStorage {
   constructor(remoteStrategy, localStrategy = new LocalStorageStrategy()) {
+    super();
     this.remoteStrategy = remoteStrategy;
     this.localStrategy = localStrategy;
 
@@ -17,24 +19,28 @@ class CachedStorageStrategy {
     this._getRemoteAndCache = co.wrap(this._getRemoteAndCache);
   }
 
+  _cacheItem(key, value, options) {
+    return this.localStrategy.setItem(key, value, Object.assign(options, {expiration: 3600}));
+  }
+
   * setItem(key, value, options) {
     yield this.remoteStrategy.setItem(key, value, options);
-    yield this.localStrategy.setItem(key, value, options);
+    yield this._cacheItem(key, value, options);
   }
 
   * removeItem(key, options) {
     yield this.remoteStrategy.removeItem(key, options);
-    yield this.localStrategy.setItem(key, DELETED, options);
+    yield this._cacheItem(key, DELETED, options);
   }
 
   * _getRemoteAndCache(key, options) {
     try {
       const value = yield this.remoteStrategy.getItem(key, options);
-      yield this.localStrategy.setItem(key, value, options);
+      yield this._cacheItem(key, value, options);
       return value;
     } catch (e) {
       if (e === NOT_FOUND) {
-        yield this.localStrategy.setItem(key, DELETED, options);
+        yield this._cacheItem(key, DELETED, options);
       }
       throw e;
     }
@@ -57,7 +63,7 @@ class CachedStorageStrategy {
   * getAllItems(options) {
     const items = yield this.remoteStrategy.getAllItems(options);
     yield Promise.all(Object.keys(items).map(key => {
-      return this.localStrategy.setItem(key, items[key], options);
+      return this._cacheItem(key, items[key], options);
     }));
     return items;
   }

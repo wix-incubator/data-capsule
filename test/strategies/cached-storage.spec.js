@@ -1,5 +1,8 @@
+'use strict';
+
 const co = require('co');
 const nock = require('nock');
+const sinon = require('sinon');
 const {expect} = require('chai');
 const {LocalStorage} = require('node-localstorage');
 const {NOT_FOUND, WixStorageStrategy, LocalStorageCachedCapsule} = require('../../src');
@@ -34,6 +37,20 @@ describe('cached-storage-strategy', () => {
       .reply(200, {shahata: 123});
     expect(yield capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
     expect(yield capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
+  }));
+
+  it('should cache items only for one hour', co.wrap(function* () {
+    const clock = sinon.useFakeTimers();
+    const capsule = new LocalStorageCachedCapsule({remoteStrategy: new WixStorageStrategy()});
+    nock('http://localhost').get('/_api/wix-user-preferences-webapp/getVolatilePrefForKey/wix/shahata')
+      .reply(200, {shahata: 123});
+    expect(yield capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
+    clock.tick(3600000);
+    nock('http://localhost').get('/_api/wix-user-preferences-webapp/getVolatilePrefForKey/wix/shahata')
+      .reply(200, {shahata: 123});
+    expect(yield capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
+    expect(yield capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
+    clock.restore();
   }));
 
   it('should cache items when getting all items', co.wrap(function* () {

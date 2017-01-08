@@ -1,4 +1,6 @@
 /* global window */
+'use strict';
+
 require('describe-jsdom');
 const co = require('co');
 const {expect} = require('chai');

@@ -1,3 +1,5 @@
+'use strict';
+
 const co = require('co');
 const nock = require('nock');
 const {expect} = require('chai');

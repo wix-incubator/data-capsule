@@ -4,9 +4,10 @@
 const co = require('co');
 const greedySplit = require('greedy-split');
 const {STORAGE_PREFIX} = require('./constants');
+const LocalStorageListener = require('./strategies/local-storage');
 
 class FrameStorageListener {
-  constructor(strategy) {
+  constructor(strategy = new LocalStorageListener()) {
     this.storageStrategy = strategy;
   }
 

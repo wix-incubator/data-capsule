@@ -1,9 +1,10 @@
 'use strict';
 
 const axios = require('axios');
+const BaseStorage = require('../base-storage');
 const {NOT_FOUND, SERVER_ERROR} = require('../constants');
 
-class WixStorageStrategy {
+class WixStorageStrategy extends BaseStorage {
   setItem(key, value, options) {
     const payload = {
       nameSpace: options.namespace,

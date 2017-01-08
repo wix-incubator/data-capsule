@@ -5,6 +5,7 @@ const FrameStorageStrategy = require('./strategies/frame-storage');
 const FrameStorageListener = require('./frame-storage-listener');
 const WixStorageStrategy = require('./strategies/wix-storage');
 const CachedStorageStrategy = require('./strategies/cached-storage');
+const BaseStorage = require('./base-storage');
 const DataCapsule = require('./data-capsule');
 const {NOT_FOUND} = require('./constants');
 
@@ -20,6 +21,7 @@ function LocalStorageCachedCapsule(options) {
 
 module.exports = {
   NOT_FOUND,
+  BaseStorage,
   DataCapsule,
   FrameStorageListener,
   FrameStorageStrategy,

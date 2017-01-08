@@ -1,8 +1,9 @@
 /* global window */
 'use strict';
 
-const {STORAGE_PREFIX, toError} = require('../constants');
 const greedySplit = require('greedy-split');
+const BaseStorage = require('../base-storage');
+const {STORAGE_PREFIX, toError} = require('../constants');
 const pending = {};
 
 function sendCommand(method, params, options) {
@@ -24,8 +25,9 @@ function readCommands(options) {
   }, true);
 }
 
-class FrameStorageStrategy {
+class FrameStorageStrategy extends BaseStorage {
   constructor(target, origin, token) {
+    super();
     this._options = {target, origin, token};
     readCommands(this._options);
   }

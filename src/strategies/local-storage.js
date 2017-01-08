@@ -1,6 +1,7 @@
 /* global localStorage */
 'use strict';
 
+const BaseStorage = require('../base-storage');
 const {STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR, NOT_FOUND} = require('../constants');
 
 function getCacheKey(key, options) {
@@ -37,7 +38,7 @@ function deserializeData(data) {
   return JSON.parse(data);
 }
 
-class LocalStorageStrategy {
+class LocalStorageStrategy extends BaseStorage {
   setItem(key, value, options) {
     key = getCacheKey(key, options);
     localStorage.setItem(key, serializeData(value, options));

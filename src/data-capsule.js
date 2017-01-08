@@ -1,5 +1,7 @@
 'use strict';
 
+const BaseStorage = require('./base-storage');
+
 function validateNamespace(options) {
   if (!options.namespace) {
     throw new Error('namespace is required');
@@ -14,8 +16,9 @@ function buildValidadateOptions(capsuleOptions, options) {
   return options;
 }
 
-class DataCapsule {
+class DataCapsule extends BaseStorage {
   constructor({strategy, namespace, scope}) {
+    super();
     this.storageStrategy = strategy;
     this._options = {namespace, scope};
   }
