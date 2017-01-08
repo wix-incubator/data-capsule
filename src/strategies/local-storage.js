@@ -34,7 +34,7 @@ function serializeData(value, options) {
 }
 
 function deserializeData(data) {
-  return JSON.parse(data || '{}');
+  return JSON.parse(data);
 }
 
 class LocalStorageStrategy {
