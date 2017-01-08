@@ -5,7 +5,7 @@ const nock = require('nock');
 const sinon = require('sinon');
 const {expect} = require('chai');
 const {LocalStorage} = require('node-localstorage');
-const {NOT_FOUND, WixStorageStrategy, LocalStorageCachedCapsule} = require('../../src');
+const {NOT_FOUND, WixStorageStrategy, CachedStorageStrategy, LocalStorageCachedCapsule} = require('../../src');
 
 describe('cached-storage-strategy', () => {
   beforeEach(() => {
@@ -75,4 +75,9 @@ describe('cached-storage-strategy', () => {
     yield capsule.removeItem('shahata', {namespace: 'wix'});
     yield expect(capsule.getItem('shahata', {namespace: 'wix'})).to.be.rejectedWith(NOT_FOUND);
   }));
+
+  it('should throw if non BaseStorage is passed', () => {
+    expect(() => new CachedStorageStrategy({})).to.throw('must extend BaseStorage');
+    expect(() => new CachedStorageStrategy(new WixStorageStrategy(), {})).to.throw('must extend BaseStorage');
+  });
 });

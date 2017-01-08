@@ -37,4 +37,8 @@ describe.jsdom('frame-storage-strategy', () => {
     yield capsule.setItem('shahata', 123, {namespace: 'wix'});
     expect(yield capsule.getAllItems({namespace: 'wix'})).to.eql({shahata: 123});
   }));
+
+  it('should throw if non BaseStorage is passed', () => {
+    expect(() => new FrameStorageListener({})).to.throw('must extend BaseStorage');
+  });
 });

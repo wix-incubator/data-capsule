@@ -19,7 +19,7 @@ function buildValidadateOptions(capsuleOptions, options) {
 class DataCapsule extends BaseStorage {
   constructor({strategy, namespace, scope}) {
     super();
-    this.storageStrategy = strategy;
+    this.storageStrategy = BaseStorage.verify(strategy);
     this._options = {namespace, scope};
   }
 

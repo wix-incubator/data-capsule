@@ -3,16 +3,17 @@
 
 const co = require('co');
 const greedySplit = require('greedy-split');
+const BaseStorage = require('./base-storage');
 const {STORAGE_PREFIX} = require('./constants');
-const LocalStorageListener = require('./strategies/local-storage');
+const LocalStorageStrategy = require('./strategies/local-storage');
 
 class FrameStorageListener {
-  constructor(strategy = new LocalStorageListener()) {
-    this.storageStrategy = strategy;
+  constructor(strategy = new LocalStorageStrategy()) {
+    this.storageStrategy = BaseStorage.verify(strategy);
   }
 
   start(verifier) {
-    const storageStrategy = this.storageStrategy;
+    const storageStrategy = BaseStorage.verify(this.storageStrategy);
     this._listener = co.wrap(function* (e) {
       const [target, token, id, method, params] = greedySplit(e.data, '|', 5);
       const respond = (method, param) => {

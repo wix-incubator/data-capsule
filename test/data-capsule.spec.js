@@ -29,5 +29,9 @@ describe('data-capsule', () => {
       yield capsule.setItem('shahata', 123, {namespace: 'wix'});
       expect(yield capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
     }));
+
+    it('should throw if non BaseStorage is passed', () => {
+      expect(() => new DataCapsule({strategy: {}})).to.throw('must extend BaseStorage');
+    });
   });
 });

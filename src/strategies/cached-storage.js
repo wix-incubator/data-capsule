@@ -9,8 +9,8 @@ const DELETED = '___DELETED___';
 class CachedStorageStrategy extends BaseStorage {
   constructor(remoteStrategy, localStrategy = new LocalStorageStrategy()) {
     super();
-    this.remoteStrategy = remoteStrategy;
-    this.localStrategy = localStrategy;
+    this.remoteStrategy = BaseStorage.verify(remoteStrategy);
+    this.localStrategy = BaseStorage.verify(localStrategy);
 
     this.setItem = co.wrap(this.setItem);
     this.getItem = co.wrap(this.getItem);

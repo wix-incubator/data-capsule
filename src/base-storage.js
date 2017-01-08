@@ -24,6 +24,14 @@ class BaseStorage {
   getAllItems(options) {
     throw options;
   }
+
+  static verify(strategy) {
+    if (strategy instanceof BaseStorage) {
+      return strategy;
+    } else {
+      throw new Error(`This class must extend BaseStorage!`);
+    }
+  }
 }
 
 module.exports = BaseStorage;
