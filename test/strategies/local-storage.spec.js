@@ -1,6 +1,5 @@
 'use strict';
 
-const co = require('co');
 const sinon = require('sinon');
 const {expect} = require('chai');
 const {LocalStorage} = require('node-localstorage');
@@ -15,11 +14,11 @@ describe('localstorage-strategy', () => {
     global.localStorage.clear();
   });
 
-  it('should store and retrieve information', co.wrap(function* () {
+  it('should store and retrieve information', async () => {
     const capsule = new LocalStorageCapsule();
-    yield capsule.setItem('shahata', 123, {namespace: 'wix'});
-    expect(yield capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
-  }));
+    await capsule.setItem('shahata', 123, {namespace: 'wix'});
+    expect(await capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
+  });
 
   it('should throw if no namespace in setItem', () => {
     const capsule = new LocalStorageCapsule();
@@ -36,98 +35,98 @@ describe('localstorage-strategy', () => {
     expect(() => capsule.getItem('shahata', {namespace: 123})).to.throw('namespace should be a string');
   });
 
-  it('should accept namespace in capsule constructor', co.wrap(function* () {
+  it('should accept namespace in capsule constructor', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
-    yield capsule.setItem('shahata', 123);
-    expect(yield capsule.getItem('shahata')).to.equal(123);
-  }));
+    await capsule.setItem('shahata', 123);
+    expect(await capsule.getItem('shahata')).to.equal(123);
+  });
 
-  it('should store namespaces in isolation', co.wrap(function* () {
+  it('should store namespaces in isolation', async () => {
     const capsule = new LocalStorageCapsule();
-    yield capsule.setItem('shahata', 123, {namespace: 'wix1'});
-    yield capsule.setItem('shahata', 456, {namespace: 'wix2'});
-    expect(yield capsule.getItem('shahata', {namespace: 'wix1'})).to.equal(123);
-    expect(yield capsule.getItem('shahata', {namespace: 'wix2'})).to.equal(456);
-  }));
+    await capsule.setItem('shahata', 123, {namespace: 'wix1'});
+    await capsule.setItem('shahata', 456, {namespace: 'wix2'});
+    expect(await capsule.getItem('shahata', {namespace: 'wix1'})).to.equal(123);
+    expect(await capsule.getItem('shahata', {namespace: 'wix2'})).to.equal(456);
+  });
 
-  it('should optionally pass a scope for additional isolation', co.wrap(function* () {
+  it('should optionally pass a scope for additional isolation', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
-    yield capsule.setItem('shahata', 123, {scope: 'wix1'});
-    yield capsule.setItem('shahata', 456, {scope: 'wix2'});
-    expect(yield capsule.getItem('shahata', {scope: 'wix1'})).to.equal(123);
-    expect(yield capsule.getItem('shahata', {scope: 'wix2'})).to.equal(456);
-  }));
+    await capsule.setItem('shahata', 123, {scope: 'wix1'});
+    await capsule.setItem('shahata', 456, {scope: 'wix2'});
+    expect(await capsule.getItem('shahata', {scope: 'wix1'})).to.equal(123);
+    expect(await capsule.getItem('shahata', {scope: 'wix2'})).to.equal(456);
+  });
 
-  it('should optionally pass a scope in constructor', co.wrap(function* () {
+  it('should optionally pass a scope in constructor', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix', scope: 'scope'});
-    yield capsule.setItem('shahata', 123);
-    expect(yield capsule.getItem('shahata', {scope: 'scope'})).to.equal(123);
-  }));
+    await capsule.setItem('shahata', 123);
+    expect(await capsule.getItem('shahata', {scope: 'scope'})).to.equal(123);
+  });
 
-  it('should result in rejection if item is not found', co.wrap(function* () {
+  it('should result in rejection if item is not found', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
-    yield expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
-  }));
+    await expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
+  });
 
-  it('should treat expiration as not found', co.wrap(function* () {
+  it('should treat expiration as not found', async () => {
     const clock = sinon.useFakeTimers();
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
-    yield capsule.setItem('shahata', 123, {expiration: 2});
+    await capsule.setItem('shahata', 123, {expiration: 2});
     clock.tick(2000);
-    yield expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
+    await expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
     clock.restore();
-  }));
+  });
 
-  it('should remove item', co.wrap(function* () {
+  it('should remove item', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
-    yield capsule.setItem('shahata', 123);
-    expect(yield capsule.getItem('shahata')).to.equal(123);
-    yield capsule.removeItem('shahata');
-    yield expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
-  }));
+    await capsule.setItem('shahata', 123);
+    expect(await capsule.getItem('shahata')).to.equal(123);
+    await capsule.removeItem('shahata');
+    await expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
+  });
 
-  it('should get all items', co.wrap(function* () {
+  it('should get all items', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix', scope: 'scope'});
-    yield capsule.setItem('shahata1', 123);
-    yield capsule.setItem('shahata2', 456);
-    expect(yield capsule.getAllItems()).to.eql({
+    await capsule.setItem('shahata1', 123);
+    await capsule.setItem('shahata2', 456);
+    expect(await capsule.getAllItems()).to.eql({
       shahata1: 123,
       shahata2: 456
     });
-  }));
+  });
 
-  it('should get all items filtering other namespaces/scopes', co.wrap(function* () {
+  it('should get all items filtering other namespaces/scopes', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix', scope: 'scope'});
-    yield capsule.setItem('shahata1', 123);
-    yield capsule.setItem('shahata2', 456, {namespace: 'wix1'});
-    yield capsule.setItem('shahata3', 789, {scope: 'scope1'});
-    expect(yield capsule.getAllItems()).to.eql({shahata1: 123});
-  }));
+    await capsule.setItem('shahata1', 123);
+    await capsule.setItem('shahata2', 456, {namespace: 'wix1'});
+    await capsule.setItem('shahata3', 789, {scope: 'scope1'});
+    expect(await capsule.getAllItems()).to.eql({shahata1: 123});
+  });
 
-  it('should get all items when user controls filtering', co.wrap(function* () {
+  it('should get all items when user controls filtering', async () => {
     const capsule = new LocalStorageCapsule();
-    yield capsule.setItem('shahata', 1, {namespace: 'wix1'});
-    yield capsule.setItem('shahata', 2, {namespace: 'wix1', scope: 'scope1'});
-    yield capsule.setItem('shahata', 3, {namespace: 'wix1', scope: 'scope2'});
-    yield capsule.setItem('shahata', 4, {namespace: 'wix2', scope: 'scope1'});
-    expect(yield capsule.getAllItems({namespace: 'wix1', scope: 'scope1'})).to.eql({shahata: 2});
-    expect(yield capsule.getAllItems({namespace: 'wix1'})).to.eql({shahata: 1});
-  }));
+    await capsule.setItem('shahata', 1, {namespace: 'wix1'});
+    await capsule.setItem('shahata', 2, {namespace: 'wix1', scope: 'scope1'});
+    await capsule.setItem('shahata', 3, {namespace: 'wix1', scope: 'scope2'});
+    await capsule.setItem('shahata', 4, {namespace: 'wix2', scope: 'scope1'});
+    expect(await capsule.getAllItems({namespace: 'wix1', scope: 'scope1'})).to.eql({shahata: 2});
+    expect(await capsule.getAllItems({namespace: 'wix1'})).to.eql({shahata: 1});
+  });
 
-  it('should get all items filtering expired', co.wrap(function* () {
+  it('should get all items filtering expired', async () => {
     const clock = sinon.useFakeTimers();
     const capsule = new LocalStorageCapsule({namespace: 'wix', scope: 'scope'});
-    yield capsule.setItem('shahata1', 123);
-    yield capsule.setItem('shahata2', 456, {expiration: 2});
+    await capsule.setItem('shahata1', 123);
+    await capsule.setItem('shahata2', 456, {expiration: 2});
     clock.tick(2000);
-    expect(yield capsule.getAllItems()).to.eql({shahata1: 123});
+    expect(await capsule.getAllItems()).to.eql({shahata1: 123});
     clock.restore();
-  }));
+  });
 
-  it('should accept json scope', co.wrap(function* () {
+  it('should accept json scope', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
-    yield capsule.setItem('shahata', 1, {scope: {userId: 123}});
-    expect(yield capsule.getAllItems({scope: {userId: 123}})).to.eql({shahata: 1});
-  }));
+    await capsule.setItem('shahata', 1, {scope: {userId: 123}});
+    expect(await capsule.getAllItems({scope: {userId: 123}})).to.eql({shahata: 1});
+  });
 
 });

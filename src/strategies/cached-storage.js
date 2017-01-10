@@ -1,6 +1,5 @@
 'use strict';
 
-const co = require('co');
 const {NOT_FOUND} = require('../utils/constants');
 const BaseStorage = require('../base-storage');
 const LocalStorageStrategy = require('./local-storage');
@@ -11,45 +10,39 @@ class CachedStorageStrategy extends BaseStorage {
     super();
     this.remoteStrategy = BaseStorage.verify(remoteStrategy);
     this.localStrategy = BaseStorage.verify(localStrategy);
-
-    this.setItem = co.wrap(this.setItem);
-    this.getItem = co.wrap(this.getItem);
-    this.removeItem = co.wrap(this.removeItem);
-    this.getAllItems = co.wrap(this.getAllItems);
-    this._getRemoteAndCache = co.wrap(this._getRemoteAndCache);
   }
 
   _cacheItem(key, value, options) {
     return this.localStrategy.setItem(key, value, Object.assign(options, {expiration: 3600}));
   }
 
-  * setItem(key, value, options) {
-    yield this.remoteStrategy.setItem(key, value, options);
-    yield this._cacheItem(key, value, options);
+  async setItem(key, value, options) {
+    await this.remoteStrategy.setItem(key, value, options);
+    await this._cacheItem(key, value, options);
   }
 
-  * removeItem(key, options) {
-    yield this.remoteStrategy.removeItem(key, options);
-    yield this._cacheItem(key, DELETED, options);
+  async removeItem(key, options) {
+    await this.remoteStrategy.removeItem(key, options);
+    await this._cacheItem(key, DELETED, options);
   }
 
-  * _getRemoteAndCache(key, options) {
+  async _getRemoteAndCache(key, options) {
     try {
-      const value = yield this.remoteStrategy.getItem(key, options);
-      yield this._cacheItem(key, value, options);
+      const value = await this.remoteStrategy.getItem(key, options);
+      await this._cacheItem(key, value, options);
       return value;
     } catch (e) {
       if (e === NOT_FOUND) {
-        yield this._cacheItem(key, DELETED, options);
+        await this._cacheItem(key, DELETED, options);
       }
       throw e;
     }
   }
 
-  * getItem(key, options) {
+  async getItem(key, options) {
     let value;
     try {
-      value = yield this.localStrategy.getItem(key, options);
+      value = await this.localStrategy.getItem(key, options);
     } catch (e) {
       value = this._getRemoteAndCache(key, options);
     }
@@ -60,9 +53,9 @@ class CachedStorageStrategy extends BaseStorage {
     }
   }
 
-  * getAllItems(options) {
-    const items = yield this.remoteStrategy.getAllItems(options);
-    yield Promise.all(Object.keys(items).map(key => {
+  async getAllItems(options) {
+    const items = await this.remoteStrategy.getAllItems(options);
+    await Promise.all(Object.keys(items).map(key => {
       return this._cacheItem(key, items[key], options);
     }));
     return items;
