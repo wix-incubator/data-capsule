@@ -3,7 +3,7 @@
 
 const greedySplit = require('greedy-split');
 const BaseStorage = require('../base-storage');
-const {STORAGE_PREFIX, toError} = require('../constants');
+const {STORAGE_PREFIX, toError} = require('../utils/constants');
 const pending = {};
 
 function sendCommand(method, params, options) {

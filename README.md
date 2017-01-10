@@ -124,7 +124,7 @@ console.log(await capsule.getItem('shahata')); // logs 123
 
 Following you can see the interface for BaseStorage. The DataCapsule and all storage strategies implement this interface and defer only in constructor.
 
-Don't forget that you can also implement your own storage strategy! All you need to do is implement something similar to the example bellow and then you can pass it as strategy to DataCapsule.
+Don't forget that you can also implement your own storage strategy! All you need to do is implement something similar to the example below and then you can pass it as strategy to DataCapsule.
 
 ```js
 import {BaseStorage} from 'data-capsule';

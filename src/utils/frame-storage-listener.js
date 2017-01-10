@@ -3,9 +3,9 @@
 
 const co = require('co');
 const greedySplit = require('greedy-split');
-const BaseStorage = require('./base-storage');
+const BaseStorage = require('../base-storage');
 const {STORAGE_PREFIX} = require('./constants');
-const LocalStorageStrategy = require('./strategies/local-storage');
+const LocalStorageStrategy = require('../strategies/local-storage');
 
 class FrameStorageListener {
   constructor(strategy = new LocalStorageStrategy()) {
@@ -13,6 +13,9 @@ class FrameStorageListener {
   }
 
   start(verifier) {
+    // if (this._listener) {
+    //   return;
+    // }
     const storageStrategy = BaseStorage.verify(this.storageStrategy);
     this._listener = co.wrap(function* (e) {
       const [target, token, id, method, params] = greedySplit(e.data, '|', 5);
@@ -26,7 +29,7 @@ class FrameStorageListener {
         try {
           respond('resolve', yield invoke(...JSON.parse(params)));
         } catch (reason) {
-          respond('reject', reason.message);
+          respond('reject', reason.message || reason);
         }
       }
     });

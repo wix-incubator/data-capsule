@@ -2,7 +2,7 @@
 
 const axios = require('axios');
 const BaseStorage = require('../base-storage');
-const {NOT_FOUND, SERVER_ERROR} = require('../constants');
+const {NOT_FOUND, SERVER_ERROR} = require('../utils/constants');
 
 class WixStorageStrategy extends BaseStorage {
   setItem(key, value, options) {

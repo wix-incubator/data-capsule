@@ -12,18 +12,25 @@ describe('base-storage', () => {
   it('should not throw if you override the methods', () => {
     class SomeStorage extends BaseStorage {
       setItem(key, value, options) {
-        throw options;
+        super.setItem(key, value, options);
       }
       getItem(key, options) {
-        throw options;
+        super.getItem(key, options);
       }
       removeItem(key, options) {
-        throw options;
+        super.removeItem(key, options);
       }
       getAllItems(options) {
-        throw options;
+        super.getAllItems(options);
       }
     }
     expect(() => new SomeStorage()).not.to.throw();
+
+    //following expectations are totally unnecessary
+    //sole purpose is to have 100% coverage :P
+    expect(() => new SomeStorage().setItem()).to.throw();
+    expect(() => new SomeStorage().getItem()).to.throw();
+    expect(() => new SomeStorage().removeItem()).to.throw();
+    expect(() => new SomeStorage().getAllItems()).to.throw();
   });
 });

@@ -1,7 +1,7 @@
 'use strict';
 
 const co = require('co');
-const {NOT_FOUND} = require('../constants');
+const {NOT_FOUND} = require('../utils/constants');
 const BaseStorage = require('../base-storage');
 const LocalStorageStrategy = require('./local-storage');
 const DELETED = '___DELETED___';

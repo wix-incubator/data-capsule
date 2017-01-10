@@ -1,13 +1,13 @@
 'use strict';
 
+const FrameStorageListener = require('./utils/frame-storage-listener');
 const LocalStorageStrategy = require('./strategies/local-storage');
 const FrameStorageStrategy = require('./strategies/frame-storage');
-const FrameStorageListener = require('./frame-storage-listener');
 const WixStorageStrategy = require('./strategies/wix-storage');
 const CachedStorageStrategy = require('./strategies/cached-storage');
+const {NOT_FOUND} = require('./utils/constants');
 const BaseStorage = require('./base-storage');
 const DataCapsule = require('./data-capsule');
-const {NOT_FOUND} = require('./constants');
 
 function LocalStorageCapsule(options) {
   return new DataCapsule(Object.assign({}, options, {strategy: new LocalStorageStrategy()}));
