@@ -2,6 +2,7 @@
 	"recommendations": [
 		"gabrielgrinberg.auto-run-command",
 		"dbaeumer.vscode-eslint",
-		"WallabyJs.wallaby-vscode"
+		"WallabyJs.wallaby-vscode",
+		"shinnn.stylelint"
 	]
 }
