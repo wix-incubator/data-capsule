@@ -8,7 +8,7 @@ const {DataCapsule, LocalStorageStrategy, CachedStorageStrategy, WixStorageStrat
 describe('data-capsule', () => {
   describe('with localstorgae strategy', () => {
     beforeEach(() => {
-      global.localStorage = new LocalStorage('./target/scratch');
+      global.localStorage = new LocalStorage('./scratch');
     });
 
     afterEach(() => {

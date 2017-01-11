@@ -4,8 +4,12 @@
     "name": "Launch Mocha",
     "type": "node",
     "request": "launch",
+    "sourceMaps": false,
     "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
-    "args": ["{test,src}/**/*.spec.js", "--no-timeouts"],
+    "args": ["{test,src}/**/*.spec.js{,x}", "--no-timeouts"],
+    "env": {
+      "NODE_ENV": "test"
+    },
     "runtimeArgs": [
       "--nolazy",
       "--harmony-async-await",
