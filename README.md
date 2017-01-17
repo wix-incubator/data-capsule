@@ -14,6 +14,20 @@ Following plugins support is built in:
 $ npm install --save data-capsule
 ```
 
+### bower support (not recommended)
+
+```sh
+$ bower install --save data-capsule
+```
+
+```html
+<script src="bower_components/data-capsule/index.bundle.js"></script>
+```
+
+```js
+const {DataCapsule, LocalStorageStrategy} = DataCapsuleTools;
+```
+
 ## DataCapsule
 
 DataCapsule is the one responsible for your needs. When you create a capsule you must provide a `strategy` (see below) for *how* data will be saved. In addition, you can optionally provide a `namespace` and `scope` for your capsule. If you didn't provide `namespace` in costructor, you must do so for each operation you do on the capsule. However, `scope` is optional. The idea is that `namespace` distinguishes your data from other applications who are using the same strategy (for example in case of localstorage, other applications that run in the same origin), and `scope` distinguishes your data from data the same application might write when in different context (for example, user id is often used as `scope`). Even if you provided `namespace` and `scope` in constructor, you may override it for specific operation by passing different `namespace` or `scope` when passing `options` to one of the capsule's methods.

@@ -15,7 +15,7 @@
     "pretest": "wix-node-build lint && wix-node-build build",
     "build": ":",
     "test": "wix-node-build test",
-    "release": "wix-node-build release"
+    "release": "wix-node-build release; bower-auto-release --dist dist/statics"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -27,6 +27,7 @@
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-stage-0": "^6.5.0",
+    "bower-auto-release": "^1.1.11",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "describe-jsdom": "^1.1.2",
@@ -67,5 +68,10 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "wix": {
+    "entry": {
+      "index": "./global.js"
+    }
   }
 }
