@@ -71,7 +71,8 @@
   },
   "wix": {
     "entry": {
-      "index": "./global.js"
+      "index": "./global.js",
+      "frame": "./frame.js"
     }
   }
 }
