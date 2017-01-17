@@ -6,7 +6,7 @@
     "email": "shahart@wix.com",
     "url": ""
   },
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "files": [
     "dist"
   ],
