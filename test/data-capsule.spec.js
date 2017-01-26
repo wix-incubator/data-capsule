@@ -6,7 +6,7 @@ const {LocalStorage} = require('node-localstorage');
 const {DataCapsule, LocalStorageStrategy, CachedStorageStrategy, WixStorageStrategy} = require('../src');
 
 describe('data-capsule', () => {
-  describe('with localstorgae strategy', () => {
+  describe('with localstorage strategy', () => {
     beforeEach(() => {
       global.localStorage = new LocalStorage('./scratch');
     });
@@ -22,7 +22,9 @@ describe('data-capsule', () => {
     });
 
     it('should cache items when setting items', async () => {
-      const capsule = new DataCapsule({strategy: new CachedStorageStrategy(new WixStorageStrategy())});
+      const capsule = new DataCapsule({strategy: new CachedStorageStrategy({
+        remoteStrategy: new WixStorageStrategy()
+      })});
       nock('http://localhost').post('/_api/wix-user-preferences-webapp/set',
         {nameSpace: 'wix', key: 'shahata', blob: 123}).reply(200);
       await capsule.setItem('shahata', 123, {namespace: 'wix'});
