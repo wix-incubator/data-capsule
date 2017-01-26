@@ -15,7 +15,7 @@ function LocalStorageCapsule(options) {
 
 function LocalStorageCachedCapsule(options) {
   return new DataCapsule(Object.assign({}, options, {
-    strategy: new CachedStorageStrategy(options.remoteStrategy)
+    strategy: new CachedStorageStrategy({remoteStrategy: options.remoteStrategy})
   }));
 }
 

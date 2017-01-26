@@ -6,7 +6,7 @@ const LocalStorageStrategy = require('./local-storage');
 const DELETED = '___DELETED___';
 
 class CachedStorageStrategy extends BaseStorage {
-  constructor(remoteStrategy, localStrategy = new LocalStorageStrategy()) {
+  constructor({remoteStrategy, localStrategy = new LocalStorageStrategy()}) {
     super();
     this.remoteStrategy = BaseStorage.verify(remoteStrategy);
     this.localStrategy = BaseStorage.verify(localStrategy);
