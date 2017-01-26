@@ -5272,7 +5272,7 @@
 
 	function LocalStorageCachedCapsule(options) {
 	  return new DataCapsule((0, _assign2.default)({}, options, {
-	    strategy: new CachedStorageStrategy(options.remoteStrategy)
+	    strategy: new CachedStorageStrategy({ remoteStrategy: options.remoteStrategy })
 	  }));
 	}
 
@@ -5350,8 +5350,10 @@
 	var CachedStorageStrategy = function (_BaseStorage) {
 	  (0, _inherits3.default)(CachedStorageStrategy, _BaseStorage);
 
-	  function CachedStorageStrategy(remoteStrategy) {
-	    var localStrategy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new LocalStorageStrategy();
+	  function CachedStorageStrategy(_ref) {
+	    var remoteStrategy = _ref.remoteStrategy,
+	        _ref$localStrategy = _ref.localStrategy,
+	        localStrategy = _ref$localStrategy === undefined ? new LocalStorageStrategy() : _ref$localStrategy;
 	    (0, _classCallCheck3.default)(this, CachedStorageStrategy);
 
 	    var _this = (0, _possibleConstructorReturn3.default)(this, (CachedStorageStrategy.__proto__ || (0, _getPrototypeOf2.default)(CachedStorageStrategy)).call(this));
@@ -5369,7 +5371,7 @@
 	  }, {
 	    key: 'setItem',
 	    value: function () {
-	      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(key, value, options) {
+	      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(key, value, options) {
 	        return _regenerator2.default.wrap(function _callee$(_context) {
 	          while (1) {
 	            switch (_context.prev = _context.next) {
@@ -5389,8 +5391,8 @@
 	        }, _callee, this);
 	      }));
 
-	      function setItem(_x2, _x3, _x4) {
-	        return _ref.apply(this, arguments);
+	      function setItem(_x, _x2, _x3) {
+	        return _ref2.apply(this, arguments);
 	      }
 
 	      return setItem;
@@ -5398,7 +5400,7 @@
 	  }, {
 	    key: 'removeItem',
 	    value: function () {
-	      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(key, options) {
+	      var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(key, options) {
 	        return _regenerator2.default.wrap(function _callee2$(_context2) {
 	          while (1) {
 	            switch (_context2.prev = _context2.next) {
@@ -5418,8 +5420,8 @@
 	        }, _callee2, this);
 	      }));
 
-	      function removeItem(_x5, _x6) {
-	        return _ref2.apply(this, arguments);
+	      function removeItem(_x4, _x5) {
+	        return _ref3.apply(this, arguments);
 	      }
 
 	      return removeItem;
@@ -5427,7 +5429,7 @@
 	  }, {
 	    key: '_getRemoteAndCache',
 	    value: function () {
-	      var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(key, options) {
+	      var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(key, options) {
 	        var value;
 	        return _regenerator2.default.wrap(function _callee3$(_context3) {
 	          while (1) {
@@ -5468,8 +5470,8 @@
 	        }, _callee3, this, [[0, 9]]);
 	      }));
 
-	      function _getRemoteAndCache(_x7, _x8) {
-	        return _ref3.apply(this, arguments);
+	      function _getRemoteAndCache(_x6, _x7) {
+	        return _ref4.apply(this, arguments);
 	      }
 
 	      return _getRemoteAndCache;
@@ -5477,7 +5479,7 @@
 	  }, {
 	    key: 'getItem',
 	    value: function () {
-	      var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(key, options) {
+	      var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(key, options) {
 	        var value;
 	        return _regenerator2.default.wrap(function _callee4$(_context4) {
 	          while (1) {
@@ -5518,8 +5520,8 @@
 	        }, _callee4, this, [[1, 7]]);
 	      }));
 
-	      function getItem(_x9, _x10) {
-	        return _ref4.apply(this, arguments);
+	      function getItem(_x8, _x9) {
+	        return _ref5.apply(this, arguments);
 	      }
 
 	      return getItem;
@@ -5527,7 +5529,7 @@
 	  }, {
 	    key: 'getAllItems',
 	    value: function () {
-	      var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5(options) {
+	      var _ref6 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5(options) {
 	        var _this2 = this;
 
 	        var items;
@@ -5556,8 +5558,8 @@
 	        }, _callee5, this);
 	      }));
 
-	      function getAllItems(_x11) {
-	        return _ref5.apply(this, arguments);
+	      function getAllItems(_x10) {
+	        return _ref6.apply(this, arguments);
 	      }
 
 	      return getAllItems;
