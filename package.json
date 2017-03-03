@@ -11,11 +11,11 @@
     "dist"
   ],
   "scripts": {
-    "start": "wix-node-build start",
-    "pretest": "wix-node-build lint && wix-node-build build",
+    "start": "yoshi start",
+    "pretest": "yoshi lint && yoshi build",
     "build": ":",
-    "test": "wix-node-build test",
-    "release": "wix-node-build release; bower-auto-release --dist dist/statics"
+    "test": "yoshi test",
+    "release": "yoshi release; bower-auto-release --dist dist/statics"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -34,7 +34,7 @@
     "nock": "^9.0.2",
     "node-localstorage": "^1.3.0",
     "sinon": "^1.17.7",
-    "wix-node-build": "latest"
+    "yoshi": "latest"
   },
   "babel": {
     "plugins": [
@@ -69,7 +69,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "wix": {
+  "yoshi": {
     "entry": {
       "index": "./global.js",
       "frame": "./frame.js"
