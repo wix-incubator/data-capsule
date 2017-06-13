@@ -13,9 +13,9 @@ export interface SetOptions extends Options {
 }
 
 export class BaseStorage {
-  setItem(key: string, value: any, options?: SetOptions): Promise<undefined>;
+  setItem(key: string, value: any, options?: SetOptions): Promise<void>;
   getItem(key: string, options?: Options): Promise<any>;
-  removeItem(key: string, options?: Options): Promise<undefined>;
+  removeItem(key: string, options?: Options): Promise<void>;
   getAllItem(options?: Options): Promise<{[key: string]: any}>;
 }
 
