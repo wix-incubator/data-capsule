@@ -13,6 +13,16 @@ function parseCacheKey(cacheKey) {
   }
 }
 
+function getCacheKey(key, options) {
+  return getCachePrefix(options) + key;
+}
+
+function getCachePrefix(options) {
+  return [STORAGE_PREFIX, options.namespace, options.scope && JSON.stringify(options.scope)]
+      .filter(x => x)
+      .join(PREFIX_SEPARATOR) + KEY_SEPARATOR;
+}
+
 function deserializeData(data) {
   return JSON.parse(data);
 }
@@ -43,5 +53,8 @@ function isExpired(data) {
 module.exports = {
   deserializeData,
   getCacheRecords,
-  isExpired
+  isExpired,
+  parseCacheKey,
+  getCacheKey,
+  getCachePrefix
 };
