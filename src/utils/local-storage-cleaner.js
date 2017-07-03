@@ -40,4 +40,19 @@ function localStorageCleaner(requiredSpace) {
   deleteOld(cleaner);
 }
 
-module.exports = localStorageCleaner;
+function clean(condition) {
+  const records = getCacheRecords().sort(createdAtSort);
+  return records.reduce((acc, curr) => {
+    if (condition(curr, records.length - acc.length)) {
+      localStorage.removeItem(curr.originalKey);
+      return acc.concat(curr.originalKey);
+    }
+    return acc;
+  }, []);
+}
+
+module.exports = {
+  localStorageCleaner,
+  isExpired,
+  clean
+};

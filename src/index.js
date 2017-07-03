@@ -2,6 +2,7 @@
 
 const FrameStorageListener = require('./utils/frame-storage-listener');
 const LocalStorageStrategy = require('./strategies/local-storage');
+const LimitedLocalStorageStrategy = require('./strategies/limited-local-storage');
 const FrameStorageStrategy = require('./strategies/frame-storage');
 const WixStorageStrategy = require('./strategies/wix-storage');
 const CachedStorageStrategy = require('./strategies/cached-storage');
@@ -26,6 +27,7 @@ module.exports = {
   FrameStorageListener,
   FrameStorageStrategy,
   LocalStorageStrategy,
+  LimitedLocalStorageStrategy,
   LocalStorageCapsule,
   WixStorageStrategy,
   CachedStorageStrategy,
