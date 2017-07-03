@@ -73,6 +73,26 @@ await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
 ```
 
+## LimitedLocalStorageStrategy
+
+Creates a local storage strategy pattern with strict rules, which could be overriden.
+The cleanup is being initiated when an item is being set. Otherwise no impact on local storage.
+
+```js
+import {DataCapsule, LimitedLocalStorageStrategy} from 'data-capsule';
+
+const strategy = new LimitedLocalStorageStrategy({
+  expiration: 300, // default key expiration in seconds
+  maxItems: 100,   // max items to store in local storage
+  maxAge: 300,     // items older than 5 minutes are disposed automatically
+  timeout: 100     // how much the cleanup job should be delayed (in milliseconds)
+});
+
+const capsule = new DataCapsule({ namespace: 'wix', strategy });
+await capsule.setItem('1', 123);                      // By defaul the key will expire in 5 minutes
+await capsule.setItem('2', 123, { expiration: 500 }); // Give a custom expiration time in seconds
+```
+
 ## CachedStorage
 
 Constructor accepts `options` object with `remoteStrategy` and `localStrategy`. Get operations are first tried against `localStrategy` and if no local cache exists, we then fallback to `remoteStrategy` ans eventually cache to `localStrategy`. Set operations are cached to `localStrategy` as well. Note that `localStrategy` cache is always set with expiration period of one hour in order to avoid stale cache issues. The `localStrategy` is `new LocalStorageStrategy()` bye default, so you don't have to pass it, but anyway you are better off using the short form below:

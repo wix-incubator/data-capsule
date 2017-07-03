@@ -2,7 +2,7 @@
 'use strict';
 
 const BaseStorage = require('../base-storage');
-const localStorageCleaner = require('../utils/local-storage-cleaner');
+const {localStorageCleaner} = require('../utils/local-storage-cleaner');
 const {STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR, NOT_FOUND} = require('../utils/constants');
 const {getCacheRecords, deserializeData, isExpired} = require('../utils/record-utils');
 
