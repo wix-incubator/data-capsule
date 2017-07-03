@@ -75,7 +75,7 @@ console.log(await capsule.getItem('shahata')); // logs 123
 
 ## LimitedLocalStorageStrategy
 
-Creates a local strategy pattern with strict rules, which could be overriden.
+Creates a local storage strategy pattern with strict rules, which could be overriden.
 The cleanup is being initiated when an item is being set. Otherwise no impact on local storage.
 
 ```js
@@ -84,12 +84,13 @@ import {DataCapsule, LimitedLocalStorageStrategy} from 'data-capsule';
 const strategy = new LimitedLocalStorageStrategy({
   expiration: 300, // default key expiration in seconds
   maxItems: 100,   // max items to store in local storage
-  maxAge: 300,     // items older than 5 minutes are disposed automatically,
+  maxAge: 300,     // items older than 5 minutes are disposed automatically
   timeout: 100     // how much the cleanup job should be delayed (in milliseconds)
 });
 
 const capsule = new DataCapsule({ namespace: 'wix', strategy });
-await capsule.setItem('1', 123); // By defaul the key will expire in 5 minutes
+await capsule.setItem('1', 123);                      // By defaul the key will expire in 5 minutes
+await capsule.setItem('2', 123, { expiration: 500 }); // Give a custom expiration time in seconds
 ```
 
 ## CachedStorage
