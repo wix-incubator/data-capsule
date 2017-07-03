@@ -1,4 +1,4 @@
-# data-capsule
+# data-capsule [![Build Status](https://travis-ci.org/wix/data-capsule.svg?branch=master)](https://travis-ci.org/wix/data-capsule)
 
 A pluggable capsule for storing key/value data for your application.
 
