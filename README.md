@@ -73,6 +73,32 @@ await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
 ```
 
+## MemoryStorage
+No parameters needed in MemoryStorage constructor. Note the MemoryStorageCapsule short form below.
+
+Note: This strategy can be used for testing the LocalStorage strategy, as it's not accessing the `window.localstorage`.
+
+```js
+import {DataCapsule, MemoryStorageStrategy} from 'data-capsule';
+
+const capsule = new DataCapsule({
+  strategy: new MemoryStorageStrategy(),
+  namespace: 'wix'
+});
+await capsule.setItem('shahata', 123);
+console.log(await capsule.getItem('shahata')); // logs 123
+```
+
+And shorter alternative:
+
+```js
+import {MemoryStorageCapsule} from 'data-capsule';
+
+const capsule = new MemoryStorageCapsule({namespace: 'wix'});
+await capsule.setItem('shahata', 123);
+console.log(await capsule.getItem('shahata')); // logs 123
+```
+
 ## CachedStorage
 
 Constructor accepts `options` object with `remoteStrategy` and `localStrategy`. Get operations are first tried against `localStrategy` and if no local cache exists, we then fallback to `remoteStrategy` ans eventually cache to `localStrategy`. Set operations are cached to `localStrategy` as well. Note that `localStrategy` cache is always set with expiration period of one hour in order to avoid stale cache issues. The `localStrategy` is `new LocalStorageStrategy()` bye default, so you don't have to pass it, but anyway you are better off using the short form below:
