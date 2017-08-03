@@ -5,7 +5,7 @@ A pluggable capsule for storing key/value data for your application.
 Following plugins support is built in:
  1. LocalStorage - works with browser's native local storage, plugin automatically manages expiration and auto-cleans to never exceed quota.
  2. WixStorage - reference implementation (**just for reference, do not try to use**) of storage plugin that communicates with wix server to store the data.
- 2. CachedStorage - works with two plugins, will use one of them for persistnet storage and the second for local cache in order to do less requests to more expensive persistent storage. this can be used for example with WixStorage as persistent storage on remote servers combined with LocalStorage for local cache.
+ 2. CachedStorage - works with two plugins, will use one of them for persistent storage and the second for local cache in order to do less requests to more expensive persistent storage. this can be used for example with WixStorage as persistent storage on remote servers combined with LocalStorage for local cache.
  3. FrameStorage - a nice way to offload storage request from frame to parent window. parent window can use LocalStorage, CachedStorage or any other plugin you can think of. this is extremely helpful for working around [3rd party site data issues](http://www.howtogeek.com/241006/how-to-block-third-party-cookies-in-every-web-browser/).
 
 ## installation
