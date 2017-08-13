@@ -18,15 +18,16 @@ function getCachePrefix(options) {
 
 function serializeData(value, options) {
   return JSON.stringify({
-    createdAt: Date.now(),
+    lastUsed: Date.now(),
+    createdAt: options.createdAt || Date.now(),
     expiration: options.expiration,
     value
   });
 }
 
 function updateAccessTime(fullKey, data) {
-  const expiration = data.expiration;
-  localStorage.setItem(fullKey, serializeData(data.value, {expiration}));
+  const {expiration, createdAt} = data;
+  localStorage.setItem(fullKey, serializeData(data.value, {expiration, createdAt}));
 }
 
 class LocalStorageStrategy extends BaseStorage {
