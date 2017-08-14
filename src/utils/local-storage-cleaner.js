@@ -18,8 +18,8 @@ function deleteExpired(cleaner) {
   return cleaner;
 }
 
-function createdAtSort(a, b) {
-  return a.createdAt - b.createdAt;
+function lastUsedSort(a, b) {
+  return a.lastUsed - b.lastUsed;
 }
 
 function canClean(cleaner) {
@@ -27,7 +27,7 @@ function canClean(cleaner) {
 }
 
 function deleteOld(cleaner) {
-  cleaner.records.sort(createdAtSort);
+  cleaner.records.sort(lastUsedSort);
   while (canClean(cleaner)) {
     cleaner = deleteRecord(cleaner);
   }

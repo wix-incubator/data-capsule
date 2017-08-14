@@ -128,5 +128,4 @@ describe('localstorage-strategy', () => {
     await capsule.setItem('shahata', 1, {scope: {userId: 123}});
     expect(await capsule.getAllItems({scope: {userId: 123}})).to.eql({shahata: 1});
   });
-
 });

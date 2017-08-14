@@ -26,8 +26,8 @@ describe('base-storage', () => {
     }
     expect(() => new SomeStorage()).not.to.throw();
 
-    //following expectations are totally unnecessary
-    //sole purpose is to have 100% coverage :P
+    // following expectations are totally unnecessary
+    // sole purpose is to have 100% coverage :P
     expect(() => new SomeStorage().setItem()).to.throw();
     expect(() => new SomeStorage().getItem()).to.throw();
     expect(() => new SomeStorage().removeItem()).to.throw();
