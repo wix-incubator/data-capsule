@@ -3245,15 +3245,18 @@ function getCachePrefix(options) {
 
 function serializeData(value, options) {
   return (0, _stringify2.default)({
-    createdAt: Date.now(),
+    lastUsed: Date.now(),
+    createdAt: options.createdAt || Date.now(),
     expiration: options.expiration,
     value: value
   });
 }
 
 function updateAccessTime(fullKey, data) {
-  var expiration = data.expiration;
-  localStorage.setItem(fullKey, serializeData(data.value, { expiration: expiration }));
+  var expiration = data.expiration,
+      createdAt = data.createdAt;
+
+  localStorage.setItem(fullKey, serializeData(data.value, { expiration: expiration, createdAt: createdAt }));
 }
 
 var LocalStorageStrategy = function (_BaseStorage) {
@@ -5908,8 +5911,8 @@ function deleteExpired(cleaner) {
   return cleaner;
 }
 
-function createdAtSort(a, b) {
-  return a.createdAt - b.createdAt;
+function lastUsedSort(a, b) {
+  return a.lastUsed - b.lastUsed;
 }
 
 function canClean(cleaner) {
@@ -5917,7 +5920,7 @@ function canClean(cleaner) {
 }
 
 function deleteOld(cleaner) {
-  cleaner.records.sort(createdAtSort);
+  cleaner.records.sort(lastUsedSort);
   while (canClean(cleaner)) {
     cleaner = deleteRecord(cleaner);
   }
