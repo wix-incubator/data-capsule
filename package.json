@@ -20,11 +20,11 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
-    "babel-runtime": "^6.20.0",
     "greedy-split": "^1.0.0"
   },
   "private": false,
   "devDependencies": {
+    "babel-runtime": "^6.20.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-stage-0": "^6.5.0",
@@ -38,11 +38,11 @@
     "yoshi": "latest"
   },
   "babel": {
-    "plugins": [
-      "transform-runtime"
-    ],
     "env": {
       "test": {
+        "plugins": [
+          "transform-runtime"
+        ],
         "presets": [
           "stage-0",
           [
@@ -83,7 +83,8 @@
   "yoshi": {
     "entry": {
       "index": "./global.js",
-      "frame": "./frame.js"
+      "frame": "./frame.js",
+      "frame-listener": "./global-frame-listener"
     }
   }
 }

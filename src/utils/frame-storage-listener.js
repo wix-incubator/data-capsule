@@ -12,9 +12,6 @@ class FrameStorageListener {
   }
 
   start(verifier) {
-    // if (this._listener) {
-    //   return;
-    // }
     const storageStrategy = BaseStorage.verify(this.storageStrategy);
     this._listener = e => {
       const [target, token, id, method, params] = greedySplit(e.data, '|', 5);
