@@ -5,7 +5,7 @@ A pluggable capsule for storing key/value data for your application.
 Following plugins support is built in:
  1. LocalStorage - works with browser's native local storage, plugin automatically manages expiration and auto-cleans to never exceed quota.
  2. WixStorage - reference implementation (**just for reference, do not try to use**) of storage plugin that communicates with wix server to store the data.
- 2. CachedStorage - works with two plugins, will use one of them for persistnet storage and the second for local cache in order to do less requests to more expensive persistent storage. this can be used for example with WixStorage as persistent storage on remote servers combined with LocalStorage for local cache.
+ 2. CachedStorage - works with two plugins, will use one of them for persistent storage and the second for local cache in order to do less requests to more expensive persistent storage. this can be used for example with WixStorage as persistent storage on remote servers combined with LocalStorage for local cache.
  3. FrameStorage - a nice way to offload storage request from frame to parent window. parent window can use LocalStorage, CachedStorage or any other plugin you can think of. this is extremely helpful for working around [3rd party site data issues](http://www.howtogeek.com/241006/how-to-block-third-party-cookies-in-every-web-browser/).
 
 ## installation
@@ -45,7 +45,7 @@ constructor(options) {
 After instantiating a `DataCapsule` with your chosen strategy (see some strategies below), you can start using the capsule. The capsule provides only four methods:
  1. `setItem(key, value, options): Promise<void>` - Just pass a `key` (string) and `value` (any serializable type) and it will be saved. As described above, the `options` object may contain `namespace` and `scope` if you didn't do so in constructur or would like to override the values you passed in constructor. Only in `setItems`, you can also pass `expiration` (in seconds) in `options`. If you didn't pass `expiration`, the storage strategy you provided may decide on a default `expiration`. The returned promise indicates if operation was successful.
  2. `getItem(key, options): Promise<value>` - Just pass a `key` (string) and returned promise will get resolved with the `value` that you previously saved. The `options` object may contain `namespace` and `scope` if you didn't do so in constructur or would like to override the values you passed in constructor. In case no such key exists in storage, promise will get rejected with exception NOT_FOUND (you can `import {NOT_FOUND} from 'data-capsule` and test if `err === NOT_FOUND` if you want to distinguish this case from other errors).
- 3. `removeItem(key, options): Promise<void>` - Just pass a `key` (string) and returned promise will get resolved with the `value` that you previously saved. The `options` object may contain `namespace` and `scope` if you didn't do so in constructur or would like to override the values you passed in constructor. The returned promise indicates if operation was successful.
+ 3. `removeItem(key, options): Promise<void>` - Just pass a `key` (string). The `options` object may contain `namespace` and `scope` if you didn't do so in constructur or would like to override the values you passed in constructor. The returned promise indicates if operation was successful.
  4. `getAllItems(options): Promise<key/value>` - Returned promise will get resolved with a key/value map containing all keys that are stored in this `namespace`/`scope` and their values. Keys lookup will be done according to the `namespace` and `scope` you passed in constructor and in `options`. As usual: If you didn't provide `namespace` in costructor, you must do so for each operation you do on the capsule. However, `scope` is optional.
 
 ## LocalStorage
@@ -75,7 +75,7 @@ console.log(await capsule.getItem('shahata')); // logs 123
 
 ## CachedStorage
 
-Constructor accepts `options` object with `remoteStrategy` and `localStrategy`. Get operations are first tried against `localStrategy` and if no local cache exists, we then fallback to `remoteStrategy` ans eventually cache to `localStrategy`. Set operations are cached to `localStrategy` as well. Note that `localStrategy` cache is always set with expiration period of one hour in order to avoid stale cache issues. The `localStrategy` is `new LocalStorageStrategy()` bye default, so you don't have to pass it, but anyway you are better off using the short form below:
+Constructor accepts `options` object with `remoteStrategy` and `localStrategy`. Get operations are first tried against `localStrategy` and if no local cache exists, we then fallback to `remoteStrategy` and eventually cache to `localStrategy`. Set operations are cached to `localStrategy` as well. Note that `localStrategy` cache is always set with expiration period of one hour in order to avoid stale cache issues. The `localStrategy` is `new LocalStorageStrategy()` by default, so you don't have to pass it, but anyway you are better off using the short form below:
 
 ```js
 import {DataCapsule, CachedStorageStrategy, LocalStorageStrategy, WixStorageStrategy} from 'data-capsule';
