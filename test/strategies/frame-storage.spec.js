@@ -54,13 +54,13 @@ describe.jsdom('frame-storage-strategy with custom host strategy', () => {
 
   class MyStorageStrategy extends BaseStorage {
     setItem() {
-      throw new Error('byebye');
+      return Promise.reject(new Error('byebye'));
     }
     getItem() {
-      throw 'byebye';
+      return Promise.reject('byebye');
     }
     removeItem() {
-      throw {bye: 'bye'};
+      return Promise.reject({bye: 'bye'});
     }
     getAllItems() {
       //

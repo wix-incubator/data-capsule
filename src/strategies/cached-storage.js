@@ -16,49 +16,52 @@ class CachedStorageStrategy extends BaseStorage {
     return this.localStrategy.setItem(key, value, Object.assign(options, {expiration: 3600}));
   }
 
-  async setItem(key, value, options) {
-    await this.remoteStrategy.setItem(key, value, options);
-    await this._cacheItem(key, value, options);
+  setItem(key, value, options) {
+    return this.remoteStrategy.setItem(key, value, options)
+    .then(() => this._cacheItem(key, value, options));
   }
 
-  async removeItem(key, options) {
-    await this.remoteStrategy.removeItem(key, options);
-    await this._cacheItem(key, DELETED, options);
+  removeItem(key, options) {
+    return this.remoteStrategy.removeItem(key, options)
+    .then(() => this._cacheItem(key, DELETED, options));
   }
 
-  async _getRemoteAndCache(key, options) {
-    try {
-      const value = await this.remoteStrategy.getItem(key, options);
-      await this._cacheItem(key, value, options);
-      return value;
-    } catch (e) {
+  _getRemoteAndCache(key, options) {
+    return this.remoteStrategy.getItem(key, options).then(value => {
+      return this._cacheItem(key, value, options).then(() => value);
+    }).catch(e => {
       if (e === NOT_FOUND) {
-        await this._cacheItem(key, DELETED, options);
+        return this._cacheItem(key, DELETED, options)
+        .then(() => {
+          throw e;
+        });
       }
       throw e;
-    }
+    });
   }
 
-  async getItem(key, options) {
-    let value;
-    try {
-      value = await this.localStrategy.getItem(key, options);
-    } catch (e) {
-      value = this._getRemoteAndCache(key, options);
-    }
-    if (value === DELETED) {
-      throw NOT_FOUND;
-    } else {
+  getItem(key, options) {
+    function throwIfDeletedOrReturn(value) {
+      if (value === DELETED) {
+        throw NOT_FOUND;
+      }
+
       return value;
     }
+
+    return this.localStrategy.getItem(key, options)
+      .catch(() => this._getRemoteAndCache(key, options))
+      .then(throwIfDeletedOrReturn);
   }
 
-  async getAllItems(options) {
-    const items = await this.remoteStrategy.getAllItems(options);
-    await Promise.all(Object.keys(items).map(key => {
-      return this._cacheItem(key, items[key], options);
-    }));
-    return items;
+  getAllItems(options) {
+    return this.remoteStrategy.getAllItems(options)
+    .then(items =>
+      Promise.all(
+        Object.keys(items)
+        .map(key => this._cacheItem(key, items[key], options))
+      ).then(() => items)
+    );
   }
 }
 
