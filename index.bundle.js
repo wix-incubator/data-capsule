@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("DataCapsuleTools", [], factory);
+	else if(typeof exports === 'object')
+		exports["DataCapsuleTools"] = factory();
+	else
+		root["DataCapsuleTools"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -1456,7 +1466,11 @@ module.exports = Cancel;
 /* global window */
 
 
-window.DataCapsuleTools = __webpack_require__(/*! ./index */ 17);
+var dataCapsuleTools = __webpack_require__(/*! ./index */ 17);
+
+window.DataCapsuleTools = dataCapsuleTools;
+
+module.exports = dataCapsuleTools;
 
 /***/ }),
 /* 17 */
@@ -2864,4 +2878,5 @@ module.exports = CachedStorageStrategy;
 
 /***/ })
 /******/ ]);
+});
 //# sourceMappingURL=index.bundle.js.map

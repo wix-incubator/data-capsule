@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("DataCapsuleTools", [], factory);
+	else if(typeof exports === 'object')
+		exports["DataCapsuleTools"] = factory();
+	else
+		root["DataCapsuleTools"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -433,4 +443,5 @@ module.exports = FrameStorageStrategy;
 /***/ })
 
 /******/ });
+});
 //# sourceMappingURL=frame.bundle.js.map

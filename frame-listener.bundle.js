@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("DataCapsuleTools", [], factory);
+	else if(typeof exports === 'object')
+		exports["DataCapsuleTools"] = factory();
+	else
+		root["DataCapsuleTools"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -337,7 +347,11 @@ module.exports = LocalStorageStrategy;
 /* global window */
 
 
-window.DataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 41);
+var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 41);
+
+window.DataCapsuleTools = dataCapsuleTools;
+
+module.exports = dataCapsuleTools;
 
 /***/ }),
 
@@ -678,4 +692,5 @@ module.exports = localStorageCleaner;
 /***/ })
 
 /******/ });
+});
 //# sourceMappingURL=frame-listener.bundle.js.map
