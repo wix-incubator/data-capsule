@@ -85,6 +85,7 @@
       "index": "./global.js",
       "frame": "./frame.js",
       "frame-listener": "./global-frame-listener"
-    }
+    },
+    "exports": "DataCapsuleTools"
   }
 }
