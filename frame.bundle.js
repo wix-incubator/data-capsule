@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("DataCapsuleTools", [], factory);
+		define("data-capsule", [], factory);
 	else if(typeof exports === 'object')
-		exports["DataCapsuleTools"] = factory();
+		exports["data-capsule"] = factory();
 	else
-		root["DataCapsuleTools"] = factory();
+		root["data-capsule"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
