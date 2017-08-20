@@ -2,6 +2,8 @@
 'use strict';
 const dataCapsuleTools = require('./frame-listener');
 
-window.DataCapsuleTools = dataCapsuleTools;
+if (typeof window !== 'undefined') {
+  window.DataCapsuleTools = dataCapsuleTools;
+}
 
 module.exports = dataCapsuleTools;
