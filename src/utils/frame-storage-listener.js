@@ -14,13 +14,18 @@ class FrameStorageListener {
   start(verifier) {
     const storageStrategy = BaseStorage.verify(this.storageStrategy);
     this._listener = e => {
-      const [target, token, id, method, params] = greedySplit(e.data, '|', 5);
+      const {data, source, origin} = e;
+      if (typeof data !== 'string') {
+        return;
+      }
+
+      const [target, token, id, method, params] = greedySplit(data, '|', 5);
       const respond = (method, param) => {
         const message = [target + 'Done', token, id, method, JSON.stringify(param)].join('|');
-        (e.source || window).postMessage(message, e.origin || '*');
+        (source || window).postMessage(message, origin || '*');
       };
 
-      if (target === STORAGE_PREFIX && verifier(e.source, e.origin, token)) {
+      if (target === STORAGE_PREFIX && verifier(source, origin, token)) {
         const invoke = storageStrategy[method].bind(storageStrategy);
         invoke(...JSON.parse(params))
         .then(result => {
