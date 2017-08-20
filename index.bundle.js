@@ -1468,7 +1468,9 @@ module.exports = Cancel;
 
 var dataCapsuleTools = __webpack_require__(/*! ./index */ 17);
 
-window.DataCapsuleTools = dataCapsuleTools;
+if (typeof window !== 'undefined') {
+  window.DataCapsuleTools = dataCapsuleTools;
+}
 
 module.exports = dataCapsuleTools;
 

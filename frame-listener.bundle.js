@@ -349,7 +349,9 @@ module.exports = LocalStorageStrategy;
 
 var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 41);
 
-window.DataCapsuleTools = dataCapsuleTools;
+if (typeof window !== 'undefined') {
+  window.DataCapsuleTools = dataCapsuleTools;
+}
 
 module.exports = dataCapsuleTools;
 
