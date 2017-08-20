@@ -588,7 +588,15 @@ var FrameStorageListener = function () {
     value: function start(verifier) {
       var storageStrategy = BaseStorage.verify(this.storageStrategy);
       this._listener = function (e) {
-        var _greedySplit = greedySplit(e.data, '|', 5),
+        var data = e.data,
+            source = e.source,
+            origin = e.origin;
+
+        if (typeof data !== 'string') {
+          return;
+        }
+
+        var _greedySplit = greedySplit(data, '|', 5),
             _greedySplit2 = _slicedToArray(_greedySplit, 5),
             target = _greedySplit2[0],
             token = _greedySplit2[1],
@@ -598,10 +606,10 @@ var FrameStorageListener = function () {
 
         var respond = function respond(method, param) {
           var message = [target + 'Done', token, id, method, JSON.stringify(param)].join('|');
-          (e.source || window).postMessage(message, e.origin || '*');
+          (source || window).postMessage(message, origin || '*');
         };
 
-        if (target === STORAGE_PREFIX && verifier(e.source, e.origin, token)) {
+        if (target === STORAGE_PREFIX && verifier(source, origin, token)) {
           var invoke = storageStrategy[method].bind(storageStrategy);
           invoke.apply(undefined, _toConsumableArray(JSON.parse(params))).then(function (result) {
             respond('resolve', result);
