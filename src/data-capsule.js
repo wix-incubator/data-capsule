@@ -23,7 +23,6 @@ class DataCapsule extends BaseStorage {
     this._options = {namespace, scope};
   }
 
-
   setItem(key, value, options) {
     options = buildValidadateOptions(this._options, options);
     return this.storageStrategy.setItem(key, value, options);
