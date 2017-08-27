@@ -19,7 +19,7 @@
     "release": "yoshi release; bower-auto-release --dist dist/statics"
   },
   "dependencies": {
-    "axios": "^0.15.3",
+    "axios": "^0.16.2",
     "greedy-split": "^1.0.0"
   },
   "private": false,
