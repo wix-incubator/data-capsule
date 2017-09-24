@@ -70,6 +70,16 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	__webpack_require__.p = typeof window !== 'undefined' && window.__STATICS_BASE_URL__ || __webpack_require__.p;
+/******/
+/******/ 	if (typeof document !== 'undefined') {
+/******/ 	    var style = document.getElementById("frame-listener.stylable.bundle.css");
+/******/ 	    if(!style){
+/******/ 	        style = document.createElement('style');
+/******/ 	        style.id = "frame-listener.stylable.bundle.css";
+/******/ 	        document.head.appendChild(style);
+/******/ 	    }
+/******/ 	    style.textContent = "";
+/******/ 	}
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
