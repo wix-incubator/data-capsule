@@ -1183,7 +1183,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../yoshi/node_modules/process/browser.js */ 23)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 23)))
 
 /***/ }),
 /* 11 */
@@ -1862,9 +1862,9 @@ module.exports = Axios;
 
 /***/ }),
 /* 23 */
-/*!*************************************************************!*\
-  !*** ../node_modules/yoshi/node_modules/process/browser.js ***!
-  \*************************************************************/
+/*!******************************************!*\
+  !*** ../node_modules/process/browser.js ***!
+  \******************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
