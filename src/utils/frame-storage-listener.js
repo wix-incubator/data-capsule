@@ -1,9 +1,8 @@
-/* global window */
 'use strict';
 
+const listenerMessageChannel = require('message-channel/listener');
 const greedySplit = require('greedy-split');
 const BaseStorage = require('../base-storage');
-const {STORAGE_PREFIX} = require('./constants');
 const LocalStorageStrategy = require('../strategies/local-storage');
 
 class FrameStorageListener {
@@ -13,35 +12,40 @@ class FrameStorageListener {
 
   start(verifier) {
     const storageStrategy = BaseStorage.verify(this.storageStrategy);
-    this._listener = e => {
-      const {data, source, origin} = e;
-      if (typeof data !== 'string') {
+    listenerMessageChannel('data-capsule', onMessage => onMessage(messageHandler));
+
+    function messageHandler(e, reply) {
+      if (typeof e.data !== 'string') {
         return;
       }
 
-      const [target, token, id, method, params] = greedySplit(data, '|', 5);
-      const respond = (method, param) => {
-        const message = [target + 'Done', token, id, method, JSON.stringify(param)].join('|');
-        (source || window).postMessage(message, origin || '*');
+      const [token, method, params] = greedySplit(e.data, '|', 3);
+
+      const respond = (status, data) => {
+        if (status === 'resolve') {
+          const payload = {data};
+
+          const response = [status, JSON.stringify(payload)].join('|');
+          return reply(response);
+        }
+
+        const response = [status, data].join('|');
+        return reply(response);
       };
 
-      if (target === STORAGE_PREFIX && verifier(source, origin, token)) {
-        const invoke = storageStrategy[method].bind(storageStrategy);
-        invoke(...JSON.parse(params))
-        .then(result => {
-          respond('resolve', result);
-        }).catch(reason => {
-          respond('reject', reason.message || reason);
-        });
+      if (!verifier(e.source, e.origin, token)) {
+        return respond('reject', new Error('message was not authorized'));
       }
-    };
 
-    window.addEventListener('message', this._listener);
-  }
+      const invoke = storageStrategy[method].bind(storageStrategy);
 
-  stop() {
-    window.removeEventListener('message', this._listener);
-    this._listener = undefined;
+      return invoke(...JSON.parse(params).data)
+        .then(result => {
+          return respond('resolve', result);
+        }).catch(error => {
+          return respond('reject', error.message || error);
+        });
+    }
   }
 }
 

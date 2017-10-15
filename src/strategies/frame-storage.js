@@ -1,51 +1,63 @@
-/* global window */
 'use strict';
 
 const greedySplit = require('greedy-split');
+const connectMessageChannel = require('message-channel/connect');
 const BaseStorage = require('../base-storage');
-const {STORAGE_PREFIX, toError} = require('../utils/constants');
-const pending = {};
-
-function sendCommand(method, params, options) {
-  const id = `${Date.now()}-${Math.random()}`;
-  const message = [STORAGE_PREFIX, options.token, id, method, JSON.stringify(params)].join('|');
-  options.target.postMessage(message, options.origin);
-  return new Promise((resolve, reject) => {
-    pending[id] = {resolve, reject: reason => reject(toError(reason))};
-  });
-}
-
-function readCommands(options) {
-  window.addEventListener('message', e => {
-    const [target, token, id, method, params] = greedySplit(e.data, '|', 5);
-    if (target === STORAGE_PREFIX + 'Done' && token === options.token) {
-      pending[id][method](params ? JSON.parse(params) : undefined);
-      delete pending[id];
-    }
-  }, true);
-}
 
 class FrameStorageStrategy extends BaseStorage {
   constructor(target, origin, token) {
     super();
-    this._options = {target, origin, token};
-    readCommands(this._options);
+    this.target = target;
+    this.origin = origin;
+    this.token = token;
+    this.channel;
+  }
+
+  getChannel() {
+    if (this.channel) {
+      return Promise.resolve(this.channel);
+    }
+
+    return connectMessageChannel('data-capsule', {target: this.target, origin: this.origin})
+      .then(channel => {
+        this.channel = channel;
+        return channel;
+      });
+  }
+
+  sendCommand(method, params) {
+    const payload = {data: params};
+
+    return this.getChannel()
+      .then(sendToChannel => {
+        const message = [this.token, method, JSON.stringify(payload)].join('|');
+
+        return sendToChannel(message)
+          .then(e => {
+            const [status, payload] = greedySplit(e.data, '|', 2);
+            if (status === 'reject') {
+              throw payload;
+            }
+
+            return JSON.parse(payload).data;
+          });
+      });
   }
 
   setItem(...params) {
-    return sendCommand('setItem', params, this._options);
+    return this.sendCommand('setItem', params);
   }
 
   getItem(...params) {
-    return sendCommand('getItem', params, this._options);
+    return this.sendCommand('getItem', params);
   }
 
   removeItem(...params) {
-    return sendCommand('removeItem', params, this._options);
+    return this.sendCommand('removeItem', params);
   }
 
   getAllItems(...params) {
-    return sendCommand('getAllItems', params, this._options);
+    return this.sendCommand('getAllItems', params);
   }
 }
 
