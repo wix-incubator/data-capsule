@@ -13,7 +13,7 @@ class FrameStorageListener {
 
   start(verifier) {
     const storageStrategy = BaseStorage.verify(this.storageStrategy);
-    this.stopListener = listenerMessageChannel('data-capsule', onMessage => onMessage(messageHandler));
+    this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
 
     function messageHandler(e, reply) {
       if (typeof e.data !== 'string') {
