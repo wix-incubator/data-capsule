@@ -108,9 +108,15 @@ console.log(await capsule.getItem('shahata')); // logs 123
 
 ## FrameStorage
 
-This allows frame windows to send commands via `postMessage` while host window eventually invokes command on actual storage strategy. In host window, all you have to do is create a `FrameStorageListener` and `start` it and finally `stop` it if and when you are done. Note:
- 1. `FrameStorageListener` optionally gets a storage strategy as argument. By default, this is `new LocalStorageStrategy()`, but you can decide to override this default with any other strategy.
- 2. `FrameStorageListener.start` receives mandatory callback as arguement. This callback is invoked for each valid message host window gets. The callback needs to return a boolean that will indicate whether this `source` (the window who sent the message), `origin` (its origin) and `token` (an optional token passed to `FrameStorageStrategy` below) can be trusted. If callback returns `false`, message is ignored.
+This allows frame windows to send commands via `messageChannel` while host window eventually invokes command on actual storage strategy. In host window, all you have to do is create a `FrameStorageListener` and `start` it and finally `stop` it if and when you are done. Note:
+ 1. `FrameStorageListener(storageStrategy?)` optionally gets a storage strategy as argument. By default, this is `new LocalStorageStrategy()`, but you can decide to override this default with any other strategy.
+
+ 2. `FrameStorageListener.start(verifier, interceptor?)` receives Two callbacks as arguements which invoked for each valid message host window gets.
+    1. verifier ```(source, origin, token) => <boolean\>```
+      * The callback needs to return a boolean that will indicate whether this `source` (the window who sent the message), `origin` ([read more](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#The_dispatched_event)), and `token` (an optional token passed to `FrameStorageStrategy` below) can be trusted. If callback returns `false`, message is not verified.
+    2. interceptor ```(dataObject) => modifiedDataObject``` // not yet implemented
+
+
 
 ```js
 import {FrameStorageListener} from 'data-capsule';
