@@ -80,6 +80,27 @@ describe('frame-storage-strategy', () => {
     const result = await browser.findElement(by.id('result')).getText();
     expect(result).to.equal('{"hey":"ho"}');
   });
+
+  it('should stop the listener when calling the 🛑 method, and therefore the message won\'t return', async () => {
+    await browser.switchTo().frame(null);
+    await browser.executeScript(`listener.stop()`);
+    await browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
+    await browser.executeScript(`
+    capsule.setItem('hey', 'ho', {namespace: 'wix'})
+      .then(() => capsule.getItem('hey', {namespace: 'wix'}))
+      .then((result) => {
+        const text = window.document.createTextNode(result);
+        window.document.querySelector('#result').appendChild(text);
+      })
+      .catch((e) => {
+        const text = window.document.createTextNode('FAILURE');
+        window.document.querySelector('#result').appendChild(text);
+      });
+    `);
+    const result = await browser.findElement(by.id('result')).getText();
+
+    expect(result).to.equal('');
+  });
 });
 
 describe('frame-storage-strategy when the token is differenet', () => {

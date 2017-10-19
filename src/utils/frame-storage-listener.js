@@ -8,11 +8,12 @@ const LocalStorageStrategy = require('../strategies/local-storage');
 class FrameStorageListener {
   constructor(strategy = new LocalStorageStrategy()) {
     this.storageStrategy = BaseStorage.verify(strategy);
+    this.stopListener;
   }
 
   start(verifier) {
     const storageStrategy = BaseStorage.verify(this.storageStrategy);
-    listenerMessageChannel('data-capsule', onMessage => onMessage(messageHandler));
+    this.stopListener = listenerMessageChannel('data-capsule', onMessage => onMessage(messageHandler));
 
     function messageHandler(e, reply) {
       if (typeof e.data !== 'string') {
@@ -46,6 +47,10 @@ class FrameStorageListener {
           return respond('reject', error.message || error);
         });
     }
+  }
+
+  stop() {
+    this.stopListener && this.stopListener();
   }
 }
 
