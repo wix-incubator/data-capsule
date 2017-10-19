@@ -11,7 +11,15 @@ class FrameStorageListener {
     this.stopListener;
   }
 
-  start(verifier) {
+  start(verifier, interceptor) {
+    if (!verifier || typeof verifier !== 'function') {
+      throw new Error('start function must get a verifier function as a first argument');
+    }
+
+    if (interceptor && typeof interceptor !== 'function') {
+      throw new Error('the interceptor must be a function');
+    }
+
     const storageStrategy = BaseStorage.verify(this.storageStrategy);
     this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
 
@@ -20,13 +28,11 @@ class FrameStorageListener {
         return;
       }
 
-      const [token, method, params] = greedySplit(e.data, '|', 3);
+      const [token, method, payload] = greedySplit(e.data, '|', 3);
 
       const respond = (status, data) => {
         if (status === 'resolve') {
-          const payload = {data};
-
-          const response = [status, JSON.stringify(payload)].join('|');
+          const response = [status, JSON.stringify({data})].join('|');
           return reply(response);
         }
 
@@ -40,7 +46,13 @@ class FrameStorageListener {
 
       const invoke = storageStrategy[method].bind(storageStrategy);
 
-      return invoke(...JSON.parse(params).data)
+      const params = JSON.parse(payload).data;
+      const options = params[params.length - 1];
+
+      const modifiedOptions = interceptor ? interceptor(options, e.source, e.origin, token) : options;
+      params[params.length - 1] = modifiedOptions;
+
+      return invoke(...params)
         .then(result => {
           return respond('resolve', result);
         }).catch(error => {

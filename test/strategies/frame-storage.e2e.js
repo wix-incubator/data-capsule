@@ -4,6 +4,9 @@ const {expect} = require('chai');
 const {NOT_FOUND} = require('../../src');
 const {browser, element, by} = require('protractor');
 
+const switchToIFrame = () => browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
+const switchToMainFrame = () => browser.switchTo().frame(null);
+
 describe('frame-storage-strategy', () => {
   beforeEach(async () => {
     await browser.get(`http://localhost:3000`);
@@ -11,10 +14,10 @@ describe('frame-storage-strategy', () => {
     LocalStorageStrategy = DataCapsuleTools.LocalStorageStrategy;
     FrameStorageListener = DataCapsuleTools.FrameStorageListener;
     listener = new FrameStorageListener(new LocalStorageStrategy());
-    listener.start((origin, source, token) => token === 'secret');
+    listener.start((source, origin, token) => token === 'secret');
     `);
 
-    await browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
+    await switchToIFrame();
 
     await browser.executeScript(`
     DataCapsule = DataCapsuleTools.DataCapsule;
@@ -24,7 +27,7 @@ describe('frame-storage-strategy', () => {
   });
 
   afterEach(async () => {
-    await browser.switchTo().frame(null); // move to the top frame
+    await switchToMainFrame();
     await browser.executeScript(`localStorage.clear();`);
   });
 
@@ -82,9 +85,9 @@ describe('frame-storage-strategy', () => {
   });
 
   it('should stop the listener when calling the 🛑 method, and therefore the message won\'t return', async () => {
-    await browser.switchTo().frame(null);
+    await switchToMainFrame();
     await browser.executeScript(`listener.stop()`);
-    await browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
+    await switchToIFrame();
     await browser.executeScript(`
     capsule.setItem('hey', 'ho', {namespace: 'wix'})
       .then(() => capsule.getItem('hey', {namespace: 'wix'}))
@@ -110,10 +113,10 @@ describe('frame-storage-strategy when the token is differenet', () => {
     LocalStorageStrategy = DataCapsuleTools.LocalStorageStrategy;
     FrameStorageListener = DataCapsuleTools.FrameStorageListener;
     listener = new FrameStorageListener(new LocalStorageStrategy());
-    listener.start((origin, source, token) => token === 'secret');
+    listener.start((source, origin, token) => token === 'secret');
     `);
 
-    await browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
+    await switchToIFrame();
 
     await browser.executeScript(`
     DataCapsule = DataCapsuleTools.DataCapsule;
@@ -123,7 +126,7 @@ describe('frame-storage-strategy when the token is differenet', () => {
   });
 
   afterEach(async () => {
-    await browser.switchTo().frame(null); // move to the top frame
+    await switchToMainFrame();
     await browser.executeScript(`localStorage.clear();`);
   });
 
@@ -143,6 +146,62 @@ describe('frame-storage-strategy when the token is differenet', () => {
     const result = await browser.findElement(by.id('result')).getText();
 
     expect(result).to.equal('Error: message was not authorized');
+  });
+});
+
+describe('frame-storage-strategy when there is a interceptor', () => {
+  beforeEach(async () => {
+    await browser.get(`http://localhost:3000`);
+    await browser.executeScript(`
+    LocalStorageStrategy = DataCapsuleTools.LocalStorageStrategy;
+    FrameStorageListener = DataCapsuleTools.FrameStorageListener;
+    listener = new FrameStorageListener(new LocalStorageStrategy());
+    listener.start(
+      (source, origin, token) => token === 'secret',
+      (options, source, origin, token) => {
+          options.namespace = 'custom-space';
+          options.scope = 'custom-scope';
+          return options;
+        }
+  );
+    `);
+
+    await switchToIFrame();
+
+    await browser.executeScript(`
+    DataCapsule = DataCapsuleTools.DataCapsule;
+    FrameStorageStrategy = DataCapsuleTools.FrameStorageStrategy;
+    capsule = new DataCapsule({strategy: new FrameStorageStrategy(window.top, '*', 'secret')});
+    `);
+  });
+
+  afterEach(async () => {
+    await switchToMainFrame();
+    await browser.executeScript(`localStorage.clear();`);
+  });
+
+  it('should save the item on a different scope and namespace as described in the listener', async () => {
+
+    await browser.executeScript(`
+    capsule.setItem('hey', 'ho', {namespace: 'wix'})
+      .then(() => capsule.getItem('hey', {namespace: 'custom-space', scope: 'custom-scope'}))
+      .then((result) => {
+        const text = window.document.createTextNode(result);
+        window.document.querySelector('#result').appendChild(text);
+      })
+      .catch((e) => {
+        const text = window.document.createTextNode('FAILURE');
+        window.document.querySelector('#result').appendChild(text);
+      });
+    `);
+
+    const result = await browser.findElement(by.id('result')).getText();
+    expect(result).to.equal('ho');
+
+    await switchToMainFrame();
+
+    const a = await browser.executeScript(`return localStorage.getItem('capsule|custom-space|custom-scope#hey')`);
+    expect(JSON.parse(a).value).to.equal('ho');
   });
 });
 
@@ -167,10 +226,10 @@ describe('frame-storage-strategy with custom host strategy', () => {
 
     FrameStorageListener = DataCapsuleTools.FrameStorageListener;
     listener = new FrameStorageListener(new MyStorageStrategy());
-    listener.start((origin, source, token) => token === 'secret');
+    listener.start((source, origin, token) => token === 'secret');
     `);
 
-    await browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
+    await switchToIFrame();
     await browser.executeScript(`
     DataCapsule = DataCapsuleTools.DataCapsule;
     FrameStorageStrategy = DataCapsuleTools.FrameStorageStrategy;
@@ -179,7 +238,7 @@ describe('frame-storage-strategy with custom host strategy', () => {
   });
 
   afterEach(async () => {
-    await browser.switchTo().frame(null); // move to the top frame
+    await switchToMainFrame();
     await browser.executeScript(`localStorage.clear();`);
   });
 
