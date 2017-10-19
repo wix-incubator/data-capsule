@@ -81,7 +81,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	    style.textContent = "";
 /******/ 	}
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -151,38 +151,6 @@ module.exports = BaseStorage;
 
 /***/ }),
 /* 1 */
-/*!****************************!*\
-  !*** ./utils/constants.js ***!
-  \****************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var errors = {
-  NOT_FOUND: new Error('Key was not found in capsule'),
-  SERVER_ERROR: new Error('Failed to perform operarion on server')
-};
-
-function toError(str) {
-  return Object.values(errors).find(function (err) {
-    return err.message === str;
-  }) || str;
-}
-
-module.exports = {
-  PREFIX_SEPARATOR: '|',
-  KEY_SEPARATOR: '#',
-  STORAGE_PREFIX: 'capsule',
-  NOT_FOUND: errors.NOT_FOUND,
-  SERVER_ERROR: errors.SERVER_ERROR,
-  toError: toError
-};
-
-/***/ }),
-/* 2 */
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/utils.js ***!
   \******************************************/
@@ -193,8 +161,8 @@ module.exports = {
 "use strict";
 
 
-var bind = __webpack_require__(/*! ./helpers/bind */ 11);
-var isBuffer = __webpack_require__(/*! is-buffer */ 21);
+var bind = __webpack_require__(/*! ./helpers/bind */ 23);
+var isBuffer = __webpack_require__(/*! is-buffer */ 33);
 
 /*global toString:true*/
 
@@ -497,7 +465,112 @@ module.exports = {
 
 
 /***/ }),
+/* 2 */
+/*!****************************!*\
+  !*** ./utils/constants.js ***!
+  \****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var errors = {
+  NOT_FOUND: new Error('Key was not found in capsule'),
+  SERVER_ERROR: new Error('Failed to perform operarion on server')
+};
+
+function toError(str) {
+  return Object.values(errors).find(function (err) {
+    return err.message === str;
+  }) || str;
+}
+
+module.exports = {
+  PREFIX_SEPARATOR: '|',
+  KEY_SEPARATOR: '#',
+  STORAGE_PREFIX: 'capsule',
+  NOT_FOUND: errors.NOT_FOUND,
+  SERVER_ERROR: errors.SERVER_ERROR,
+  toError: toError
+};
+
+/***/ }),
 /* 3 */
+/*!*********************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/utils.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseConnectionMessage = exports.constructConnectionMessage = exports.parseChannelMessage = exports.constructChannelMessage = undefined;
+
+var _constants = __webpack_require__(/*! ./constants */ 4);
+
+var constructChannelMessage = exports.constructChannelMessage = function constructChannelMessage(payload, id) {
+  if (!id) {
+    return payload;
+  }
+
+  return id + _constants.messageDelimiter + payload;
+};
+
+var parseChannelMessage = exports.parseChannelMessage = function parseChannelMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1) {
+    return { id: null, payload: message };
+  }
+
+  var id = message.slice(0, firstDelimiterIndex);
+  var payload = message.slice(firstDelimiterIndex + 1);
+  return { id: id, payload: payload };
+};
+
+var constructConnectionMessage = exports.constructConnectionMessage = function constructConnectionMessage(scope) {
+  return _constants.connectionRequestMsg + _constants.messageDelimiter + scope;
+};
+
+var parseConnectionMessage = exports.parseConnectionMessage = function parseConnectionMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1 || message.slice(0, firstDelimiterIndex) !== _constants.connectionRequestMsg) {
+    throw new Error('Invalid connection message');
+  }
+
+  var scope = message.slice(firstDelimiterIndex + 1);
+  return scope;
+};
+
+/***/ }),
+/* 4 */
+/*!*************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/constants.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var connectionRequestMsg = exports.connectionRequestMsg = 'req_con';
+var connectionSuccessMsg = exports.connectionSuccessMsg = 'connection_success';
+var messageDelimiter = exports.messageDelimiter = '|';
+var deafultConnectionMaxTimeout = exports.deafultConnectionMaxTimeout = 200;
+var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
+
+/***/ }),
+/* 5 */
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
@@ -533,7 +606,7 @@ module.exports = greedySplit;
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /*!*************************************!*\
   !*** ./strategies/local-storage.js ***!
   \*************************************/
@@ -554,15 +627,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
-var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 8);
+var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 13);
 
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
+var _require = __webpack_require__(/*! ../utils/constants */ 2),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR,
     NOT_FOUND = _require.NOT_FOUND;
 
-var _require2 = __webpack_require__(/*! ../utils/record-utils */ 5),
+var _require2 = __webpack_require__(/*! ../utils/record-utils */ 7),
     getCacheRecords = _require2.getCacheRecords,
     deserializeData = _require2.deserializeData,
     isExpired = _require2.isExpired;
@@ -655,7 +728,7 @@ var LocalStorageStrategy = function (_BaseStorage) {
 module.exports = LocalStorageStrategy;
 
 /***/ }),
-/* 5 */
+/* 7 */
 /*!*******************************!*\
   !*** ./utils/record-utils.js ***!
   \*******************************/
@@ -669,7 +742,7 @@ module.exports = LocalStorageStrategy;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
+var _require = __webpack_require__(/*! ../utils/constants */ 2),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR;
@@ -728,7 +801,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 6 */
+/* 8 */
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
@@ -812,7 +885,7 @@ var DataCapsule = function (_BaseStorage) {
 module.exports = DataCapsule;
 
 /***/ }),
-/* 7 */
+/* 9 */
 /*!*****************************************!*\
   !*** ./utils/frame-storage-listener.js ***!
   \*****************************************/
@@ -821,7 +894,6 @@ module.exports = DataCapsule;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* global window */
 
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -832,13 +904,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var greedySplit = __webpack_require__(/*! greedy-split */ 3);
+var listenerMessageChannel = __webpack_require__(/*! message-channel/listener */ 10);
+var greedySplit = __webpack_require__(/*! greedy-split */ 5);
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
-
-var _require = __webpack_require__(/*! ./constants */ 1),
-    STORAGE_PREFIX = _require.STORAGE_PREFIX;
-
-var LocalStorageStrategy = __webpack_require__(/*! ../strategies/local-storage */ 4);
+var LocalStorageStrategy = __webpack_require__(/*! ../strategies/local-storage */ 6);
 
 var FrameStorageListener = function () {
   function FrameStorageListener() {
@@ -847,51 +916,55 @@ var FrameStorageListener = function () {
     _classCallCheck(this, FrameStorageListener);
 
     this.storageStrategy = BaseStorage.verify(strategy);
+    this.stopListener;
   }
 
   _createClass(FrameStorageListener, [{
     key: 'start',
     value: function start(verifier) {
       var storageStrategy = BaseStorage.verify(this.storageStrategy);
-      this._listener = function (e) {
-        var data = e.data,
-            source = e.source,
-            origin = e.origin;
+      this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
 
-        if (typeof data !== 'string') {
+      function messageHandler(e, reply) {
+        if (typeof e.data !== 'string') {
           return;
         }
 
-        var _greedySplit = greedySplit(data, '|', 5),
-            _greedySplit2 = _slicedToArray(_greedySplit, 5),
-            target = _greedySplit2[0],
-            token = _greedySplit2[1],
-            id = _greedySplit2[2],
-            method = _greedySplit2[3],
-            params = _greedySplit2[4];
+        var _greedySplit = greedySplit(e.data, '|', 3),
+            _greedySplit2 = _slicedToArray(_greedySplit, 3),
+            token = _greedySplit2[0],
+            method = _greedySplit2[1],
+            params = _greedySplit2[2];
 
-        var respond = function respond(method, param) {
-          var message = [target + 'Done', token, id, method, JSON.stringify(param)].join('|');
-          (source || window).postMessage(message, origin || '*');
+        var respond = function respond(status, data) {
+          if (status === 'resolve') {
+            var payload = { data: data };
+
+            var _response = [status, JSON.stringify(payload)].join('|');
+            return reply(_response);
+          }
+
+          var response = [status, data].join('|');
+          return reply(response);
         };
 
-        if (target === STORAGE_PREFIX && verifier(source, origin, token)) {
-          var invoke = storageStrategy[method].bind(storageStrategy);
-          invoke.apply(undefined, _toConsumableArray(JSON.parse(params))).then(function (result) {
-            respond('resolve', result);
-          }).catch(function (reason) {
-            respond('reject', reason.message || reason);
-          });
+        if (!verifier(e.source, e.origin, token)) {
+          return respond('reject', new Error('message was not authorized'));
         }
-      };
 
-      window.addEventListener('message', this._listener);
+        var invoke = storageStrategy[method].bind(storageStrategy);
+
+        return invoke.apply(undefined, _toConsumableArray(JSON.parse(params).data)).then(function (result) {
+          return respond('resolve', result);
+        }).catch(function (error) {
+          return respond('reject', error.message || error);
+        });
+      }
     }
   }, {
     key: 'stop',
     value: function stop() {
-      window.removeEventListener('message', this._listener);
-      this._listener = undefined;
+      this.stopListener && this.stopListener();
     }
   }]);
 
@@ -901,7 +974,129 @@ var FrameStorageListener = function () {
 module.exports = FrameStorageListener;
 
 /***/ }),
-/* 8 */
+/* 10 */
+/*!***************************************************!*\
+  !*** ../node_modules/message-channel/listener.js ***!
+  \***************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
+
+
+/***/ }),
+/* 11 */
+/*!*********************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/listener/listener.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _constants = __webpack_require__(/*! ../constants */ 4);
+
+var _utils = __webpack_require__(/*! ../utils */ 3);
+
+var _listenFactory = __webpack_require__(/*! ./listen-factory */ 12);
+
+var _listenFactory2 = _interopRequireDefault(_listenFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function isMessageRelevant(message, scope) {
+  try {
+    return (0, _utils.parseConnectionMessage)(message) === scope;
+  } catch (e) {
+    return false;
+  }
+}
+
+function getMessagePort(e) {
+  try {
+    return e.ports[0];
+  } catch (e) {}
+}
+
+function authorizeConnection(port) {
+  port.postMessage(_constants.connectionSuccessMsg);
+}
+
+var noop = function noop() {};
+
+function listener(scope) {
+  var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
+
+  if (!scope || typeof scope !== 'string') {
+    throw new Error('listener function expects to recieve a scope<string> as a first argument');
+  }
+
+  var _listener = function _listener(e) {
+    if (isMessageRelevant(e.data, scope)) {
+      var port = getMessagePort(e);
+      if (port) {
+        authorizeConnection(port);
+        (0, _listenFactory2.default)(port, callback);
+      }
+    }
+  };
+
+  window.addEventListener('message', _listener);
+  return function () {
+    return window.removeEventListener('message', _listener);
+  };
+}
+
+module.exports = listener;
+
+/***/ }),
+/* 12 */
+/*!***************************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/listener/listen-factory.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = listenFactory;
+
+var _utils = __webpack_require__(/*! ../utils */ 3);
+
+function listenFactory(port, callback) {
+  port.onmessage = function (e) {
+    var originalMessage = e.data;
+
+    var _parseChannelMessage = (0, _utils.parseChannelMessage)(originalMessage),
+        id = _parseChannelMessage.id,
+        payload = _parseChannelMessage.payload;
+
+    var reply = function reply(replyMessage) {
+      port.postMessage((0, _utils.constructChannelMessage)(replyMessage, id));
+    };
+
+    var modifiedEvent = {
+      data: payload,
+      origin: e.origin,
+      lastEventId: e.lastEventId,
+      source: e.source,
+      ports: e.ports
+    };
+
+    callback(modifiedEvent, reply);
+  };
+}
+
+/***/ }),
+/* 13 */
 /*!****************************************!*\
   !*** ./utils/local-storage-cleaner.js ***!
   \****************************************/
@@ -913,7 +1108,7 @@ module.exports = FrameStorageListener;
 /* global localStorage */
 
 
-var _require = __webpack_require__(/*! ./record-utils */ 5),
+var _require = __webpack_require__(/*! ./record-utils */ 7),
     getCacheRecords = _require.getCacheRecords,
     isExpired = _require.isExpired;
 
@@ -965,7 +1160,7 @@ function localStorageCleaner(requiredSpace) {
 module.exports = localStorageCleaner;
 
 /***/ }),
-/* 9 */
+/* 14 */
 /*!*************************************!*\
   !*** ./strategies/frame-storage.js ***!
   \*************************************/
@@ -974,12 +1169,11 @@ module.exports = localStorageCleaner;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* global window */
 
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -987,42 +1181,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var greedySplit = __webpack_require__(/*! greedy-split */ 3);
+var greedySplit = __webpack_require__(/*! greedy-split */ 5);
+var connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 15);
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
-
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
-    STORAGE_PREFIX = _require.STORAGE_PREFIX,
-    toError = _require.toError;
-
-var pending = {};
-
-function sendCommand(method, params, options) {
-  var id = Date.now() + '-' + Math.random();
-  var message = [STORAGE_PREFIX, options.token, id, method, JSON.stringify(params)].join('|');
-  options.target.postMessage(message, options.origin);
-  return new Promise(function (resolve, _reject) {
-    pending[id] = { resolve: resolve, reject: function reject(reason) {
-        return _reject(toError(reason));
-      } };
-  });
-}
-
-function readCommands(options) {
-  window.addEventListener('message', function (e) {
-    var _greedySplit = greedySplit(e.data, '|', 5),
-        _greedySplit2 = _slicedToArray(_greedySplit, 5),
-        target = _greedySplit2[0],
-        token = _greedySplit2[1],
-        id = _greedySplit2[2],
-        method = _greedySplit2[3],
-        params = _greedySplit2[4];
-
-    if (target === STORAGE_PREFIX + 'Done' && token === options.token) {
-      pending[id][method](params ? JSON.parse(params) : undefined);
-      delete pending[id];
-    }
-  }, true);
-}
 
 var FrameStorageStrategy = function (_BaseStorage) {
   _inherits(FrameStorageStrategy, _BaseStorage);
@@ -1032,19 +1193,59 @@ var FrameStorageStrategy = function (_BaseStorage) {
 
     var _this = _possibleConstructorReturn(this, (FrameStorageStrategy.__proto__ || Object.getPrototypeOf(FrameStorageStrategy)).call(this));
 
-    _this._options = { target: target, origin: origin, token: token };
-    readCommands(_this._options);
+    _this.target = target;
+    _this.origin = origin;
+    _this.token = token;
+    _this.channel;
     return _this;
   }
 
   _createClass(FrameStorageStrategy, [{
+    key: 'getChannel',
+    value: function getChannel() {
+      var _this2 = this;
+
+      if (this.channel) {
+        return Promise.resolve(this.channel);
+      }
+
+      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin }).then(function (channel) {
+        _this2.channel = channel;
+        return channel;
+      });
+    }
+  }, {
+    key: 'sendCommand',
+    value: function sendCommand(method, params) {
+      var _this3 = this;
+
+      var payload = { data: params };
+
+      return this.getChannel().then(function (sendToChannel) {
+        var message = [_this3.token, method, JSON.stringify(payload)].join('|');
+
+        return sendToChannel(message).then(function (e) {
+          var _greedySplit = greedySplit(e.data, '|', 2),
+              _greedySplit2 = _slicedToArray(_greedySplit, 2),
+              status = _greedySplit2[0],
+              payload = _greedySplit2[1];
+
+          if (status === 'reject') {
+            throw payload;
+          }
+
+          return JSON.parse(payload).data;
+        });
+      });
+    }
+  }, {
     key: 'setItem',
     value: function setItem() {
       for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
         params[_key] = arguments[_key];
       }
 
-      return sendCommand('setItem', params, this._options);
+      return this.sendCommand('setItem', params);
     }
   }, {
     key: 'getItem',
@@ -1053,7 +1254,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         params[_key2] = arguments[_key2];
       }
 
-      return sendCommand('getItem', params, this._options);
+      return this.sendCommand('getItem', params);
     }
   }, {
     key: 'removeItem',
@@ -1062,7 +1263,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         params[_key3] = arguments[_key3];
       }
 
-      return sendCommand('removeItem', params, this._options);
+      return this.sendCommand('removeItem', params);
     }
   }, {
     key: 'getAllItems',
@@ -1071,7 +1272,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         params[_key4] = arguments[_key4];
       }
 
-      return sendCommand('getAllItems', params, this._options);
+      return this.sendCommand('getAllItems', params);
     }
   }]);
 
@@ -1081,7 +1282,286 @@ var FrameStorageStrategy = function (_BaseStorage) {
 module.exports = FrameStorageStrategy;
 
 /***/ }),
-/* 10 */
+/* 15 */
+/*!**************************************************!*\
+  !*** ../node_modules/message-channel/connect.js ***!
+  \**************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 16);
+
+
+/***/ }),
+/* 16 */
+/*!*******************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _constants = __webpack_require__(/*! ../constants */ 4);
+
+var _utils = __webpack_require__(/*! ../utils */ 3);
+
+var _sendFactory = __webpack_require__(/*! ./send-factory */ 17);
+
+var _sendFactory2 = _interopRequireDefault(_sendFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function connect(scope) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$targetOrigin = options.targetOrigin,
+      targetOrigin = _options$targetOrigin === undefined ? '*' : _options$targetOrigin,
+      _options$connectionMa = options.connectionMaxTimeout,
+      connectionMaxTimeout = _options$connectionMa === undefined ? _constants.deafultConnectionMaxTimeout : _options$connectionMa,
+      _options$messageMaxTi = options.messageMaxTimeout,
+      messageMaxTimeout = _options$messageMaxTi === undefined ? _constants.deafultMessageMaxTimeout : _options$messageMaxTi;
+
+
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      reject(new Error('max timeout of ' + connectionMaxTimeout + 'ms exceeded'));
+    }, connectionMaxTimeout);
+
+    var channel = new window.MessageChannel();
+
+    channel.port1.onmessage = function (e) {
+      if (e.data === _constants.connectionSuccessMsg) {
+        return resolve((0, _sendFactory2.default)(channel.port1, { messageMaxTimeout: messageMaxTimeout }));
+      } else {
+        reject(new Error('connection could not establise'));
+      }
+    };
+
+    var connectionMessage = (0, _utils.constructConnectionMessage)(scope);
+    window.parent.postMessage(connectionMessage, targetOrigin, [channel.port2]);
+  });
+}
+
+module.exports = connect;
+
+/***/ }),
+/* 17 */
+/*!************************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = sendFactory;
+
+var _utils = __webpack_require__(/*! ../utils */ 3);
+
+var _v = __webpack_require__(/*! uuid/v4 */ 18);
+
+var _v2 = _interopRequireDefault(_v);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function sendFactory(port, options) {
+  var messageMaxTimeout = options.messageMaxTimeout;
+
+  var messages = {};
+
+  port.onmessage = function (e) {
+    var _parseChannelMessage = (0, _utils.parseChannelMessage)(e.data),
+        id = _parseChannelMessage.id,
+        payload = _parseChannelMessage.payload;
+
+    if (messages[id]) {
+      var modifiedEvent = {
+        data: payload,
+        origin: e.origin,
+        lastEventId: e.lastEventId,
+        source: e.source,
+        ports: e.ports
+      };
+
+      messages[id](modifiedEvent);
+    }
+  };
+
+  return function (message, transferList) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        reject(new Error('max timeout of ' + messageMaxTimeout + 'ms exceeded'));
+      }, messageMaxTimeout);
+
+      var messageId = (0, _v2.default)();
+      var packaged = (0, _utils.constructChannelMessage)(message, messageId);
+      messages[messageId] = resolve;
+      return port.postMessage(packaged, transferList);
+    });
+  };
+}
+
+/***/ }),
+/* 18 */
+/*!**********************************!*\
+  !*** ../node_modules/uuid/v4.js ***!
+  \**********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+var rng = __webpack_require__(/*! ./lib/rng */ 19);
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ 21);
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options == 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
+
+
+/***/ }),
+/* 19 */
+/*!***********************************************!*\
+  !*** ../node_modules/uuid/lib/rng-browser.js ***!
+  \***********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+var rng;
+
+var crypto = global.crypto || global.msCrypto; // for IE 11
+if (crypto && crypto.getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
+  rng = function whatwgRNG() {
+    crypto.getRandomValues(rnds8);
+    return rnds8;
+  };
+}
+
+if (!rng) {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var rnds = new Array(16);
+  rng = function() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+module.exports = rng;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 20)))
+
+/***/ }),
+/* 20 */
+/*!*************************************************!*\
+  !*** ../node_modules/webpack/buildin/global.js ***!
+  \*************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 21 */
+/*!***********************************************!*\
+  !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
+  \***********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  return bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]];
+}
+
+module.exports = bytesToUuid;
+
+
+/***/ }),
+/* 22 */
 /*!*********************************************!*\
   !*** ../node_modules/axios/lib/defaults.js ***!
   \*********************************************/
@@ -1092,8 +1572,8 @@ module.exports = FrameStorageStrategy;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(/*! ./utils */ 2);
-var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 24);
+var utils = __webpack_require__(/*! ./utils */ 1);
+var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 36);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1109,10 +1589,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(/*! ./adapters/xhr */ 12);
+    adapter = __webpack_require__(/*! ./adapters/xhr */ 24);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(/*! ./adapters/http */ 12);
+    adapter = __webpack_require__(/*! ./adapters/http */ 24);
   }
   return adapter;
 }
@@ -1183,10 +1663,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 23)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 35)))
 
 /***/ }),
-/* 11 */
+/* 23 */
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/helpers/bind.js ***!
   \*************************************************/
@@ -1209,7 +1689,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 12 */
+/* 24 */
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/adapters/xhr.js ***!
   \*************************************************/
@@ -1220,13 +1700,13 @@ module.exports = function bind(fn, thisArg) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 2);
-var settle = __webpack_require__(/*! ./../core/settle */ 25);
-var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 27);
-var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 28);
-var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 29);
-var createError = __webpack_require__(/*! ../core/createError */ 13);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(/*! ./../helpers/btoa */ 30);
+var utils = __webpack_require__(/*! ./../utils */ 1);
+var settle = __webpack_require__(/*! ./../core/settle */ 37);
+var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 39);
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 40);
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 41);
+var createError = __webpack_require__(/*! ../core/createError */ 25);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(/*! ./../helpers/btoa */ 42);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -1323,7 +1803,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 31);
+      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 43);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1401,7 +1881,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 13 */
+/* 25 */
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/core/createError.js ***!
   \*****************************************************/
@@ -1412,7 +1892,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(/*! ./enhanceError */ 26);
+var enhanceError = __webpack_require__(/*! ./enhanceError */ 38);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -1431,7 +1911,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 14 */
+/* 26 */
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/cancel/isCancel.js ***!
   \****************************************************/
@@ -1448,7 +1928,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 15 */
+/* 27 */
 /*!**************************************************!*\
   !*** ../node_modules/axios/lib/cancel/Cancel.js ***!
   \**************************************************/
@@ -1479,7 +1959,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 16 */
+/* 28 */
 /*!*******************!*\
   !*** ./global.js ***!
   \*******************/
@@ -1491,7 +1971,7 @@ module.exports = Cancel;
 /* global window */
 
 
-var dataCapsuleTools = __webpack_require__(/*! ./index */ 17);
+var dataCapsuleTools = __webpack_require__(/*! ./index */ 29);
 
 if (typeof window !== 'undefined') {
   window.DataCapsuleTools = dataCapsuleTools;
@@ -1500,7 +1980,7 @@ if (typeof window !== 'undefined') {
 module.exports = dataCapsuleTools;
 
 /***/ }),
-/* 17 */
+/* 29 */
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
@@ -1511,17 +1991,17 @@ module.exports = dataCapsuleTools;
 "use strict";
 
 
-var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listener */ 7);
-var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 4);
-var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 9);
-var WixStorageStrategy = __webpack_require__(/*! ./strategies/wix-storage */ 18);
-var CachedStorageStrategy = __webpack_require__(/*! ./strategies/cached-storage */ 39);
+var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listener */ 9);
+var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 6);
+var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
+var WixStorageStrategy = __webpack_require__(/*! ./strategies/wix-storage */ 30);
+var CachedStorageStrategy = __webpack_require__(/*! ./strategies/cached-storage */ 51);
 
-var _require = __webpack_require__(/*! ./utils/constants */ 1),
+var _require = __webpack_require__(/*! ./utils/constants */ 2),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
-var DataCapsule = __webpack_require__(/*! ./data-capsule */ 6);
+var DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
 
 function LocalStorageCapsule(options) {
   return new DataCapsule(Object.assign({}, options, { strategy: new LocalStorageStrategy() }));
@@ -1547,7 +2027,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 18 */
+/* 30 */
 /*!***********************************!*\
   !*** ./strategies/wix-storage.js ***!
   \***********************************/
@@ -1566,10 +2046,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var axios = __webpack_require__(/*! axios */ 19);
+var axios = __webpack_require__(/*! axios */ 31);
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
+var _require = __webpack_require__(/*! ../utils/constants */ 2),
     NOT_FOUND = _require.NOT_FOUND,
     SERVER_ERROR = _require.SERVER_ERROR;
 
@@ -1656,7 +2136,7 @@ var WixStorageStrategy = function (_BaseStorage) {
 module.exports = WixStorageStrategy;
 
 /***/ }),
-/* 19 */
+/* 31 */
 /*!**************************************!*\
   !*** ../node_modules/axios/index.js ***!
   \**************************************/
@@ -1664,10 +2144,10 @@ module.exports = WixStorageStrategy;
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./lib/axios */ 20);
+module.exports = __webpack_require__(/*! ./lib/axios */ 32);
 
 /***/ }),
-/* 20 */
+/* 32 */
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/axios.js ***!
   \******************************************/
@@ -1678,10 +2158,10 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 20);
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./utils */ 2);
-var bind = __webpack_require__(/*! ./helpers/bind */ 11);
-var Axios = __webpack_require__(/*! ./core/Axios */ 22);
-var defaults = __webpack_require__(/*! ./defaults */ 10);
+var utils = __webpack_require__(/*! ./utils */ 1);
+var bind = __webpack_require__(/*! ./helpers/bind */ 23);
+var Axios = __webpack_require__(/*! ./core/Axios */ 34);
+var defaults = __webpack_require__(/*! ./defaults */ 22);
 
 /**
  * Create an instance of Axios
@@ -1714,15 +2194,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ 15);
-axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 37);
-axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 14);
+axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ 27);
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 49);
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 26);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(/*! ./helpers/spread */ 38);
+axios.spread = __webpack_require__(/*! ./helpers/spread */ 50);
 
 module.exports = axios;
 
@@ -1731,7 +2211,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 21 */
+/* 33 */
 /*!******************************************!*\
   !*** ../node_modules/is-buffer/index.js ***!
   \******************************************/
@@ -1763,7 +2243,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 22 */
+/* 34 */
 /*!***********************************************!*\
   !*** ../node_modules/axios/lib/core/Axios.js ***!
   \***********************************************/
@@ -1774,12 +2254,12 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(/*! ./../defaults */ 10);
-var utils = __webpack_require__(/*! ./../utils */ 2);
-var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 32);
-var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 33);
-var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 35);
-var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ 36);
+var defaults = __webpack_require__(/*! ./../defaults */ 22);
+var utils = __webpack_require__(/*! ./../utils */ 1);
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 44);
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 45);
+var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 47);
+var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ 48);
 
 /**
  * Create a new instance of Axios
@@ -1861,7 +2341,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 23 */
+/* 35 */
 /*!******************************************!*\
   !*** ../node_modules/process/browser.js ***!
   \******************************************/
@@ -2056,7 +2536,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 24 */
+/* 36 */
 /*!****************************************************************!*\
   !*** ../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \****************************************************************/
@@ -2067,7 +2547,7 @@ process.umask = function() { return 0; };
 "use strict";
 
 
-var utils = __webpack_require__(/*! ../utils */ 2);
+var utils = __webpack_require__(/*! ../utils */ 1);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -2080,7 +2560,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 25 */
+/* 37 */
 /*!************************************************!*\
   !*** ../node_modules/axios/lib/core/settle.js ***!
   \************************************************/
@@ -2091,7 +2571,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(/*! ./createError */ 13);
+var createError = __webpack_require__(/*! ./createError */ 25);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -2118,7 +2598,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 26 */
+/* 38 */
 /*!******************************************************!*\
   !*** ../node_modules/axios/lib/core/enhanceError.js ***!
   \******************************************************/
@@ -2151,7 +2631,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 27 */
+/* 39 */
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/buildURL.js ***!
   \*****************************************************/
@@ -2162,7 +2642,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 2);
+var utils = __webpack_require__(/*! ./../utils */ 1);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -2231,7 +2711,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 28 */
+/* 40 */
 /*!*********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/parseHeaders.js ***!
   \*********************************************************/
@@ -2242,7 +2722,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 2);
+var utils = __webpack_require__(/*! ./../utils */ 1);
 
 /**
  * Parse headers into an object
@@ -2280,7 +2760,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 29 */
+/* 41 */
 /*!************************************************************!*\
   !*** ../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \************************************************************/
@@ -2291,7 +2771,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 2);
+var utils = __webpack_require__(/*! ./../utils */ 1);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -2360,7 +2840,7 @@ module.exports = (
 
 
 /***/ }),
-/* 30 */
+/* 42 */
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/helpers/btoa.js ***!
   \*************************************************/
@@ -2408,7 +2888,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 31 */
+/* 43 */
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/cookies.js ***!
   \****************************************************/
@@ -2419,7 +2899,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 2);
+var utils = __webpack_require__(/*! ./../utils */ 1);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -2473,7 +2953,7 @@ module.exports = (
 
 
 /***/ }),
-/* 32 */
+/* 44 */
 /*!************************************************************!*\
   !*** ../node_modules/axios/lib/core/InterceptorManager.js ***!
   \************************************************************/
@@ -2484,7 +2964,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 2);
+var utils = __webpack_require__(/*! ./../utils */ 1);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -2537,7 +3017,7 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 33 */
+/* 45 */
 /*!*********************************************************!*\
   !*** ../node_modules/axios/lib/core/dispatchRequest.js ***!
   \*********************************************************/
@@ -2548,10 +3028,10 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 2);
-var transformData = __webpack_require__(/*! ./transformData */ 34);
-var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 14);
-var defaults = __webpack_require__(/*! ../defaults */ 10);
+var utils = __webpack_require__(/*! ./../utils */ 1);
+var transformData = __webpack_require__(/*! ./transformData */ 46);
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 26);
+var defaults = __webpack_require__(/*! ../defaults */ 22);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -2628,7 +3108,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 34 */
+/* 46 */
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/core/transformData.js ***!
   \*******************************************************/
@@ -2639,7 +3119,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 2);
+var utils = __webpack_require__(/*! ./../utils */ 1);
 
 /**
  * Transform the data for a request or a response
@@ -2660,7 +3140,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 35 */
+/* 47 */
 /*!**********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \**********************************************************/
@@ -2686,7 +3166,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 36 */
+/* 48 */
 /*!********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/combineURLs.js ***!
   \********************************************************/
@@ -2712,7 +3192,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 37 */
+/* 49 */
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*******************************************************/
@@ -2723,7 +3203,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(/*! ./Cancel */ 15);
+var Cancel = __webpack_require__(/*! ./Cancel */ 27);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -2781,7 +3261,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 38 */
+/* 50 */
 /*!***************************************************!*\
   !*** ../node_modules/axios/lib/helpers/spread.js ***!
   \***************************************************/
@@ -2820,7 +3300,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 39 */
+/* 51 */
 /*!**************************************!*\
   !*** ./strategies/cached-storage.js ***!
   \**************************************/
@@ -2839,11 +3319,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
+var _require = __webpack_require__(/*! ../utils/constants */ 2),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
-var LocalStorageStrategy = __webpack_require__(/*! ./local-storage */ 4);
+var LocalStorageStrategy = __webpack_require__(/*! ./local-storage */ 6);
 var DELETED = '___DELETED___';
 
 var CachedStorageStrategy = function (_BaseStorage) {

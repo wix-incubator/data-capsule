@@ -81,7 +81,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	    style.textContent = "";
 /******/ 	}
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 41);
+/******/ 	return __webpack_require__(__webpack_require__.s = 54);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -152,7 +152,197 @@ module.exports = BaseStorage;
 
 /***/ }),
 
-/***/ 1:
+/***/ 10:
+/*!***************************************************!*\
+  !*** ../node_modules/message-channel/listener.js ***!
+  \***************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
+
+
+/***/ }),
+
+/***/ 11:
+/*!*********************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/listener/listener.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _constants = __webpack_require__(/*! ../constants */ 4);
+
+var _utils = __webpack_require__(/*! ../utils */ 3);
+
+var _listenFactory = __webpack_require__(/*! ./listen-factory */ 12);
+
+var _listenFactory2 = _interopRequireDefault(_listenFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function isMessageRelevant(message, scope) {
+  try {
+    return (0, _utils.parseConnectionMessage)(message) === scope;
+  } catch (e) {
+    return false;
+  }
+}
+
+function getMessagePort(e) {
+  try {
+    return e.ports[0];
+  } catch (e) {}
+}
+
+function authorizeConnection(port) {
+  port.postMessage(_constants.connectionSuccessMsg);
+}
+
+var noop = function noop() {};
+
+function listener(scope) {
+  var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
+
+  if (!scope || typeof scope !== 'string') {
+    throw new Error('listener function expects to recieve a scope<string> as a first argument');
+  }
+
+  var _listener = function _listener(e) {
+    if (isMessageRelevant(e.data, scope)) {
+      var port = getMessagePort(e);
+      if (port) {
+        authorizeConnection(port);
+        (0, _listenFactory2.default)(port, callback);
+      }
+    }
+  };
+
+  window.addEventListener('message', _listener);
+  return function () {
+    return window.removeEventListener('message', _listener);
+  };
+}
+
+module.exports = listener;
+
+/***/ }),
+
+/***/ 12:
+/*!***************************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/listener/listen-factory.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = listenFactory;
+
+var _utils = __webpack_require__(/*! ../utils */ 3);
+
+function listenFactory(port, callback) {
+  port.onmessage = function (e) {
+    var originalMessage = e.data;
+
+    var _parseChannelMessage = (0, _utils.parseChannelMessage)(originalMessage),
+        id = _parseChannelMessage.id,
+        payload = _parseChannelMessage.payload;
+
+    var reply = function reply(replyMessage) {
+      port.postMessage((0, _utils.constructChannelMessage)(replyMessage, id));
+    };
+
+    var modifiedEvent = {
+      data: payload,
+      origin: e.origin,
+      lastEventId: e.lastEventId,
+      source: e.source,
+      ports: e.ports
+    };
+
+    callback(modifiedEvent, reply);
+  };
+}
+
+/***/ }),
+
+/***/ 13:
+/*!****************************************!*\
+  !*** ./utils/local-storage-cleaner.js ***!
+  \****************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* global localStorage */
+
+
+var _require = __webpack_require__(/*! ./record-utils */ 7),
+    getCacheRecords = _require.getCacheRecords,
+    isExpired = _require.isExpired;
+
+function deleteRecord(cleaner) {
+  var record = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : cleaner.records[0];
+
+  localStorage.removeItem(record.originalKey);
+  return {
+    records: record === cleaner.records[0] ? cleaner.records.slice(1) : cleaner.records.filter(function (_ref) {
+      var originalKey = _ref.originalKey;
+      return originalKey !== record.originalKey;
+    }),
+    requiredSpace: cleaner.requiredSpace - record.size
+  };
+}
+
+function deleteExpired(cleaner) {
+  var expiredRecords = cleaner.records.filter(function (record) {
+    return isExpired(record);
+  });
+  expiredRecords.forEach(function (record) {
+    return cleaner = deleteRecord(cleaner, record);
+  });
+  return cleaner;
+}
+
+function lastUsedSort(a, b) {
+  return a.lastUsed - b.lastUsed;
+}
+
+function canClean(cleaner) {
+  return cleaner.records.length > 0 && cleaner.requiredSpace > 0;
+}
+
+function deleteOld(cleaner) {
+  cleaner.records.sort(lastUsedSort);
+  while (canClean(cleaner)) {
+    cleaner = deleteRecord(cleaner);
+  }
+  return cleaner;
+}
+
+function localStorageCleaner(requiredSpace) {
+  var cleaner = { records: getCacheRecords(), requiredSpace: requiredSpace };
+  cleaner = deleteExpired(cleaner);
+  deleteOld(cleaner);
+}
+
+module.exports = localStorageCleaner;
+
+/***/ }),
+
+/***/ 2:
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
@@ -186,6 +376,81 @@ module.exports = {
 /***/ }),
 
 /***/ 3:
+/*!*********************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/utils.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseConnectionMessage = exports.constructConnectionMessage = exports.parseChannelMessage = exports.constructChannelMessage = undefined;
+
+var _constants = __webpack_require__(/*! ./constants */ 4);
+
+var constructChannelMessage = exports.constructChannelMessage = function constructChannelMessage(payload, id) {
+  if (!id) {
+    return payload;
+  }
+
+  return id + _constants.messageDelimiter + payload;
+};
+
+var parseChannelMessage = exports.parseChannelMessage = function parseChannelMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1) {
+    return { id: null, payload: message };
+  }
+
+  var id = message.slice(0, firstDelimiterIndex);
+  var payload = message.slice(firstDelimiterIndex + 1);
+  return { id: id, payload: payload };
+};
+
+var constructConnectionMessage = exports.constructConnectionMessage = function constructConnectionMessage(scope) {
+  return _constants.connectionRequestMsg + _constants.messageDelimiter + scope;
+};
+
+var parseConnectionMessage = exports.parseConnectionMessage = function parseConnectionMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1 || message.slice(0, firstDelimiterIndex) !== _constants.connectionRequestMsg) {
+    throw new Error('Invalid connection message');
+  }
+
+  var scope = message.slice(firstDelimiterIndex + 1);
+  return scope;
+};
+
+/***/ }),
+
+/***/ 4:
+/*!*************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/constants.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var connectionRequestMsg = exports.connectionRequestMsg = 'req_con';
+var connectionSuccessMsg = exports.connectionSuccessMsg = 'connection_success';
+var messageDelimiter = exports.messageDelimiter = '|';
+var deafultConnectionMaxTimeout = exports.deafultConnectionMaxTimeout = 200;
+var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
+
+/***/ }),
+
+/***/ 5:
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
@@ -222,7 +487,59 @@ module.exports = greedySplit;
 
 /***/ }),
 
-/***/ 4:
+/***/ 54:
+/*!**********************************!*\
+  !*** ./global-frame-listener.js ***!
+  \**********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* global window */
+
+
+var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 55);
+
+if (typeof window !== 'undefined') {
+  window.DataCapsuleTools = dataCapsuleTools;
+}
+
+module.exports = dataCapsuleTools;
+
+/***/ }),
+
+/***/ 55:
+/*!***************************!*\
+  !*** ./frame-listener.js ***!
+  \***************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listener */ 9);
+var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 6);
+
+var _require = __webpack_require__(/*! ./utils/constants */ 2),
+    NOT_FOUND = _require.NOT_FOUND;
+
+var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
+var DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
+
+module.exports = {
+  NOT_FOUND: NOT_FOUND,
+  BaseStorage: BaseStorage,
+  DataCapsule: DataCapsule,
+  LocalStorageStrategy: LocalStorageStrategy,
+  FrameStorageListener: FrameStorageListener
+};
+
+/***/ }),
+
+/***/ 6:
 /*!*************************************!*\
   !*** ./strategies/local-storage.js ***!
   \*************************************/
@@ -243,15 +560,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
-var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 8);
+var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 13);
 
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
+var _require = __webpack_require__(/*! ../utils/constants */ 2),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR,
     NOT_FOUND = _require.NOT_FOUND;
 
-var _require2 = __webpack_require__(/*! ../utils/record-utils */ 5),
+var _require2 = __webpack_require__(/*! ../utils/record-utils */ 7),
     getCacheRecords = _require2.getCacheRecords,
     deserializeData = _require2.deserializeData,
     isExpired = _require2.isExpired;
@@ -345,59 +662,7 @@ module.exports = LocalStorageStrategy;
 
 /***/ }),
 
-/***/ 41:
-/*!**********************************!*\
-  !*** ./global-frame-listener.js ***!
-  \**********************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* global window */
-
-
-var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 42);
-
-if (typeof window !== 'undefined') {
-  window.DataCapsuleTools = dataCapsuleTools;
-}
-
-module.exports = dataCapsuleTools;
-
-/***/ }),
-
-/***/ 42:
-/*!***************************!*\
-  !*** ./frame-listener.js ***!
-  \***************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listener */ 7);
-var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 4);
-
-var _require = __webpack_require__(/*! ./utils/constants */ 1),
-    NOT_FOUND = _require.NOT_FOUND;
-
-var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
-var DataCapsule = __webpack_require__(/*! ./data-capsule */ 6);
-
-module.exports = {
-  NOT_FOUND: NOT_FOUND,
-  BaseStorage: BaseStorage,
-  DataCapsule: DataCapsule,
-  LocalStorageStrategy: LocalStorageStrategy,
-  FrameStorageListener: FrameStorageListener
-};
-
-/***/ }),
-
-/***/ 5:
+/***/ 7:
 /*!*******************************!*\
   !*** ./utils/record-utils.js ***!
   \*******************************/
@@ -411,7 +676,7 @@ module.exports = {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
+var _require = __webpack_require__(/*! ../utils/constants */ 2),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR;
@@ -471,7 +736,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 6:
+/***/ 8:
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
@@ -556,7 +821,7 @@ module.exports = DataCapsule;
 
 /***/ }),
 
-/***/ 7:
+/***/ 9:
 /*!*****************************************!*\
   !*** ./utils/frame-storage-listener.js ***!
   \*****************************************/
@@ -565,7 +830,6 @@ module.exports = DataCapsule;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* global window */
 
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -576,13 +840,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var greedySplit = __webpack_require__(/*! greedy-split */ 3);
+var listenerMessageChannel = __webpack_require__(/*! message-channel/listener */ 10);
+var greedySplit = __webpack_require__(/*! greedy-split */ 5);
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
-
-var _require = __webpack_require__(/*! ./constants */ 1),
-    STORAGE_PREFIX = _require.STORAGE_PREFIX;
-
-var LocalStorageStrategy = __webpack_require__(/*! ../strategies/local-storage */ 4);
+var LocalStorageStrategy = __webpack_require__(/*! ../strategies/local-storage */ 6);
 
 var FrameStorageListener = function () {
   function FrameStorageListener() {
@@ -591,51 +852,55 @@ var FrameStorageListener = function () {
     _classCallCheck(this, FrameStorageListener);
 
     this.storageStrategy = BaseStorage.verify(strategy);
+    this.stopListener;
   }
 
   _createClass(FrameStorageListener, [{
     key: 'start',
     value: function start(verifier) {
       var storageStrategy = BaseStorage.verify(this.storageStrategy);
-      this._listener = function (e) {
-        var data = e.data,
-            source = e.source,
-            origin = e.origin;
+      this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
 
-        if (typeof data !== 'string') {
+      function messageHandler(e, reply) {
+        if (typeof e.data !== 'string') {
           return;
         }
 
-        var _greedySplit = greedySplit(data, '|', 5),
-            _greedySplit2 = _slicedToArray(_greedySplit, 5),
-            target = _greedySplit2[0],
-            token = _greedySplit2[1],
-            id = _greedySplit2[2],
-            method = _greedySplit2[3],
-            params = _greedySplit2[4];
+        var _greedySplit = greedySplit(e.data, '|', 3),
+            _greedySplit2 = _slicedToArray(_greedySplit, 3),
+            token = _greedySplit2[0],
+            method = _greedySplit2[1],
+            params = _greedySplit2[2];
 
-        var respond = function respond(method, param) {
-          var message = [target + 'Done', token, id, method, JSON.stringify(param)].join('|');
-          (source || window).postMessage(message, origin || '*');
+        var respond = function respond(status, data) {
+          if (status === 'resolve') {
+            var payload = { data: data };
+
+            var _response = [status, JSON.stringify(payload)].join('|');
+            return reply(_response);
+          }
+
+          var response = [status, data].join('|');
+          return reply(response);
         };
 
-        if (target === STORAGE_PREFIX && verifier(source, origin, token)) {
-          var invoke = storageStrategy[method].bind(storageStrategy);
-          invoke.apply(undefined, _toConsumableArray(JSON.parse(params))).then(function (result) {
-            respond('resolve', result);
-          }).catch(function (reason) {
-            respond('reject', reason.message || reason);
-          });
+        if (!verifier(e.source, e.origin, token)) {
+          return respond('reject', new Error('message was not authorized'));
         }
-      };
 
-      window.addEventListener('message', this._listener);
+        var invoke = storageStrategy[method].bind(storageStrategy);
+
+        return invoke.apply(undefined, _toConsumableArray(JSON.parse(params).data)).then(function (result) {
+          return respond('resolve', result);
+        }).catch(function (error) {
+          return respond('reject', error.message || error);
+        });
+      }
     }
   }, {
     key: 'stop',
     value: function stop() {
-      window.removeEventListener('message', this._listener);
-      this._listener = undefined;
+      this.stopListener && this.stopListener();
     }
   }]);
 
@@ -643,71 +908,6 @@ var FrameStorageListener = function () {
 }();
 
 module.exports = FrameStorageListener;
-
-/***/ }),
-
-/***/ 8:
-/*!****************************************!*\
-  !*** ./utils/local-storage-cleaner.js ***!
-  \****************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* global localStorage */
-
-
-var _require = __webpack_require__(/*! ./record-utils */ 5),
-    getCacheRecords = _require.getCacheRecords,
-    isExpired = _require.isExpired;
-
-function deleteRecord(cleaner) {
-  var record = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : cleaner.records[0];
-
-  localStorage.removeItem(record.originalKey);
-  return {
-    records: record === cleaner.records[0] ? cleaner.records.slice(1) : cleaner.records.filter(function (_ref) {
-      var originalKey = _ref.originalKey;
-      return originalKey !== record.originalKey;
-    }),
-    requiredSpace: cleaner.requiredSpace - record.size
-  };
-}
-
-function deleteExpired(cleaner) {
-  var expiredRecords = cleaner.records.filter(function (record) {
-    return isExpired(record);
-  });
-  expiredRecords.forEach(function (record) {
-    return cleaner = deleteRecord(cleaner, record);
-  });
-  return cleaner;
-}
-
-function lastUsedSort(a, b) {
-  return a.lastUsed - b.lastUsed;
-}
-
-function canClean(cleaner) {
-  return cleaner.records.length > 0 && cleaner.requiredSpace > 0;
-}
-
-function deleteOld(cleaner) {
-  cleaner.records.sort(lastUsedSort);
-  while (canClean(cleaner)) {
-    cleaner = deleteRecord(cleaner);
-  }
-  return cleaner;
-}
-
-function localStorageCleaner(requiredSpace) {
-  var cleaner = { records: getCacheRecords(), requiredSpace: requiredSpace };
-  cleaner = deleteExpired(cleaner);
-  deleteOld(cleaner);
-}
-
-module.exports = localStorageCleaner;
 
 /***/ })
 

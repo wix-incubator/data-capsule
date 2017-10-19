@@ -81,12 +81,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	    style.textContent = "";
 /******/ 	}
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /*!*************************!*\
   !*** ./base-storage.js ***!
   \*************************/
@@ -151,8 +150,8 @@ var BaseStorage = function () {
 module.exports = BaseStorage;
 
 /***/ }),
-
-/***/ 1:
+/* 1 */,
+/* 2 */
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
@@ -184,8 +183,80 @@ module.exports = {
 };
 
 /***/ }),
+/* 3 */
+/*!*********************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/utils.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ 3:
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseConnectionMessage = exports.constructConnectionMessage = exports.parseChannelMessage = exports.constructChannelMessage = undefined;
+
+var _constants = __webpack_require__(/*! ./constants */ 4);
+
+var constructChannelMessage = exports.constructChannelMessage = function constructChannelMessage(payload, id) {
+  if (!id) {
+    return payload;
+  }
+
+  return id + _constants.messageDelimiter + payload;
+};
+
+var parseChannelMessage = exports.parseChannelMessage = function parseChannelMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1) {
+    return { id: null, payload: message };
+  }
+
+  var id = message.slice(0, firstDelimiterIndex);
+  var payload = message.slice(firstDelimiterIndex + 1);
+  return { id: id, payload: payload };
+};
+
+var constructConnectionMessage = exports.constructConnectionMessage = function constructConnectionMessage(scope) {
+  return _constants.connectionRequestMsg + _constants.messageDelimiter + scope;
+};
+
+var parseConnectionMessage = exports.parseConnectionMessage = function parseConnectionMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1 || message.slice(0, firstDelimiterIndex) !== _constants.connectionRequestMsg) {
+    throw new Error('Invalid connection message');
+  }
+
+  var scope = message.slice(firstDelimiterIndex + 1);
+  return scope;
+};
+
+/***/ }),
+/* 4 */
+/*!*************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/constants.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var connectionRequestMsg = exports.connectionRequestMsg = 'req_con';
+var connectionSuccessMsg = exports.connectionSuccessMsg = 'connection_success';
+var messageDelimiter = exports.messageDelimiter = '|';
+var deafultConnectionMaxTimeout = exports.deafultConnectionMaxTimeout = 200;
+var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
+
+/***/ }),
+/* 5 */
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
@@ -221,36 +292,9 @@ module.exports = greedySplit;
 
 
 /***/ }),
-
-/***/ 40:
-/*!******************!*\
-  !*** ./frame.js ***!
-  \******************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 9);
-
-var _require = __webpack_require__(/*! ./utils/constants */ 1),
-    NOT_FOUND = _require.NOT_FOUND;
-
-var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
-var DataCapsule = __webpack_require__(/*! ./data-capsule */ 6);
-
-module.exports = {
-  NOT_FOUND: NOT_FOUND,
-  BaseStorage: BaseStorage,
-  DataCapsule: DataCapsule,
-  FrameStorageStrategy: FrameStorageStrategy
-};
-
-/***/ }),
-
-/***/ 6:
+/* 6 */,
+/* 7 */,
+/* 8 */
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
@@ -334,8 +378,12 @@ var DataCapsule = function (_BaseStorage) {
 module.exports = DataCapsule;
 
 /***/ }),
-
-/***/ 9:
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
 /*!*************************************!*\
   !*** ./strategies/frame-storage.js ***!
   \*************************************/
@@ -344,12 +392,11 @@ module.exports = DataCapsule;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* global window */
 
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -357,42 +404,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var greedySplit = __webpack_require__(/*! greedy-split */ 3);
+var greedySplit = __webpack_require__(/*! greedy-split */ 5);
+var connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 15);
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
-
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
-    STORAGE_PREFIX = _require.STORAGE_PREFIX,
-    toError = _require.toError;
-
-var pending = {};
-
-function sendCommand(method, params, options) {
-  var id = Date.now() + '-' + Math.random();
-  var message = [STORAGE_PREFIX, options.token, id, method, JSON.stringify(params)].join('|');
-  options.target.postMessage(message, options.origin);
-  return new Promise(function (resolve, _reject) {
-    pending[id] = { resolve: resolve, reject: function reject(reason) {
-        return _reject(toError(reason));
-      } };
-  });
-}
-
-function readCommands(options) {
-  window.addEventListener('message', function (e) {
-    var _greedySplit = greedySplit(e.data, '|', 5),
-        _greedySplit2 = _slicedToArray(_greedySplit, 5),
-        target = _greedySplit2[0],
-        token = _greedySplit2[1],
-        id = _greedySplit2[2],
-        method = _greedySplit2[3],
-        params = _greedySplit2[4];
-
-    if (target === STORAGE_PREFIX + 'Done' && token === options.token) {
-      pending[id][method](params ? JSON.parse(params) : undefined);
-      delete pending[id];
-    }
-  }, true);
-}
 
 var FrameStorageStrategy = function (_BaseStorage) {
   _inherits(FrameStorageStrategy, _BaseStorage);
@@ -402,19 +416,59 @@ var FrameStorageStrategy = function (_BaseStorage) {
 
     var _this = _possibleConstructorReturn(this, (FrameStorageStrategy.__proto__ || Object.getPrototypeOf(FrameStorageStrategy)).call(this));
 
-    _this._options = { target: target, origin: origin, token: token };
-    readCommands(_this._options);
+    _this.target = target;
+    _this.origin = origin;
+    _this.token = token;
+    _this.channel;
     return _this;
   }
 
   _createClass(FrameStorageStrategy, [{
+    key: 'getChannel',
+    value: function getChannel() {
+      var _this2 = this;
+
+      if (this.channel) {
+        return Promise.resolve(this.channel);
+      }
+
+      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin }).then(function (channel) {
+        _this2.channel = channel;
+        return channel;
+      });
+    }
+  }, {
+    key: 'sendCommand',
+    value: function sendCommand(method, params) {
+      var _this3 = this;
+
+      var payload = { data: params };
+
+      return this.getChannel().then(function (sendToChannel) {
+        var message = [_this3.token, method, JSON.stringify(payload)].join('|');
+
+        return sendToChannel(message).then(function (e) {
+          var _greedySplit = greedySplit(e.data, '|', 2),
+              _greedySplit2 = _slicedToArray(_greedySplit, 2),
+              status = _greedySplit2[0],
+              payload = _greedySplit2[1];
+
+          if (status === 'reject') {
+            throw payload;
+          }
+
+          return JSON.parse(payload).data;
+        });
+      });
+    }
+  }, {
     key: 'setItem',
     value: function setItem() {
       for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
         params[_key] = arguments[_key];
       }
 
-      return sendCommand('setItem', params, this._options);
+      return this.sendCommand('setItem', params);
     }
   }, {
     key: 'getItem',
@@ -423,7 +477,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         params[_key2] = arguments[_key2];
       }
 
-      return sendCommand('getItem', params, this._options);
+      return this.sendCommand('getItem', params);
     }
   }, {
     key: 'removeItem',
@@ -432,7 +486,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         params[_key3] = arguments[_key3];
       }
 
-      return sendCommand('removeItem', params, this._options);
+      return this.sendCommand('removeItem', params);
     }
   }, {
     key: 'getAllItems',
@@ -441,7 +495,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         params[_key4] = arguments[_key4];
       }
 
-      return sendCommand('getAllItems', params, this._options);
+      return this.sendCommand('getAllItems', params);
     }
   }]);
 
@@ -450,8 +504,364 @@ var FrameStorageStrategy = function (_BaseStorage) {
 
 module.exports = FrameStorageStrategy;
 
-/***/ })
+/***/ }),
+/* 15 */
+/*!**************************************************!*\
+  !*** ../node_modules/message-channel/connect.js ***!
+  \**************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
 
-/******/ });
+module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 16);
+
+
+/***/ }),
+/* 16 */
+/*!*******************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _constants = __webpack_require__(/*! ../constants */ 4);
+
+var _utils = __webpack_require__(/*! ../utils */ 3);
+
+var _sendFactory = __webpack_require__(/*! ./send-factory */ 17);
+
+var _sendFactory2 = _interopRequireDefault(_sendFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function connect(scope) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$targetOrigin = options.targetOrigin,
+      targetOrigin = _options$targetOrigin === undefined ? '*' : _options$targetOrigin,
+      _options$connectionMa = options.connectionMaxTimeout,
+      connectionMaxTimeout = _options$connectionMa === undefined ? _constants.deafultConnectionMaxTimeout : _options$connectionMa,
+      _options$messageMaxTi = options.messageMaxTimeout,
+      messageMaxTimeout = _options$messageMaxTi === undefined ? _constants.deafultMessageMaxTimeout : _options$messageMaxTi;
+
+
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      reject(new Error('max timeout of ' + connectionMaxTimeout + 'ms exceeded'));
+    }, connectionMaxTimeout);
+
+    var channel = new window.MessageChannel();
+
+    channel.port1.onmessage = function (e) {
+      if (e.data === _constants.connectionSuccessMsg) {
+        return resolve((0, _sendFactory2.default)(channel.port1, { messageMaxTimeout: messageMaxTimeout }));
+      } else {
+        reject(new Error('connection could not establise'));
+      }
+    };
+
+    var connectionMessage = (0, _utils.constructConnectionMessage)(scope);
+    window.parent.postMessage(connectionMessage, targetOrigin, [channel.port2]);
+  });
+}
+
+module.exports = connect;
+
+/***/ }),
+/* 17 */
+/*!************************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = sendFactory;
+
+var _utils = __webpack_require__(/*! ../utils */ 3);
+
+var _v = __webpack_require__(/*! uuid/v4 */ 18);
+
+var _v2 = _interopRequireDefault(_v);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function sendFactory(port, options) {
+  var messageMaxTimeout = options.messageMaxTimeout;
+
+  var messages = {};
+
+  port.onmessage = function (e) {
+    var _parseChannelMessage = (0, _utils.parseChannelMessage)(e.data),
+        id = _parseChannelMessage.id,
+        payload = _parseChannelMessage.payload;
+
+    if (messages[id]) {
+      var modifiedEvent = {
+        data: payload,
+        origin: e.origin,
+        lastEventId: e.lastEventId,
+        source: e.source,
+        ports: e.ports
+      };
+
+      messages[id](modifiedEvent);
+    }
+  };
+
+  return function (message, transferList) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        reject(new Error('max timeout of ' + messageMaxTimeout + 'ms exceeded'));
+      }, messageMaxTimeout);
+
+      var messageId = (0, _v2.default)();
+      var packaged = (0, _utils.constructChannelMessage)(message, messageId);
+      messages[messageId] = resolve;
+      return port.postMessage(packaged, transferList);
+    });
+  };
+}
+
+/***/ }),
+/* 18 */
+/*!**********************************!*\
+  !*** ../node_modules/uuid/v4.js ***!
+  \**********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+var rng = __webpack_require__(/*! ./lib/rng */ 19);
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ 21);
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options == 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
+
+
+/***/ }),
+/* 19 */
+/*!***********************************************!*\
+  !*** ../node_modules/uuid/lib/rng-browser.js ***!
+  \***********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+var rng;
+
+var crypto = global.crypto || global.msCrypto; // for IE 11
+if (crypto && crypto.getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
+  rng = function whatwgRNG() {
+    crypto.getRandomValues(rnds8);
+    return rnds8;
+  };
+}
+
+if (!rng) {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var rnds = new Array(16);
+  rng = function() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+module.exports = rng;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 20)))
+
+/***/ }),
+/* 20 */
+/*!*************************************************!*\
+  !*** ../node_modules/webpack/buildin/global.js ***!
+  \*************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 21 */
+/*!***********************************************!*\
+  !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
+  \***********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  return bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]];
+}
+
+module.exports = bytesToUuid;
+
+
+/***/ }),
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */
+/*!*************************!*\
+  !*** ./global-frame.js ***!
+  \*************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* global window */
+
+
+var dataCapsuleTools = __webpack_require__(/*! ./frame */ 53);
+
+if (typeof window !== 'undefined') {
+  window.DataCapsuleTools = dataCapsuleTools;
+}
+
+module.exports = dataCapsuleTools;
+
+/***/ }),
+/* 53 */
+/*!******************!*\
+  !*** ./frame.js ***!
+  \******************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
+
+var _require = __webpack_require__(/*! ./utils/constants */ 2),
+    NOT_FOUND = _require.NOT_FOUND;
+
+var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
+var DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
+
+module.exports = {
+  NOT_FOUND: NOT_FOUND,
+  BaseStorage: BaseStorage,
+  DataCapsule: DataCapsule,
+  FrameStorageStrategy: FrameStorageStrategy
+};
+
+/***/ })
+/******/ ]);
 });
 //# sourceMappingURL=frame.bundle.js.map
