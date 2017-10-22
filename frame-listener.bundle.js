@@ -578,7 +578,7 @@ function getCacheKey(key, options) {
 }
 
 function getCachePrefix(options) {
-  return [STORAGE_PREFIX, options.namespace, options.scope && JSON.stringify(options.scope)].filter(function (x) {
+  return [STORAGE_PREFIX, options.namespace, options.scope].filter(function (x) {
     return x;
   }).join(PREFIX_SEPARATOR) + KEY_SEPARATOR;
 }
@@ -857,7 +857,15 @@ var FrameStorageListener = function () {
 
   _createClass(FrameStorageListener, [{
     key: 'start',
-    value: function start(verifier) {
+    value: function start(verifier, interceptor) {
+      if (!verifier || typeof verifier !== 'function') {
+        throw new Error('start function must get a verifier function as a first argument');
+      }
+
+      if (interceptor && typeof interceptor !== 'function') {
+        throw new Error('the interceptor must be a function');
+      }
+
       var storageStrategy = BaseStorage.verify(this.storageStrategy);
       this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
 
@@ -870,13 +878,11 @@ var FrameStorageListener = function () {
             _greedySplit2 = _slicedToArray(_greedySplit, 3),
             token = _greedySplit2[0],
             method = _greedySplit2[1],
-            params = _greedySplit2[2];
+            payload = _greedySplit2[2];
 
         var respond = function respond(status, data) {
           if (status === 'resolve') {
-            var payload = { data: data };
-
-            var _response = [status, JSON.stringify(payload)].join('|');
+            var _response = [status, JSON.stringify({ data: data })].join('|');
             return reply(_response);
           }
 
@@ -890,7 +896,13 @@ var FrameStorageListener = function () {
 
         var invoke = storageStrategy[method].bind(storageStrategy);
 
-        return invoke.apply(undefined, _toConsumableArray(JSON.parse(params).data)).then(function (result) {
+        var params = JSON.parse(payload).data;
+        var options = params[params.length - 1];
+
+        var modifiedOptions = interceptor ? interceptor(options, e.source, e.origin, token) : options;
+        params[params.length - 1] = modifiedOptions;
+
+        return invoke.apply(undefined, _toConsumableArray(params)).then(function (result) {
           return respond('resolve', result);
         }).catch(function (error) {
           return respond('reject', error.message || error);
