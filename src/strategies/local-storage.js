@@ -11,9 +11,9 @@ function getCacheKey(key, options) {
 }
 
 function getCachePrefix(options) {
-  return [STORAGE_PREFIX, options.namespace, options.scope && JSON.stringify(options.scope)]
-      .filter(x => x)
-      .join(PREFIX_SEPARATOR) + KEY_SEPARATOR;
+  return [STORAGE_PREFIX, options.namespace, options.scope]
+    .filter(x => x)
+    .join(PREFIX_SEPARATOR) + KEY_SEPARATOR;
 }
 
 function serializeData(value, options) {

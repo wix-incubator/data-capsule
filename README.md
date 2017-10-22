@@ -37,7 +37,7 @@ constructor(options) {
   // options: {
   //   strategy: Any class which implements BaseStorage (see below)
   //   namespace: String (optional)
-  //   scope: Any serializable type (optional)
+  //   scope: String (optional)
   // }
 }
 ```
@@ -114,9 +114,33 @@ This allows frame windows to send commands via `messageChannel` while host windo
  2. `FrameStorageListener.start(verifier, interceptor?)` receives Two callbacks as arguements which invoked for each valid message host window gets.
     1. verifier ```(source, origin, token) => <boolean\>```
       * The callback needs to return a boolean that will indicate whether this `source` (the window who sent the message), `origin` ([read more](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#The_dispatched_event)), and `token` (an optional token passed to `FrameStorageStrategy` below) can be trusted. If callback returns `false`, message is not verified.
-    2. interceptor ```(dataObject) => modifiedDataObject``` // not yet implemented
+    2. interceptor ```(options, source, origin, token) => modifiedOptionsObject```
+      * The interceptor is running after the verifier, and can change the options of each request. We'll need it to manage the storage from the host perspective, change the scope or the namespace.
 
+```js
+import {FrameStorageListener} from 'data-capsule';
 
+const listener = new FrameStorageListener();
+
+// verifier will not authorize the task if the origin is different than below.
+const verifier = (source, origin, token) => {
+  if (origin !== 'http://example.org:8080') {
+    return false;
+  }
+
+  return true;
+}
+
+// interceptor will override the namespace and the scope.
+const interceptor = (options, source, origin, token) => {
+  options.namespace = 'new-namespace';
+  options.scope = 'new-scope';
+  return options;
+}
+
+listener.start(verifier, interceptor);
+listener.stop();
+```
 
 ```js
 import {FrameStorageListener} from 'data-capsule';
@@ -158,7 +182,7 @@ class MyStorageStrategy extends BaseStorage {
     // value: Any serializable type (mandatory)
     // options: {
     //   namespace: String (mandatory)
-    //   scope: Any serializable type (optional)
+    //   scope: String (optional)
     //   expiration: Number of seconds (optional)
     //   ...: Any additional custom options are passed to you
     // }
@@ -170,7 +194,7 @@ class MyStorageStrategy extends BaseStorage {
     // key: String (mandatory)
     // options: {
     //   namespace: String (mandatory)
-    //   scope: Any serializable type (optional)
+    //   scope: String (optional)
     //   ...: Any additional custom options are passed to you
     // }
     // returns a promise that resolves on success and rejects on failure
@@ -182,7 +206,7 @@ class MyStorageStrategy extends BaseStorage {
     // key: String (mandatory)
     // options: {
     //   namespace: String (mandatory)
-    //   scope: Any serializable type (optional)
+    //   scope: String (optional)
     //   ...: Any additional custom options are passed to you
     // }
     // returns a promise that resolves on success and rejects on failure
@@ -192,7 +216,7 @@ class MyStorageStrategy extends BaseStorage {
   getAllItems(options) {
     // options: {
     //   namespace: String (mandatory)
-    //   scope: Any serializable type (optional)
+    //   scope: String (optional)
     //   ...: Any additional custom options are passed to you
     // }
     // returns a promise that resolves on success and rejects on failure
