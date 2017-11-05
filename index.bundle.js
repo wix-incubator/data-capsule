@@ -89,8 +89,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*************************!*\
   !*** ./base-storage.js ***!
   \*************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -154,8 +155,9 @@ module.exports = BaseStorage;
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/utils.js ***!
   \******************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -469,8 +471,9 @@ module.exports = {
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -501,8 +504,9 @@ module.exports = {
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
   \*********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -553,8 +557,9 @@ var parseConnectionMessage = exports.parseConnectionMessage = function parseConn
 /*!*************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/constants.js ***!
   \*************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -574,8 +579,9 @@ var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -610,8 +616,9 @@ module.exports = greedySplit;
 /*!*************************************!*\
   !*** ./strategies/local-storage.js ***!
   \*************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -732,8 +739,9 @@ module.exports = LocalStorageStrategy;
 /*!*******************************!*\
   !*** ./utils/record-utils.js ***!
   \*******************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -805,8 +813,9 @@ module.exports = {
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -889,8 +898,9 @@ module.exports = DataCapsule;
 /*!*****************************************!*\
   !*** ./utils/frame-storage-listener.js ***!
   \*****************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -990,8 +1000,9 @@ module.exports = FrameStorageListener;
 /*!***************************************************!*\
   !*** ../node_modules/message-channel/listener.js ***!
   \***************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
@@ -1002,8 +1013,9 @@ module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
 /*!*********************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listener.js ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1069,8 +1081,9 @@ module.exports = listener;
 /*!***************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listen-factory.js ***!
   \***************************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1112,8 +1125,9 @@ function listenFactory(port, callback) {
 /*!****************************************!*\
   !*** ./utils/local-storage-cleaner.js ***!
   \****************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1176,8 +1190,9 @@ module.exports = localStorageCleaner;
 /*!*************************************!*\
   !*** ./strategies/frame-storage.js ***!
   \*************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1298,8 +1313,9 @@ module.exports = FrameStorageStrategy;
 /*!**************************************************!*\
   !*** ../node_modules/message-channel/connect.js ***!
   \**************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 16);
@@ -1310,8 +1326,9 @@ module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 16);
 /*!*******************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
   \*******************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1364,8 +1381,9 @@ module.exports = connect;
 /*!************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
   \************************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1426,8 +1444,9 @@ function sendFactory(port, options) {
 /*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 var rng = __webpack_require__(/*! ./lib/rng */ 19);
@@ -1466,8 +1485,9 @@ module.exports = v4;
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
@@ -1511,8 +1531,9 @@ module.exports = rng;
 /*!*************************************************!*\
   !*** ../node_modules/webpack/buildin/global.js ***!
   \*************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
 
 var g;
@@ -1543,8 +1564,9 @@ module.exports = g;
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
 
 /**
@@ -1577,8 +1599,9 @@ module.exports = bytesToUuid;
 /*!*********************************************!*\
   !*** ../node_modules/axios/lib/defaults.js ***!
   \*********************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1682,8 +1705,9 @@ module.exports = defaults;
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/helpers/bind.js ***!
   \*************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1705,8 +1729,9 @@ module.exports = function bind(fn, thisArg) {
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/adapters/xhr.js ***!
   \*************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1897,8 +1922,9 @@ module.exports = function xhrAdapter(config) {
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/core/createError.js ***!
   \*****************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1927,8 +1953,9 @@ module.exports = function createError(message, config, code, request, response) 
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/cancel/isCancel.js ***!
   \****************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1944,8 +1971,9 @@ module.exports = function isCancel(value) {
 /*!**************************************************!*\
   !*** ../node_modules/axios/lib/cancel/Cancel.js ***!
   \**************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1975,8 +2003,9 @@ module.exports = Cancel;
 /*!*******************!*\
   !*** ./global.js ***!
   \*******************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1996,8 +2025,9 @@ module.exports = dataCapsuleTools;
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2043,8 +2073,9 @@ module.exports = {
 /*!***********************************!*\
   !*** ./strategies/wix-storage.js ***!
   \***********************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2152,8 +2183,9 @@ module.exports = WixStorageStrategy;
 /*!**************************************!*\
   !*** ../node_modules/axios/index.js ***!
   \**************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! ./lib/axios */ 32);
@@ -2163,8 +2195,9 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 32);
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/axios.js ***!
   \******************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2227,8 +2260,9 @@ module.exports.default = axios;
 /*!******************************************!*\
   !*** ../node_modules/is-buffer/index.js ***!
   \******************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
 
 /*!
@@ -2259,8 +2293,9 @@ function isSlowBuffer (obj) {
 /*!***********************************************!*\
   !*** ../node_modules/axios/lib/core/Axios.js ***!
   \***********************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2357,8 +2392,9 @@ module.exports = Axios;
 /*!******************************************!*\
   !*** ../node_modules/process/browser.js ***!
   \******************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2552,8 +2588,9 @@ process.umask = function() { return 0; };
 /*!****************************************************************!*\
   !*** ../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \****************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2576,8 +2613,9 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /*!************************************************!*\
   !*** ../node_modules/axios/lib/core/settle.js ***!
   \************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2614,8 +2652,9 @@ module.exports = function settle(resolve, reject, response) {
 /*!******************************************************!*\
   !*** ../node_modules/axios/lib/core/enhanceError.js ***!
   \******************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2647,8 +2686,9 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/buildURL.js ***!
   \*****************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2727,8 +2767,9 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /*!*********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/parseHeaders.js ***!
   \*********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2776,8 +2817,9 @@ module.exports = function parseHeaders(headers) {
 /*!************************************************************!*\
   !*** ../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2856,8 +2898,9 @@ module.exports = (
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/helpers/btoa.js ***!
   \*************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2904,8 +2947,9 @@ module.exports = btoa;
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/cookies.js ***!
   \****************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2969,8 +3013,9 @@ module.exports = (
 /*!************************************************************!*\
   !*** ../node_modules/axios/lib/core/InterceptorManager.js ***!
   \************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3033,8 +3078,9 @@ module.exports = InterceptorManager;
 /*!*********************************************************!*\
   !*** ../node_modules/axios/lib/core/dispatchRequest.js ***!
   \*********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3124,8 +3170,9 @@ module.exports = function dispatchRequest(config) {
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/core/transformData.js ***!
   \*******************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3156,8 +3203,9 @@ module.exports = function transformData(data, headers, fns) {
 /*!**********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \**********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3182,8 +3230,9 @@ module.exports = function isAbsoluteURL(url) {
 /*!********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/combineURLs.js ***!
   \********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3208,8 +3257,9 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*******************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3277,8 +3327,9 @@ module.exports = CancelToken;
 /*!***************************************************!*\
   !*** ../node_modules/axios/lib/helpers/spread.js ***!
   \***************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3316,8 +3367,9 @@ module.exports = function spread(callback) {
 /*!**************************************!*\
   !*** ./strategies/cached-storage.js ***!
   \**************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
