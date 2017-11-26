@@ -12,11 +12,11 @@
     "dist"
   ],
   "scripts": {
-    "start": "yoshi start",
-    "pretest": "yoshi lint && yoshi build",
+    "start": "haste start",
+    "pretest": "haste lint && haste build",
     "build": ":",
-    "test": "yoshi test",
-    "release": "yoshi release; bower-auto-release --dist dist/statics"
+    "test": "haste test",
+    "release": "haste release; bower-auto-release --dist dist/statics"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -36,6 +36,8 @@
     "eslint": "^4.8.0",
     "eslint-config-wix": "^1.1.16",
     "express": "^4.16.1",
+    "haste-cli": "^0.1.16",
+    "haste-preset-yoshi": "^0.0.5",
     "nock": "^9.0.2",
     "node-localstorage": "^1.3.0",
     "sinon": "^1.17.7",
@@ -83,6 +85,9 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "haste": {
+    "preset": "yoshi"
   },
   "yoshi": {
     "entry": {
