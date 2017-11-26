@@ -33,7 +33,6 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "describe-jsdom": "^1.1.2",
-    "eslint": "^4.8.0",
     "eslint-config-wix": "^1.1.16",
     "express": "^4.16.1",
     "haste-cli": "^0.1.16",
