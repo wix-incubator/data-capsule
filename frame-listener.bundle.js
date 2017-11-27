@@ -90,9 +90,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*************************!*\
   !*** ./base-storage.js ***!
   \*************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -157,9 +156,8 @@ module.exports = BaseStorage;
 /*!***************************************************!*\
   !*** ../node_modules/message-channel/listener.js ***!
   \***************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
@@ -171,9 +169,8 @@ module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
 /*!*********************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listener.js ***!
   \*********************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -240,9 +237,8 @@ module.exports = listener;
 /*!***************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listen-factory.js ***!
   \***************************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -285,9 +281,8 @@ function listenFactory(port, callback) {
 /*!****************************************!*\
   !*** ./utils/local-storage-cleaner.js ***!
   \****************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -351,9 +346,8 @@ module.exports = localStorageCleaner;
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -385,9 +379,8 @@ module.exports = {
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
   \*********************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -439,9 +432,8 @@ var parseConnectionMessage = exports.parseConnectionMessage = function parseConn
 /*!*************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/constants.js ***!
   \*************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -462,9 +454,8 @@ var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -500,9 +491,8 @@ module.exports = greedySplit;
 /*!**********************************!*\
   !*** ./global-frame-listener.js ***!
   \**********************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -523,9 +513,8 @@ module.exports = dataCapsuleTools;
 /*!***************************!*\
   !*** ./frame-listener.js ***!
   \***************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -554,9 +543,8 @@ module.exports = {
 /*!*************************************!*\
   !*** ./strategies/local-storage.js ***!
   \*************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -678,9 +666,8 @@ module.exports = LocalStorageStrategy;
 /*!*******************************!*\
   !*** ./utils/record-utils.js ***!
   \*******************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -753,9 +740,8 @@ module.exports = {
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -839,9 +825,8 @@ module.exports = DataCapsule;
 /*!*****************************************!*\
   !*** ./utils/frame-storage-listener.js ***!
   \*****************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
