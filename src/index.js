@@ -35,5 +35,6 @@ module.exports = {
   WixStorageStrategy,
   CachedStorageStrategy,
   LocalStorageCachedCapsule,
+  InMemoryStorageStrategy,
   InMemoryStorageCapsule
 };
