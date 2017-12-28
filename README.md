@@ -106,6 +106,32 @@ console.log(await capsule.getItem('shahata')); // logs 123
 // ^ does not send getItem request to server since value is cached
 ```
 
+## InMemoryStorage
+
+A simple in memory storage. Could be useful also as a testing strategy.
+
+```js
+import {DataCapsule, IneMemoryStorageStrategy} from 'data-capsule';
+
+const capsule = new DataCapsule({
+  strategy: new IneMemoryStorageStrategy(),
+  namespace: 'wix'
+});
+await capsule.setItem('shahata', 123);
+console.log(await capsule.getItem('shahata')); // logs 123
+```
+
+And shorter alternative:
+
+```js
+import {IneMemoryStorageCapsule} from 'data-capsule';
+
+const capsule = new LocalStorageCapsule({namespace: 'wix'});
+await capsule.setItem('shahata', 123);
+console.log(await capsule.getItem('shahata')); // logs 123
+```
+
+
 ## FrameStorage
 
 This allows frame windows to send commands via `messageChannel` while host window eventually invokes command on actual storage strategy. In host window, all you have to do is create a `FrameStorageListener` and `start` it and finally `stop` it if and when you are done. Note:
