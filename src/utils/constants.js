@@ -12,6 +12,7 @@ module.exports = {
   KEY_SEPARATOR: '#',
   STORAGE_PREFIX: 'capsule',
   NOT_FOUND: errors.NOT_FOUND,
+  CONNECTION_MAX_TIMEOUT: 1000,
   SERVER_ERROR: errors.SERVER_ERROR,
-  toError
+  toError,
 };
