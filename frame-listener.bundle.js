@@ -152,6 +152,40 @@ module.exports = BaseStorage;
 
 /***/ }),
 
+/***/ 1:
+/*!****************************!*\
+  !*** ./utils/constants.js ***!
+  \****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var errors = {
+  NOT_FOUND: new Error('Key was not found in capsule'),
+  SERVER_ERROR: new Error('Failed to perform operarion on server')
+};
+
+function toError(str) {
+  return Object.values(errors).find(function (err) {
+    return err.message === str;
+  }) || str;
+}
+
+module.exports = {
+  PREFIX_SEPARATOR: '|',
+  KEY_SEPARATOR: '#',
+  STORAGE_PREFIX: 'capsule',
+  NOT_FOUND: errors.NOT_FOUND,
+  CONNECTION_MAX_TIMEOUT: 1000,
+  SERVER_ERROR: errors.SERVER_ERROR,
+  toError: toError
+};
+
+/***/ }),
+
 /***/ 10:
 /*!***************************************************!*\
   !*** ../node_modules/message-channel/listener.js ***!
@@ -342,39 +376,6 @@ module.exports = localStorageCleaner;
 
 /***/ }),
 
-/***/ 2:
-/*!****************************!*\
-  !*** ./utils/constants.js ***!
-  \****************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var errors = {
-  NOT_FOUND: new Error('Key was not found in capsule'),
-  SERVER_ERROR: new Error('Failed to perform operarion on server')
-};
-
-function toError(str) {
-  return Object.values(errors).find(function (err) {
-    return err.message === str;
-  }) || str;
-}
-
-module.exports = {
-  PREFIX_SEPARATOR: '|',
-  KEY_SEPARATOR: '#',
-  STORAGE_PREFIX: 'capsule',
-  NOT_FOUND: errors.NOT_FOUND,
-  SERVER_ERROR: errors.SERVER_ERROR,
-  toError: toError
-};
-
-/***/ }),
-
 /***/ 3:
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
@@ -523,7 +524,7 @@ module.exports = dataCapsuleTools;
 var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listener */ 9);
 var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 6);
 
-var _require = __webpack_require__(/*! ./utils/constants */ 2),
+var _require = __webpack_require__(/*! ./utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
@@ -562,7 +563,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 13);
 
-var _require = __webpack_require__(/*! ../utils/constants */ 2),
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR,
@@ -676,7 +677,7 @@ module.exports = LocalStorageStrategy;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _require = __webpack_require__(/*! ../utils/constants */ 2),
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR;

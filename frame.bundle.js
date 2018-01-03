@@ -150,8 +150,7 @@ var BaseStorage = function () {
 module.exports = BaseStorage;
 
 /***/ }),
-/* 1 */,
-/* 2 */
+/* 1 */
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
@@ -178,11 +177,13 @@ module.exports = {
   KEY_SEPARATOR: '#',
   STORAGE_PREFIX: 'capsule',
   NOT_FOUND: errors.NOT_FOUND,
+  CONNECTION_MAX_TIMEOUT: 1000,
   SERVER_ERROR: errors.SERVER_ERROR,
   toError: toError
 };
 
 /***/ }),
+/* 2 */,
 /* 3 */
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
@@ -408,6 +409,9 @@ var greedySplit = __webpack_require__(/*! greedy-split */ 5);
 var connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 15);
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
+    CONNECTION_MAX_TIMEOUT = _require.CONNECTION_MAX_TIMEOUT;
+
 var FrameStorageStrategy = function (_BaseStorage) {
   _inherits(FrameStorageStrategy, _BaseStorage);
 
@@ -432,7 +436,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         return Promise.resolve(this.channel);
       }
 
-      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin }).then(function (channel) {
+      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT }).then(function (channel) {
         _this2.channel = channel;
         return channel;
       });
@@ -848,7 +852,7 @@ module.exports = dataCapsuleTools;
 
 var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
 
-var _require = __webpack_require__(/*! ./utils/constants */ 2),
+var _require = __webpack_require__(/*! ./utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);

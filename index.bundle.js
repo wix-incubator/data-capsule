@@ -151,6 +151,39 @@ module.exports = BaseStorage;
 
 /***/ }),
 /* 1 */
+/*!****************************!*\
+  !*** ./utils/constants.js ***!
+  \****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var errors = {
+  NOT_FOUND: new Error('Key was not found in capsule'),
+  SERVER_ERROR: new Error('Failed to perform operarion on server')
+};
+
+function toError(str) {
+  return Object.values(errors).find(function (err) {
+    return err.message === str;
+  }) || str;
+}
+
+module.exports = {
+  PREFIX_SEPARATOR: '|',
+  KEY_SEPARATOR: '#',
+  STORAGE_PREFIX: 'capsule',
+  NOT_FOUND: errors.NOT_FOUND,
+  CONNECTION_MAX_TIMEOUT: 1000,
+  SERVER_ERROR: errors.SERVER_ERROR,
+  toError: toError
+};
+
+/***/ }),
+/* 2 */
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/utils.js ***!
   \******************************************/
@@ -465,38 +498,6 @@ module.exports = {
 
 
 /***/ }),
-/* 2 */
-/*!****************************!*\
-  !*** ./utils/constants.js ***!
-  \****************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var errors = {
-  NOT_FOUND: new Error('Key was not found in capsule'),
-  SERVER_ERROR: new Error('Failed to perform operarion on server')
-};
-
-function toError(str) {
-  return Object.values(errors).find(function (err) {
-    return err.message === str;
-  }) || str;
-}
-
-module.exports = {
-  PREFIX_SEPARATOR: '|',
-  KEY_SEPARATOR: '#',
-  STORAGE_PREFIX: 'capsule',
-  NOT_FOUND: errors.NOT_FOUND,
-  SERVER_ERROR: errors.SERVER_ERROR,
-  toError: toError
-};
-
-/***/ }),
 /* 3 */
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
@@ -629,7 +630,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 13);
 
-var _require = __webpack_require__(/*! ../utils/constants */ 2),
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR,
@@ -742,7 +743,7 @@ module.exports = LocalStorageStrategy;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _require = __webpack_require__(/*! ../utils/constants */ 2),
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR;
@@ -1197,6 +1198,9 @@ var greedySplit = __webpack_require__(/*! greedy-split */ 5);
 var connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 15);
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
+    CONNECTION_MAX_TIMEOUT = _require.CONNECTION_MAX_TIMEOUT;
+
 var FrameStorageStrategy = function (_BaseStorage) {
   _inherits(FrameStorageStrategy, _BaseStorage);
 
@@ -1221,7 +1225,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         return Promise.resolve(this.channel);
       }
 
-      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin }).then(function (channel) {
+      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT }).then(function (channel) {
         _this2.channel = channel;
         return channel;
       });
@@ -1584,7 +1588,7 @@ module.exports = bytesToUuid;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(/*! ./utils */ 1);
+var utils = __webpack_require__(/*! ./utils */ 2);
 var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 36);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -1712,7 +1716,7 @@ module.exports = function bind(fn, thisArg) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 var settle = __webpack_require__(/*! ./../core/settle */ 37);
 var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 39);
 var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 40);
@@ -2009,7 +2013,7 @@ var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */
 var WixStorageStrategy = __webpack_require__(/*! ./strategies/wix-storage */ 30);
 var CachedStorageStrategy = __webpack_require__(/*! ./strategies/cached-storage */ 51);
 
-var _require = __webpack_require__(/*! ./utils/constants */ 2),
+var _require = __webpack_require__(/*! ./utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
@@ -2061,7 +2065,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var axios = __webpack_require__(/*! axios */ 31);
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
-var _require = __webpack_require__(/*! ../utils/constants */ 2),
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND,
     SERVER_ERROR = _require.SERVER_ERROR;
 
@@ -2170,7 +2174,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 32);
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./utils */ 1);
+var utils = __webpack_require__(/*! ./utils */ 2);
 var bind = __webpack_require__(/*! ./helpers/bind */ 23);
 var Axios = __webpack_require__(/*! ./core/Axios */ 34);
 var defaults = __webpack_require__(/*! ./defaults */ 22);
@@ -2267,7 +2271,7 @@ function isSlowBuffer (obj) {
 
 
 var defaults = __webpack_require__(/*! ./../defaults */ 22);
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 44);
 var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 45);
 var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 47);
@@ -2559,7 +2563,7 @@ process.umask = function() { return 0; };
 "use strict";
 
 
-var utils = __webpack_require__(/*! ../utils */ 1);
+var utils = __webpack_require__(/*! ../utils */ 2);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -2654,7 +2658,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -2734,7 +2738,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 
 /**
  * Parse headers into an object
@@ -2783,7 +2787,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -2911,7 +2915,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -2976,7 +2980,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -3040,7 +3044,7 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 var transformData = __webpack_require__(/*! ./transformData */ 46);
 var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 26);
 var defaults = __webpack_require__(/*! ../defaults */ 22);
@@ -3131,7 +3135,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(/*! ./../utils */ 1);
+var utils = __webpack_require__(/*! ./../utils */ 2);
 
 /**
  * Transform the data for a request or a response
@@ -3331,7 +3335,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _require = __webpack_require__(/*! ../utils/constants */ 2),
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
