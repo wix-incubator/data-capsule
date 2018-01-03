@@ -18,12 +18,12 @@ class CachedStorageStrategy extends BaseStorage {
 
   setItem(key, value, options) {
     return this.remoteStrategy.setItem(key, value, options)
-    .then(() => this._cacheItem(key, value, options));
+      .then(() => this._cacheItem(key, value, options));
   }
 
   removeItem(key, options) {
     return this.remoteStrategy.removeItem(key, options)
-    .then(() => this._cacheItem(key, DELETED, options));
+      .then(() => this._cacheItem(key, DELETED, options));
   }
 
   _getRemoteAndCache(key, options) {
@@ -32,9 +32,9 @@ class CachedStorageStrategy extends BaseStorage {
     }).catch(e => {
       if (e === NOT_FOUND) {
         return this._cacheItem(key, DELETED, options)
-        .then(() => {
-          throw e;
-        });
+          .then(() => {
+            throw e;
+          });
       }
       throw e;
     });
@@ -56,12 +56,12 @@ class CachedStorageStrategy extends BaseStorage {
 
   getAllItems(options) {
     return this.remoteStrategy.getAllItems(options)
-    .then(items =>
-      Promise.all(
-        Object.keys(items)
-        .map(key => this._cacheItem(key, items[key], options))
-      ).then(() => items)
-    );
+      .then(items =>
+        Promise.all(
+          Object.keys(items)
+            .map(key => this._cacheItem(key, items[key], options))
+        ).then(() => items)
+      );
   }
 }
 

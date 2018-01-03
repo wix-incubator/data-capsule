@@ -43,7 +43,7 @@ class WixStorageStrategy extends BaseStorage {
     const siteId = options.scope && options.scope.siteId;
     const path = siteId ? 'getVolatilePrefForSite' : 'getVolatilePrefForKey';
     const url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId, key]
-        .filter(x => x).join('/');
+      .filter(x => x).join('/');
 
     return axios.get(url)
       .then(res => res.data[key])
@@ -56,7 +56,7 @@ class WixStorageStrategy extends BaseStorage {
     const siteId = options.scope && options.scope.siteId;
     const path = siteId ? 'getVolatilePrefsForSite' : 'getVolatilePrefs';
     const url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId]
-        .filter(x => x).join('/');
+      .filter(x => x).join('/');
 
     return axios.get(url)
       .then(res => res.data)
