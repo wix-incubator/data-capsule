@@ -81,7 +81,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	    style.textContent = "";
 /******/ 	}
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 54);
+/******/ 	return __webpack_require__(__webpack_require__.s = 53);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -488,7 +488,7 @@ module.exports = greedySplit;
 
 /***/ }),
 
-/***/ 54:
+/***/ 53:
 /*!**********************************!*\
   !*** ./global-frame-listener.js ***!
   \**********************************/
@@ -500,7 +500,7 @@ module.exports = greedySplit;
 /* global window */
 
 
-var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 55);
+var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 54);
 
 if (typeof window !== 'undefined') {
   window.DataCapsuleTools = dataCapsuleTools;
@@ -510,7 +510,7 @@ module.exports = dataCapsuleTools;
 
 /***/ }),
 
-/***/ 55:
+/***/ 54:
 /*!***************************!*\
   !*** ./frame-listener.js ***!
   \***************************/
