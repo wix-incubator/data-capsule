@@ -111,7 +111,7 @@ console.log(await capsule.getItem('shahata')); // logs 123
 A simple in memory storage. Could be useful also as a testing strategy.
 
 ```js
-import {DataCapsule, IneMemoryStorageStrategy} from 'data-capsule';
+import {DataCapsule, InMemoryStorageStrategy} from 'data-capsule';
 
 const capsule = new DataCapsule({
   strategy: new IneMemoryStorageStrategy(),
