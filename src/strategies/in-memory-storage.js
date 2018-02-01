@@ -19,7 +19,7 @@ export class InMemoryStrategy extends BaseStorage {
 
   getItem(key, options = {}) {
     const data = this.memoryMap[options.namespace] && this.memoryMap[options.namespace][key];
-    return data ? Promise.resolve(data) : Promise.reject(NOT_FOUND);
+    return typeof data !== 'undefined' ? Promise.resolve(data) : Promise.reject(NOT_FOUND);
   }
 
   removeItem(key, options = {}) {

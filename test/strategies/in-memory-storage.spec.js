@@ -45,6 +45,12 @@ describe('in-memory-strategy', () => {
     await expect(capsule.getItem('shahata')).to.be.rejectedWith(NOT_FOUND);
   });
 
+  it('should get a boolean false value', async () => {
+    const capsule = new InMemoryStorageCapsule({namespace: 'wix'});
+    await capsule.setItem('shahata', false);
+    expect(await capsule.getItem('shahata')).to.equal(false);
+  });
+
   it('should remove item', async () => {
     const capsule = new InMemoryStorageCapsule({namespace: 'wix'});
     await capsule.setItem('shahata', 123);
