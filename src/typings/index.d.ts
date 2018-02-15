@@ -28,7 +28,7 @@ export class WixStorageStrategy extends BaseStorage {}
 export class CachedStorageStrategy extends BaseStorage {}
 
 export class FrameStorageStrategy extends BaseStorage {
-  constructor(target: string, origin: string, token: string);
+  constructor(target: Window, origin: string, token: string);
   setItem(...params: any[]): Promise<undefined>;
   getItem(...params: any[]): Promise<any>;
   removeItem(...params: any[]): Promise<undefined>;
