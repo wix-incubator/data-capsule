@@ -3,7 +3,7 @@
 const greedySplit = require('greedy-split');
 const connectMessageChannel = require('message-channel/connect');
 const BaseStorage = require('../base-storage');
-const {CONNECTION_MAX_TIMEOUT} = require('../utils/constants');
+const {CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT} = require('../utils/constants');
 
 class FrameStorageStrategy extends BaseStorage {
   constructor(target, origin, token) {
@@ -19,7 +19,7 @@ class FrameStorageStrategy extends BaseStorage {
       return Promise.resolve(this.channel);
     }
 
-    return connectMessageChannel('data-capsule', {target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT})
+    return connectMessageChannel('data-capsule', {target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT, messageMaxTimeout: MESSAGE_MAX_TIMEOUT})
       .then(channel => {
         this.channel = channel;
         return channel;
