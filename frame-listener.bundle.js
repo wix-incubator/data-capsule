@@ -172,6 +172,7 @@ module.exports = {
   STORAGE_PREFIX: 'capsule',
   NOT_FOUND: errors.NOT_FOUND,
   CONNECTION_MAX_TIMEOUT: 2000,
+  MESSAGE_MAX_TIMEOUT: 8000,
   SERVER_ERROR: errors.SERVER_ERROR,
   toError: toError
 };

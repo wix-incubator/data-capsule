@@ -170,6 +170,7 @@ module.exports = {
   STORAGE_PREFIX: 'capsule',
   NOT_FOUND: errors.NOT_FOUND,
   CONNECTION_MAX_TIMEOUT: 2000,
+  MESSAGE_MAX_TIMEOUT: 8000,
   SERVER_ERROR: errors.SERVER_ERROR,
   toError: toError
 };
@@ -1204,7 +1205,8 @@ var connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 1
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
-    CONNECTION_MAX_TIMEOUT = _require.CONNECTION_MAX_TIMEOUT;
+    CONNECTION_MAX_TIMEOUT = _require.CONNECTION_MAX_TIMEOUT,
+    MESSAGE_MAX_TIMEOUT = _require.MESSAGE_MAX_TIMEOUT;
 
 var FrameStorageStrategy = function (_BaseStorage) {
   _inherits(FrameStorageStrategy, _BaseStorage);
@@ -1230,7 +1232,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
         return Promise.resolve(this.channel);
       }
 
-      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT }).then(function (channel) {
+      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT, messageMaxTimeout: MESSAGE_MAX_TIMEOUT }).then(function (channel) {
         _this2.channel = channel;
         return channel;
       });
