@@ -114,7 +114,7 @@ A simple in memory storage. Could be useful also as a testing strategy.
 import {DataCapsule, InMemoryStorageStrategy} from 'data-capsule';
 
 const capsule = new DataCapsule({
-  strategy: new IneMemoryStorageStrategy(),
+  strategy: new InMemoryStorageStrategy(),
   namespace: 'wix'
 });
 await capsule.setItem('shahata', 123);
@@ -124,7 +124,7 @@ console.log(await capsule.getItem('shahata')); // logs 123
 And shorter alternative:
 
 ```js
-import {IneMemoryStorageCapsule} from 'data-capsule';
+import {InMemoryStorageCapsule} from 'data-capsule';
 
 const capsule = new LocalStorageCapsule({namespace: 'wix'});
 await capsule.setItem('shahata', 123);
