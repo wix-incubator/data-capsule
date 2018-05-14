@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	__webpack_require__.p = typeof window !== 'undefined' && window.__STATICS_BASE_URL__ || __webpack_require__.p;
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 54);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -488,7 +488,7 @@ module.exports = greedySplit;
 
 /***/ }),
 
-/***/ 53:
+/***/ 54:
 /*!**********************************!*\
   !*** ./global-frame-listener.js ***!
   \**********************************/
@@ -501,7 +501,7 @@ module.exports = greedySplit;
 /* global window */
 
 
-var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 54);
+var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 55);
 
 if (typeof window !== 'undefined') {
   window.DataCapsuleTools = dataCapsuleTools;
@@ -511,7 +511,7 @@ module.exports = dataCapsuleTools;
 
 /***/ }),
 
-/***/ 54:
+/***/ 55:
 /*!***************************!*\
   !*** ./frame-listener.js ***!
   \***************************/

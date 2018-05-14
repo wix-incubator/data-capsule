@@ -71,11 +71,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	__webpack_require__.p = typeof window !== 'undefined' && window.__STATICS_BASE_URL__ || __webpack_require__.p;
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 51);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /*!*************************!*\
   !*** ./base-storage.js ***!
   \*************************/
@@ -141,7 +142,8 @@ var BaseStorage = function () {
 module.exports = BaseStorage;
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
@@ -176,212 +178,8 @@ module.exports = {
 };
 
 /***/ }),
-/* 2 */,
-/* 3 */
-/*!*********************************************************!*\
-  !*** ../node_modules/message-channel/dist/src/utils.js ***!
-  \*********************************************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.parseConnectionMessage = exports.constructConnectionMessage = exports.parseChannelMessage = exports.constructChannelMessage = undefined;
-
-var _constants = __webpack_require__(/*! ./constants */ 4);
-
-var constructChannelMessage = exports.constructChannelMessage = function constructChannelMessage(payload, id) {
-  if (!id) {
-    return payload;
-  }
-
-  return id + _constants.messageDelimiter + payload;
-};
-
-var parseChannelMessage = exports.parseChannelMessage = function parseChannelMessage(message) {
-  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
-  if (firstDelimiterIndex === -1) {
-    return { id: null, payload: message };
-  }
-
-  var id = message.slice(0, firstDelimiterIndex);
-  var payload = message.slice(firstDelimiterIndex + 1);
-  return { id: id, payload: payload };
-};
-
-var constructConnectionMessage = exports.constructConnectionMessage = function constructConnectionMessage(scope) {
-  return _constants.connectionRequestMsg + _constants.messageDelimiter + scope;
-};
-
-var parseConnectionMessage = exports.parseConnectionMessage = function parseConnectionMessage(message) {
-  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
-  if (firstDelimiterIndex === -1 || message.slice(0, firstDelimiterIndex) !== _constants.connectionRequestMsg) {
-    throw new Error('Invalid connection message');
-  }
-
-  var scope = message.slice(firstDelimiterIndex + 1);
-  return scope;
-};
-
-/***/ }),
-/* 4 */
-/*!*************************************************************!*\
-  !*** ../node_modules/message-channel/dist/src/constants.js ***!
-  \*************************************************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var connectionRequestMsg = exports.connectionRequestMsg = 'req_con';
-var connectionSuccessMsg = exports.connectionSuccessMsg = 'connection_success';
-var messageDelimiter = exports.messageDelimiter = '|';
-var deafultConnectionMaxTimeout = exports.deafultConnectionMaxTimeout = 200;
-var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
-
-/***/ }),
-/* 5 */
-/*!******************************************************!*\
-  !*** ../node_modules/greedy-split/dist/src/index.js ***!
-  \******************************************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function greedySplit(str, separator, limit) {
-  var result = str.split(separator, limit);
-  if (result.length === limit) {
-    var length = 0;
-    if (typeof separator === 'string') {
-      length = result.join(separator).length;
-    } else {
-      length = result.reduce(function (l, x, i) {
-        var separatorLength = 0;
-        if (i + 1 < limit) {
-          separatorLength = str.slice(l).match(separator).shift().length;
-        }
-        return l + x.length + separatorLength;
-      }, 0);
-    }
-    result[limit - 1] += str.slice(length);
-  }
-  return result;
-}
-
-module.exports = greedySplit;
-//# sourceMappingURL=index.js.map
-
-
-/***/ }),
-/* 6 */,
-/* 7 */,
-/* 8 */
-/*!*************************!*\
-  !*** ./data-capsule.js ***!
-  \*************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
-
-function validateNamespace(options) {
-  if (!options.namespace) {
-    throw new Error('namespace is required');
-  } else if (typeof options.namespace !== 'string') {
-    throw new Error('namespace should be a string');
-  }
-}
-
-function buildValidadateOptions(capsuleOptions, options) {
-  options = Object.assign({}, capsuleOptions, options);
-  validateNamespace(options);
-  return options;
-}
-
-var DataCapsule = function (_BaseStorage) {
-  _inherits(DataCapsule, _BaseStorage);
-
-  function DataCapsule(_ref) {
-    var strategy = _ref.strategy,
-        namespace = _ref.namespace,
-        scope = _ref.scope;
-
-    _classCallCheck(this, DataCapsule);
-
-    var _this = _possibleConstructorReturn(this, (DataCapsule.__proto__ || Object.getPrototypeOf(DataCapsule)).call(this));
-
-    _this.storageStrategy = BaseStorage.verify(strategy);
-    _this._options = { namespace: namespace, scope: scope };
-    return _this;
-  }
-
-  _createClass(DataCapsule, [{
-    key: 'setItem',
-    value: function setItem(key, value, options) {
-      options = buildValidadateOptions(this._options, options);
-      return this.storageStrategy.setItem(key, value, options);
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem(key, options) {
-      options = buildValidadateOptions(this._options, options);
-      return this.storageStrategy.getItem(key, options);
-    }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key, options) {
-      options = buildValidadateOptions(this._options, options);
-      return this.storageStrategy.removeItem(key, options);
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems(options) {
-      options = buildValidadateOptions(this._options, options);
-      return this.storageStrategy.getAllItems(options);
-    }
-  }]);
-
-  return DataCapsule;
-}(BaseStorage);
-
-module.exports = DataCapsule;
-
-/***/ }),
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
+/***/ 14:
 /*!*************************************!*\
   !*** ./strategies/frame-storage.js ***!
   \*************************************/
@@ -508,7 +306,8 @@ var FrameStorageStrategy = function (_BaseStorage) {
 module.exports = FrameStorageStrategy;
 
 /***/ }),
-/* 15 */
+
+/***/ 15:
 /*!**************************************************!*\
   !*** ../node_modules/message-channel/connect.js ***!
   \**************************************************/
@@ -521,7 +320,8 @@ module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 16);
 
 
 /***/ }),
-/* 16 */
+
+/***/ 16:
 /*!*******************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
   \*******************************************************************/
@@ -576,7 +376,8 @@ function connect(scope) {
 module.exports = connect;
 
 /***/ }),
-/* 17 */
+
+/***/ 17:
 /*!************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
   \************************************************************************/
@@ -639,7 +440,8 @@ function sendFactory(port, options) {
 }
 
 /***/ }),
-/* 18 */
+
+/***/ 18:
 /*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
@@ -680,7 +482,8 @@ module.exports = v4;
 
 
 /***/ }),
-/* 19 */
+
+/***/ 19:
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
@@ -724,7 +527,8 @@ if (getRandomValues) {
 
 
 /***/ }),
-/* 20 */
+
+/***/ 20:
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
@@ -759,37 +563,123 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */
+
+/***/ 3:
+/*!*********************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/utils.js ***!
+  \*********************************************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseConnectionMessage = exports.constructConnectionMessage = exports.parseChannelMessage = exports.constructChannelMessage = undefined;
+
+var _constants = __webpack_require__(/*! ./constants */ 4);
+
+var constructChannelMessage = exports.constructChannelMessage = function constructChannelMessage(payload, id) {
+  if (!id) {
+    return payload;
+  }
+
+  return id + _constants.messageDelimiter + payload;
+};
+
+var parseChannelMessage = exports.parseChannelMessage = function parseChannelMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1) {
+    return { id: null, payload: message };
+  }
+
+  var id = message.slice(0, firstDelimiterIndex);
+  var payload = message.slice(firstDelimiterIndex + 1);
+  return { id: id, payload: payload };
+};
+
+var constructConnectionMessage = exports.constructConnectionMessage = function constructConnectionMessage(scope) {
+  return _constants.connectionRequestMsg + _constants.messageDelimiter + scope;
+};
+
+var parseConnectionMessage = exports.parseConnectionMessage = function parseConnectionMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1 || message.slice(0, firstDelimiterIndex) !== _constants.connectionRequestMsg) {
+    throw new Error('Invalid connection message');
+  }
+
+  var scope = message.slice(firstDelimiterIndex + 1);
+  return scope;
+};
+
+/***/ }),
+
+/***/ 4:
+/*!*************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/constants.js ***!
+  \*************************************************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var connectionRequestMsg = exports.connectionRequestMsg = 'req_con';
+var connectionSuccessMsg = exports.connectionSuccessMsg = 'connection_success';
+var messageDelimiter = exports.messageDelimiter = '|';
+var deafultConnectionMaxTimeout = exports.deafultConnectionMaxTimeout = 200;
+var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
+
+/***/ }),
+
+/***/ 5:
+/*!******************************************************!*\
+  !*** ../node_modules/greedy-split/dist/src/index.js ***!
+  \******************************************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function greedySplit(str, separator, limit) {
+  var result = str.split(separator, limit);
+  if (result.length === limit) {
+    var length = 0;
+    if (typeof separator === 'string') {
+      length = result.join(separator).length;
+    } else {
+      length = result.reduce(function (l, x, i) {
+        var separatorLength = 0;
+        if (i + 1 < limit) {
+          separatorLength = str.slice(l).match(separator).shift().length;
+        }
+        return l + x.length + separatorLength;
+      }, 0);
+    }
+    result[limit - 1] += str.slice(length);
+  }
+  return result;
+}
+
+module.exports = greedySplit;
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ 52:
 /*!*************************!*\
   !*** ./global-frame.js ***!
   \*************************/
@@ -802,7 +692,7 @@ module.exports = bytesToUuid;
 /* global window */
 
 
-var dataCapsuleTools = __webpack_require__(/*! ./frame */ 52);
+var dataCapsuleTools = __webpack_require__(/*! ./frame */ 53);
 
 if (typeof window !== 'undefined') {
   window.DataCapsuleTools = dataCapsuleTools;
@@ -811,7 +701,8 @@ if (typeof window !== 'undefined') {
 module.exports = dataCapsuleTools;
 
 /***/ }),
-/* 52 */
+
+/***/ 53:
 /*!******************!*\
   !*** ./frame.js ***!
   \******************/
@@ -838,7 +729,94 @@ module.exports = {
   FrameStorageStrategy: FrameStorageStrategy
 };
 
+/***/ }),
+
+/***/ 8:
+/*!*************************!*\
+  !*** ./data-capsule.js ***!
+  \*************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
+
+function validateNamespace(options) {
+  if (!options.namespace) {
+    throw new Error('namespace is required');
+  } else if (typeof options.namespace !== 'string') {
+    throw new Error('namespace should be a string');
+  }
+}
+
+function buildValidadateOptions(capsuleOptions, options) {
+  options = Object.assign({}, capsuleOptions, options);
+  validateNamespace(options);
+  return options;
+}
+
+var DataCapsule = function (_BaseStorage) {
+  _inherits(DataCapsule, _BaseStorage);
+
+  function DataCapsule(_ref) {
+    var strategy = _ref.strategy,
+        namespace = _ref.namespace,
+        scope = _ref.scope;
+
+    _classCallCheck(this, DataCapsule);
+
+    var _this = _possibleConstructorReturn(this, (DataCapsule.__proto__ || Object.getPrototypeOf(DataCapsule)).call(this));
+
+    _this.storageStrategy = BaseStorage.verify(strategy);
+    _this._options = { namespace: namespace, scope: scope };
+    return _this;
+  }
+
+  _createClass(DataCapsule, [{
+    key: 'setItem',
+    value: function setItem(key, value, options) {
+      options = buildValidadateOptions(this._options, options);
+      return this.storageStrategy.setItem(key, value, options);
+    }
+  }, {
+    key: 'getItem',
+    value: function getItem(key, options) {
+      options = buildValidadateOptions(this._options, options);
+      return this.storageStrategy.getItem(key, options);
+    }
+  }, {
+    key: 'removeItem',
+    value: function removeItem(key, options) {
+      options = buildValidadateOptions(this._options, options);
+      return this.storageStrategy.removeItem(key, options);
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems(options) {
+      options = buildValidadateOptions(this._options, options);
+      return this.storageStrategy.getAllItems(options);
+    }
+  }]);
+
+  return DataCapsule;
+}(BaseStorage);
+
+module.exports = DataCapsule;
+
 /***/ })
-/******/ ]);
+
+/******/ });
 });
 //# sourceMappingURL=frame.bundle.js.map

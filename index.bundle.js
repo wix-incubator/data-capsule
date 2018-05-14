@@ -1999,6 +1999,7 @@ var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */
 var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
 var WixStorageStrategy = __webpack_require__(/*! ./strategies/wix-storage */ 29);
 var CachedStorageStrategy = __webpack_require__(/*! ./strategies/cached-storage */ 50);
+var InMemoryStorageStrategy = __webpack_require__(/*! ./strategies/in-memory-storage */ 51);
 
 var _require = __webpack_require__(/*! ./utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
@@ -2008,6 +2009,10 @@ var DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
 
 function LocalStorageCapsule(options) {
   return new DataCapsule(Object.assign({}, options, { strategy: new LocalStorageStrategy() }));
+}
+
+function InMemoryStorageCapsule(options) {
+  return new DataCapsule(Object.assign({}, options, { strategy: new InMemoryStorageStrategy() }));
 }
 
 function LocalStorageCachedCapsule(options) {
@@ -2026,7 +2031,9 @@ module.exports = {
   LocalStorageCapsule: LocalStorageCapsule,
   WixStorageStrategy: WixStorageStrategy,
   CachedStorageStrategy: CachedStorageStrategy,
-  LocalStorageCachedCapsule: LocalStorageCachedCapsule
+  LocalStorageCachedCapsule: LocalStorageCachedCapsule,
+  InMemoryStorageStrategy: InMemoryStorageStrategy,
+  InMemoryStorageCapsule: InMemoryStorageCapsule
 };
 
 /***/ }),
@@ -3445,6 +3452,89 @@ var CachedStorageStrategy = function (_BaseStorage) {
 }(BaseStorage);
 
 module.exports = CachedStorageStrategy;
+
+/***/ }),
+/* 51 */
+/*!*****************************************!*\
+  !*** ./strategies/in-memory-storage.js ***!
+  \*****************************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
+    NOT_FOUND = _require.NOT_FOUND;
+
+var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
+
+var InMemoryStrategy = exports.InMemoryStrategy = function (_BaseStorage) {
+  _inherits(InMemoryStrategy, _BaseStorage);
+
+  function InMemoryStrategy() {
+    _classCallCheck(this, InMemoryStrategy);
+
+    var _this = _possibleConstructorReturn(this, (InMemoryStrategy.__proto__ || Object.getPrototypeOf(InMemoryStrategy)).call(this));
+
+    _this.memoryMap = {};
+    return _this;
+  }
+
+  _createClass(InMemoryStrategy, [{
+    key: 'setItem',
+    value: function setItem(key, value) {
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      if (typeof this.memoryMap[options.namespace] === 'undefined') {
+        this.memoryMap[options.namespace] = {};
+      }
+      this.memoryMap[options.namespace][key] = value;
+      return Promise.resolve();
+    }
+  }, {
+    key: 'getItem',
+    value: function getItem(key) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var data = this.memoryMap[options.namespace] && this.memoryMap[options.namespace][key];
+      return typeof data !== 'undefined' ? Promise.resolve(data) : Promise.reject(NOT_FOUND);
+    }
+  }, {
+    key: 'removeItem',
+    value: function removeItem(key) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      delete this.memoryMap[options.namespace][key];
+      return Promise.resolve();
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return Promise.resolve(this.memoryMap[options.namespace]);
+    }
+  }]);
+
+  return InMemoryStrategy;
+}(BaseStorage);
+
+module.exports = InMemoryStrategy;
 
 /***/ })
 /******/ ]);
