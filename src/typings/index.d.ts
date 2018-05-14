@@ -26,6 +26,7 @@ export class DataCapsule extends BaseStorage {
 export class LocalStorageStrategy extends BaseStorage {}
 export class WixStorageStrategy extends BaseStorage {}
 export class CachedStorageStrategy extends BaseStorage {}
+export class InMemoryStrategy extends BaseStorage {}
 
 export class FrameStorageStrategy extends BaseStorage {
   constructor(target: Window, origin: string, token: string);
@@ -44,3 +45,4 @@ export class FrameStorageListener {
 export const NOT_FOUND: Error;
 export const LocalStorageCapsule: (options: Options) => DataCapsule;
 export const LocalStorageCachedCapsule: (options: Options) => DataCapsule;
+export const InMemoryStorageCapsule: (options: Options) => DataCapsule;
