@@ -26,7 +26,7 @@ export class DataCapsule extends BaseStorage {
 export class LocalStorageStrategy extends BaseStorage {}
 export class WixStorageStrategy extends BaseStorage {}
 export class CachedStorageStrategy extends BaseStorage {}
-export class InMemoryStrategy extends BaseStorage {}
+export class InMemoryStorageStrategy extends BaseStorage {}
 
 export class FrameStorageStrategy extends BaseStorage {
   constructor(target: Window, origin: string, token: string);
