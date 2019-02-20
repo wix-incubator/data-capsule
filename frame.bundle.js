@@ -104,44 +104,49 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var BaseStorage = function () {
+  function BaseStorage() {
+    var _this = this;
 
-class BaseStorage {
-  constructor() {
-    ['setItem', 'getItem', 'removeItem', 'getAllItems'].forEach(method => {
-      if (this[method] === BaseStorage.prototype[method]) {
-        throw new Error(`BaseStorage method [${method}] must be overriden!`);
+    _classCallCheck(this, BaseStorage);
+
+    ['setItem', 'getItem', 'removeItem', 'getAllItems'].forEach(function (method) {
+      if (_this[method] === BaseStorage.prototype[method]) {
+        throw new Error('BaseStorage method [' + method + '] must be overriden!');
       }
     });
   }
 
-  setItem(key, value, options) {
+  BaseStorage.prototype.setItem = function setItem(key, value, options) {
     throw options;
-  }
+  };
 
-  getItem(key, options) {
+  BaseStorage.prototype.getItem = function getItem(key, options) {
     throw options;
-  }
+  };
 
-  removeItem(key, options) {
+  BaseStorage.prototype.removeItem = function removeItem(key, options) {
     throw options;
-  }
+  };
 
-  getAllItems(options) {
+  BaseStorage.prototype.getAllItems = function getAllItems(options) {
     throw options;
-  }
+  };
 
-  static verify(strategy) {
+  BaseStorage.verify = function verify(strategy) {
     if (strategy instanceof BaseStorage) {
       return strategy;
     } else {
-      throw new Error(`This class must extend BaseStorage!`);
+      throw new Error('This class must extend BaseStorage!');
     }
-  }
-}
+  };
+
+  return BaseStorage;
+}();
 
 module.exports = BaseStorage;
 
@@ -156,13 +161,15 @@ module.exports = BaseStorage;
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
 
-const errors = {
+var errors = {
   NOT_FOUND: new Error('Key was not found in capsule'),
   SERVER_ERROR: new Error('Failed to perform operarion on server')
 };
 
 function toError(str) {
-  return Object.values(errors).find(err => err.message === str) || str;
+  return Object.values(errors).find(function (err) {
+    return err.message === str;
+  }) || str;
 }
 
 module.exports = {
@@ -173,7 +180,7 @@ module.exports = {
   CONNECTION_MAX_TIMEOUT: 2000,
   MESSAGE_MAX_TIMEOUT: 8000,
   SERVER_ERROR: errors.SERVER_ERROR,
-  toError
+  toError: toError
 };
 
 /***/ }),
@@ -187,42 +194,66 @@ module.exports = {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-const greedySplit = __webpack_require__(/*! greedy-split */ 5);
-const connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 15);
-const BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
-const { CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT } = __webpack_require__(/*! ../utils/constants */ 1);
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-class FrameStorageStrategy extends BaseStorage {
-  constructor(target, origin, token) {
-    super();
-    this.target = target;
-    this.origin = origin;
-    this.token = token;
-    this.channel;
+var greedySplit = __webpack_require__(/*! greedy-split */ 5);
+var connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 15);
+var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
+
+var _require = __webpack_require__(/*! ../utils/constants */ 1),
+    CONNECTION_MAX_TIMEOUT = _require.CONNECTION_MAX_TIMEOUT,
+    MESSAGE_MAX_TIMEOUT = _require.MESSAGE_MAX_TIMEOUT;
+
+var FrameStorageStrategy = function (_BaseStorage) {
+  _inherits(FrameStorageStrategy, _BaseStorage);
+
+  function FrameStorageStrategy(target, origin, token) {
+    _classCallCheck(this, FrameStorageStrategy);
+
+    var _this = _possibleConstructorReturn(this, _BaseStorage.call(this));
+
+    _this.target = target;
+    _this.origin = origin;
+    _this.token = token;
+    _this.channel = undefined;
+    return _this;
   }
 
-  getChannel() {
+  FrameStorageStrategy.prototype.getChannel = function getChannel() {
+    var _this2 = this;
+
     if (this.channel) {
       return Promise.resolve(this.channel);
     }
 
-    return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT, messageMaxTimeout: MESSAGE_MAX_TIMEOUT }).then(channel => {
-      this.channel = channel;
+    return connectMessageChannel('data-capsule', {
+      target: this.target,
+      origin: this.origin,
+      connectionMaxTimeout: CONNECTION_MAX_TIMEOUT,
+      messageMaxTimeout: MESSAGE_MAX_TIMEOUT
+    }).then(function (channel) {
+      _this2.channel = channel;
       return channel;
     });
-  }
+  };
 
-  sendCommand(method, params) {
-    const payload = { data: params };
+  FrameStorageStrategy.prototype.sendCommand = function sendCommand(method, params) {
+    var _this3 = this;
 
-    return this.getChannel().then(sendToChannel => {
-      const message = [this.token, method, JSON.stringify(payload)].join('|');
+    var payload = { data: params };
 
-      return sendToChannel(message).then(e => {
-        const [status, payload] = greedySplit(e.data, '|', 2);
+    return this.getChannel().then(function (sendToChannel) {
+      var message = [_this3.token, method, JSON.stringify(payload)].join('|');
+
+      return sendToChannel(message).then(function (e) {
+        var _greedySplit = greedySplit(e.data, '|', 2),
+            status = _greedySplit[0],
+            payload = _greedySplit[1];
+
         if (status === 'reject') {
           throw payload;
         }
@@ -230,24 +261,42 @@ class FrameStorageStrategy extends BaseStorage {
         return JSON.parse(payload).data;
       });
     });
-  }
+  };
 
-  setItem(...params) {
+  FrameStorageStrategy.prototype.setItem = function setItem() {
+    for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+      params[_key] = arguments[_key];
+    }
+
     return this.sendCommand('setItem', params);
-  }
+  };
 
-  getItem(...params) {
+  FrameStorageStrategy.prototype.getItem = function getItem() {
+    for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      params[_key2] = arguments[_key2];
+    }
+
     return this.sendCommand('getItem', params);
-  }
+  };
 
-  removeItem(...params) {
+  FrameStorageStrategy.prototype.removeItem = function removeItem() {
+    for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      params[_key3] = arguments[_key3];
+    }
+
     return this.sendCommand('removeItem', params);
-  }
+  };
 
-  getAllItems(...params) {
+  FrameStorageStrategy.prototype.getAllItems = function getAllItems() {
+    for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+      params[_key4] = arguments[_key4];
+    }
+
     return this.sendCommand('getAllItems', params);
-  }
-}
+  };
+
+  return FrameStorageStrategy;
+}(BaseStorage);
 
 module.exports = FrameStorageStrategy;
 
@@ -637,11 +686,9 @@ module.exports = greedySplit;
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 /* global window */
 
-
-const dataCapsuleTools = __webpack_require__(/*! ./frame */ 54);
+var dataCapsuleTools = __webpack_require__(/*! ./frame */ 54);
 
 if (typeof window !== 'undefined') {
   window.DataCapsuleTools = dataCapsuleTools;
@@ -660,19 +707,19 @@ module.exports = dataCapsuleTools;
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
 
+var _require = __webpack_require__(/*! ./utils/constants */ 1),
+    NOT_FOUND = _require.NOT_FOUND;
 
-const FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
-const { NOT_FOUND } = __webpack_require__(/*! ./utils/constants */ 1);
-const BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
-const DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
+var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
+var DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
 
 module.exports = {
-  NOT_FOUND,
-  BaseStorage,
-  DataCapsule,
-  FrameStorageStrategy
+  NOT_FOUND: NOT_FOUND,
+  BaseStorage: BaseStorage,
+  DataCapsule: DataCapsule,
+  FrameStorageStrategy: FrameStorageStrategy
 };
 
 /***/ }),
@@ -686,10 +733,13 @@ module.exports = {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-const BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
 
 function validateNamespace(options) {
   if (!options.namespace) {
@@ -705,33 +755,45 @@ function buildValidadateOptions(capsuleOptions, options) {
   return options;
 }
 
-class DataCapsule extends BaseStorage {
-  constructor({ strategy, namespace, scope }) {
-    super();
-    this.storageStrategy = BaseStorage.verify(strategy);
-    this._options = { namespace, scope };
+var DataCapsule = function (_BaseStorage) {
+  _inherits(DataCapsule, _BaseStorage);
+
+  function DataCapsule(_ref) {
+    var strategy = _ref.strategy,
+        namespace = _ref.namespace,
+        scope = _ref.scope;
+
+    _classCallCheck(this, DataCapsule);
+
+    var _this = _possibleConstructorReturn(this, _BaseStorage.call(this));
+
+    _this.storageStrategy = BaseStorage.verify(strategy);
+    _this._options = { namespace: namespace, scope: scope };
+    return _this;
   }
 
-  setItem(key, value, options) {
+  DataCapsule.prototype.setItem = function setItem(key, value, options) {
     options = buildValidadateOptions(this._options, options);
     return this.storageStrategy.setItem(key, value, options);
-  }
+  };
 
-  getItem(key, options) {
+  DataCapsule.prototype.getItem = function getItem(key, options) {
     options = buildValidadateOptions(this._options, options);
     return this.storageStrategy.getItem(key, options);
-  }
+  };
 
-  removeItem(key, options) {
+  DataCapsule.prototype.removeItem = function removeItem(key, options) {
     options = buildValidadateOptions(this._options, options);
     return this.storageStrategy.removeItem(key, options);
-  }
+  };
 
-  getAllItems(options) {
+  DataCapsule.prototype.getAllItems = function getAllItems(options) {
     options = buildValidadateOptions(this._options, options);
     return this.storageStrategy.getAllItems(options);
-  }
-}
+  };
+
+  return DataCapsule;
+}(BaseStorage);
 
 module.exports = DataCapsule;
 
