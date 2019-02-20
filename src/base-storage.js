@@ -1,5 +1,3 @@
-'use strict';
-
 class BaseStorage {
   constructor() {
     ['setItem', 'getItem', 'removeItem', 'getAllItems'].forEach(method => {

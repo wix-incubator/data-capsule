@@ -1,15 +1,18 @@
 /* global localStorage */
-'use strict';
 
-const {STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR} = require('../utils/constants');
+const {
+  STORAGE_PREFIX,
+  PREFIX_SEPARATOR,
+  KEY_SEPARATOR,
+} = require('../utils/constants');
 
 function parseCacheKey(cacheKey) {
   const [prefix, key] = cacheKey.split(KEY_SEPARATOR);
   const [, namespace, scope] = prefix.split(PREFIX_SEPARATOR);
   if (scope === undefined) {
-    return {namespace, key};
+    return { namespace, key };
   } else {
-    return {namespace, scope, key};
+    return { namespace, scope, key };
   }
 }
 
@@ -23,10 +26,16 @@ function getCacheRecords(prefix = STORAGE_PREFIX + PREFIX_SEPARATOR) {
     const key = localStorage.key(i);
     if (key.startsWith(prefix)) {
       const data = localStorage.getItem(key);
-      items.push(Object.assign({
-        size: key.length + data.length,
-        originalKey: key
-      }, deserializeData(data), parseCacheKey(key)));
+      items.push(
+        Object.assign(
+          {
+            size: key.length + data.length,
+            originalKey: key,
+          },
+          deserializeData(data),
+          parseCacheKey(key),
+        ),
+      );
     }
   }
   return items;
@@ -34,7 +43,7 @@ function getCacheRecords(prefix = STORAGE_PREFIX + PREFIX_SEPARATOR) {
 
 function isExpired(data) {
   if (data.expiration) {
-    return data.createdAt + (data.expiration * 1000) <= Date.now();
+    return data.createdAt + data.expiration * 1000 <= Date.now();
   } else {
     return false;
   }
@@ -43,5 +52,5 @@ function isExpired(data) {
 module.exports = {
   deserializeData,
   getCacheRecords,
-  isExpired
+  isExpired,
 };

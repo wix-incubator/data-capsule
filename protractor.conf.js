@@ -6,5 +6,5 @@ exports.config = {
   onPrepare() {
     browser.ignoreSynchronization = true;
     return runStaticHtmlServer(3000);
-  }
+  },
 };

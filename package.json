@@ -42,44 +42,12 @@
     "yoshi": "^3"
   },
   "babel": {
-    "env": {
-      "test": {
-        "plugins": [
-          "transform-runtime"
-        ],
-        "presets": [
-          "stage-0",
-          [
-            "env",
-            {
-              "targets": {
-                "node": "current"
-              }
-            }
-          ]
-        ]
-      },
-      "development": {
-        "presets": [
-          "stage-0",
-          [
-            "env",
-            {
-              "targets": {
-                "browsers": [
-                  "last 3 versions",
-                  "ie >= 11",
-                  "Safari >= 8"
-                ]
-              }
-            }
-          ]
-        ]
-      }
-    }
+    "presets": [
+      "yoshi"
+    ]
   },
   "eslintConfig": {
-    "extends": "wix/esnext"
+    "extends": "yoshi"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

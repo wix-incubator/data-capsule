@@ -1,5 +1,3 @@
-'use strict';
-
 const listenerMessageChannel = require('message-channel/listener');
 const greedySplit = require('greedy-split');
 const BaseStorage = require('../base-storage');
@@ -8,12 +6,14 @@ const LocalStorageStrategy = require('../strategies/local-storage');
 class FrameStorageListener {
   constructor(strategy = new LocalStorageStrategy()) {
     this.storageStrategy = BaseStorage.verify(strategy);
-    this.stopListener;
+    this.stopListener = undefined;
   }
 
   start(verifier, interceptor) {
     if (!verifier || typeof verifier !== 'function') {
-      throw new Error('start function must get a verifier function as a first argument');
+      throw new Error(
+        'start function must get a verifier function as a first argument',
+      );
     }
 
     if (interceptor && typeof interceptor !== 'function') {
@@ -32,7 +32,7 @@ class FrameStorageListener {
 
       const respond = (status, data) => {
         if (status === 'resolve') {
-          const response = [status, JSON.stringify({data})].join('|');
+          const response = [status, JSON.stringify({ data })].join('|');
           return reply(response);
         }
 
@@ -49,13 +49,16 @@ class FrameStorageListener {
       const params = JSON.parse(payload).data;
       const options = params[params.length - 1];
 
-      const modifiedOptions = interceptor ? interceptor(options, e.source, e.origin, token) : options;
+      const modifiedOptions = interceptor
+        ? interceptor(options, e.source, e.origin, token)
+        : options;
       params[params.length - 1] = modifiedOptions;
 
       return invoke(...params)
         .then(result => {
           return respond('resolve', result);
-        }).catch(error => {
+        })
+        .catch(error => {
           return respond('reject', error.message || error);
         });
     }
