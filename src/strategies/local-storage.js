@@ -1,29 +1,19 @@
 /* global localStorage */
+'use strict';
 
 const BaseStorage = require('../base-storage');
 const localStorageCleaner = require('../utils/local-storage-cleaner');
-const {
-  STORAGE_PREFIX,
-  PREFIX_SEPARATOR,
-  KEY_SEPARATOR,
-  NOT_FOUND,
-} = require('../utils/constants');
-const {
-  getCacheRecords,
-  deserializeData,
-  isExpired,
-} = require('../utils/record-utils');
+const {STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR, NOT_FOUND} = require('../utils/constants');
+const {getCacheRecords, deserializeData, isExpired} = require('../utils/record-utils');
 
 function getCacheKey(key, options) {
   return getCachePrefix(options) + key;
 }
 
 function getCachePrefix(options) {
-  return (
-    [STORAGE_PREFIX, options.namespace, options.scope]
-      .filter(x => x)
-      .join(PREFIX_SEPARATOR) + KEY_SEPARATOR
-  );
+  return [STORAGE_PREFIX, options.namespace, options.scope]
+    .filter(x => x)
+    .join(PREFIX_SEPARATOR) + KEY_SEPARATOR;
 }
 
 function serializeData(value, options) {
@@ -31,16 +21,13 @@ function serializeData(value, options) {
     lastUsed: Date.now(),
     createdAt: options.createdAt || Date.now(),
     expiration: options.expiration,
-    value,
+    value
   });
 }
 
 function updateAccessTime(fullKey, data) {
-  const { expiration, createdAt } = data;
-  localStorage.setItem(
-    fullKey,
-    serializeData(data.value, { expiration, createdAt }),
-  );
+  const {expiration, createdAt} = data;
+  localStorage.setItem(fullKey, serializeData(data.value, {expiration, createdAt}));
 }
 
 class LocalStorageStrategy extends BaseStorage {
