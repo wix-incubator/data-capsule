@@ -1,6 +1,6 @@
 const errors = {
   NOT_FOUND: new Error('Key was not found in capsule'),
-  SERVER_ERROR: new Error('Failed to perform operarion on server'),
+  SERVER_ERROR: new Error('Failed to perform operarion on server')
 };
 
 function toError(str) {

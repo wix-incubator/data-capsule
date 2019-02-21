@@ -1,5 +1,7 @@
+'use strict';
+
 const BaseStorage = require('../src/base-storage');
-const { expect } = require('chai');
+const {expect} = require('chai');
 
 describe('base-storage', () => {
   it('should throw if instantiating with pure methods', () => {

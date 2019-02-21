@@ -1,9 +1,10 @@
-const { expect } = require('chai');
-const { NOT_FOUND } = require('../../src');
-const { browser, element, by } = require('protractor');
+'use strict';
 
-const switchToIFrame = () =>
-  browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
+const {expect} = require('chai');
+const {NOT_FOUND} = require('../../src');
+const {browser, element, by} = require('protractor');
+
+const switchToIFrame = () => browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
 const switchToMainFrame = () => browser.switchTo().frame(null);
 
 describe('frame-storage-strategy', () => {
@@ -83,7 +84,7 @@ describe('frame-storage-strategy', () => {
     expect(result).to.equal('{"hey":"ho"}');
   });
 
-  it("should stop the listener when calling the 🛑 method, and therefore the message won't return", async () => {
+  it('should stop the listener when calling the 🛑 method, and therefore the message won\'t return', async () => {
     await switchToMainFrame();
     await browser.executeScript(`listener.stop()`);
     await switchToIFrame();
@@ -180,6 +181,7 @@ describe('frame-storage-strategy when there is a interceptor', () => {
   });
 
   it('should save the item on a different scope and namespace as described in the listener', async () => {
+
     await browser.executeScript(`
     capsule.setItem('hey', 'ho', {namespace: 'wix'})
       .then(() => capsule.getItem('hey', {namespace: 'custom-space', scope: 'custom-scope'}))
@@ -198,9 +200,7 @@ describe('frame-storage-strategy when there is a interceptor', () => {
 
     await switchToMainFrame();
 
-    const a = await browser.executeScript(
-      `return localStorage.getItem('capsule|custom-space|custom-scope#hey')`,
-    );
+    const a = await browser.executeScript(`return localStorage.getItem('capsule|custom-space|custom-scope#hey')`);
     expect(JSON.parse(a).value).to.equal('ho');
   });
 });
