@@ -7,7 +7,7 @@
 		exports["data-capsule"] = factory();
 	else
 		root["data-capsule"] = factory();
-})((typeof self !== 'undefined' ? self : this), function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -46,32 +46,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
 /******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -87,8 +67,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.0.0/";
-/******/
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	__webpack_require__.p = typeof window !== 'undefined' && window.__STATICS_BASE_URL__ || __webpack_require__.p;
 /******/ 	// Load entry module and return exports
@@ -100,10 +79,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*************************!*\
   !*** ./base-storage.js ***!
   \*************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -120,29 +104,36 @@ var BaseStorage = function () {
     });
   }
 
-  BaseStorage.prototype.setItem = function setItem(key, value, options) {
-    throw options;
-  };
-
-  BaseStorage.prototype.getItem = function getItem(key, options) {
-    throw options;
-  };
-
-  BaseStorage.prototype.removeItem = function removeItem(key, options) {
-    throw options;
-  };
-
-  BaseStorage.prototype.getAllItems = function getAllItems(options) {
-    throw options;
-  };
-
-  BaseStorage.verify = function verify(strategy) {
-    if (strategy instanceof BaseStorage) {
-      return strategy;
-    } else {
-      throw new Error('This class must extend BaseStorage!');
+  _createClass(BaseStorage, [{
+    key: 'setItem',
+    value: function setItem(key, value, options) {
+      throw options;
     }
-  };
+  }, {
+    key: 'getItem',
+    value: function getItem(key, options) {
+      throw options;
+    }
+  }, {
+    key: 'removeItem',
+    value: function removeItem(key, options) {
+      throw options;
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems(options) {
+      throw options;
+    }
+  }], [{
+    key: 'verify',
+    value: function verify(strategy) {
+      if (strategy instanceof BaseStorage) {
+        return strategy;
+      } else {
+        throw new Error('This class must extend BaseStorage!');
+      }
+    }
+  }]);
 
   return BaseStorage;
 }();
@@ -154,10 +145,13 @@ module.exports = BaseStorage;
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var errors = {
   NOT_FOUND: new Error('Key was not found in capsule'),
@@ -186,7 +180,7 @@ module.exports = {
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/utils.js ***!
   \******************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -502,7 +496,7 @@ module.exports = {
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
   \*********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -555,7 +549,7 @@ var parseConnectionMessage = exports.parseConnectionMessage = function parseConn
 /*!*************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/constants.js ***!
   \*************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -577,7 +571,7 @@ var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -614,18 +608,22 @@ module.exports = greedySplit;
 /*!*************************************!*\
   !*** ./strategies/local-storage.js ***!
   \*************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* global localStorage */
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/* global localStorage */
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 13);
@@ -673,49 +671,55 @@ var LocalStorageStrategy = function (_BaseStorage) {
   function LocalStorageStrategy() {
     _classCallCheck(this, LocalStorageStrategy);
 
-    return _possibleConstructorReturn(this, _BaseStorage.apply(this, arguments));
+    return _possibleConstructorReturn(this, (LocalStorageStrategy.__proto__ || Object.getPrototypeOf(LocalStorageStrategy)).apply(this, arguments));
   }
 
-  LocalStorageStrategy.prototype.setItem = function setItem(key, value, options) {
-    key = getCacheKey(key, options);
-    value = serializeData(value, options);
-    try {
-      localStorage.setItem(key, value);
-    } catch (e) {
-      localStorageCleaner(key.length + value.length);
-      localStorage.setItem(key, value);
-    }
-    return Promise.resolve();
-  };
-
-  LocalStorageStrategy.prototype.getItem = function getItem(key, options) {
-    var fullKey = getCacheKey(key, options);
-    var data = localStorage.getItem(fullKey);
-    data = data && deserializeData(data);
-    if (data && !isExpired(data)) {
-      updateAccessTime(fullKey, data);
-      return Promise.resolve(data.value);
-    } else {
-      return Promise.reject(NOT_FOUND);
-    }
-  };
-
-  LocalStorageStrategy.prototype.removeItem = function removeItem(key, options) {
-    key = getCacheKey(key, options);
-    localStorage.removeItem(key);
-    return Promise.resolve();
-  };
-
-  LocalStorageStrategy.prototype.getAllItems = function getAllItems(options) {
-    var prefix = getCachePrefix(options);
-    var items = {};
-    getCacheRecords(prefix).forEach(function (record) {
-      if (!isExpired(record)) {
-        items[record.key] = record.value;
+  _createClass(LocalStorageStrategy, [{
+    key: 'setItem',
+    value: function setItem(key, value, options) {
+      key = getCacheKey(key, options);
+      value = serializeData(value, options);
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {
+        localStorageCleaner(key.length + value.length);
+        localStorage.setItem(key, value);
       }
-    });
-    return Promise.resolve(items);
-  };
+      return Promise.resolve();
+    }
+  }, {
+    key: 'getItem',
+    value: function getItem(key, options) {
+      var fullKey = getCacheKey(key, options);
+      var data = localStorage.getItem(fullKey);
+      data = data && deserializeData(data);
+      if (data && !isExpired(data)) {
+        updateAccessTime(fullKey, data);
+        return Promise.resolve(data.value);
+      } else {
+        return Promise.reject(NOT_FOUND);
+      }
+    }
+  }, {
+    key: 'removeItem',
+    value: function removeItem(key, options) {
+      key = getCacheKey(key, options);
+      localStorage.removeItem(key);
+      return Promise.resolve();
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems(options) {
+      var prefix = getCachePrefix(options);
+      var items = {};
+      getCacheRecords(prefix).forEach(function (record) {
+        if (!isExpired(record)) {
+          items[record.key] = record.value;
+        }
+      });
+      return Promise.resolve(items);
+    }
+  }]);
 
   return LocalStorageStrategy;
 }(BaseStorage);
@@ -727,12 +731,16 @@ module.exports = LocalStorageStrategy;
 /*!*******************************!*\
   !*** ./utils/record-utils.js ***!
   \*******************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 /* global localStorage */
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
@@ -741,12 +749,14 @@ var _require = __webpack_require__(/*! ../utils/constants */ 1),
 
 function parseCacheKey(cacheKey) {
   var _cacheKey$split = cacheKey.split(KEY_SEPARATOR),
-      prefix = _cacheKey$split[0],
-      key = _cacheKey$split[1];
+      _cacheKey$split2 = _slicedToArray(_cacheKey$split, 2),
+      prefix = _cacheKey$split2[0],
+      key = _cacheKey$split2[1];
 
   var _prefix$split = prefix.split(PREFIX_SEPARATOR),
-      namespace = _prefix$split[1],
-      scope = _prefix$split[2];
+      _prefix$split2 = _slicedToArray(_prefix$split, 3),
+      namespace = _prefix$split2[1],
+      scope = _prefix$split2[2];
 
   if (scope === undefined) {
     return { namespace: namespace, key: key };
@@ -795,10 +805,15 @@ module.exports = {
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -832,32 +847,38 @@ var DataCapsule = function (_BaseStorage) {
 
     _classCallCheck(this, DataCapsule);
 
-    var _this = _possibleConstructorReturn(this, _BaseStorage.call(this));
+    var _this = _possibleConstructorReturn(this, (DataCapsule.__proto__ || Object.getPrototypeOf(DataCapsule)).call(this));
 
     _this.storageStrategy = BaseStorage.verify(strategy);
     _this._options = { namespace: namespace, scope: scope };
     return _this;
   }
 
-  DataCapsule.prototype.setItem = function setItem(key, value, options) {
-    options = buildValidadateOptions(this._options, options);
-    return this.storageStrategy.setItem(key, value, options);
-  };
-
-  DataCapsule.prototype.getItem = function getItem(key, options) {
-    options = buildValidadateOptions(this._options, options);
-    return this.storageStrategy.getItem(key, options);
-  };
-
-  DataCapsule.prototype.removeItem = function removeItem(key, options) {
-    options = buildValidadateOptions(this._options, options);
-    return this.storageStrategy.removeItem(key, options);
-  };
-
-  DataCapsule.prototype.getAllItems = function getAllItems(options) {
-    options = buildValidadateOptions(this._options, options);
-    return this.storageStrategy.getAllItems(options);
-  };
+  _createClass(DataCapsule, [{
+    key: 'setItem',
+    value: function setItem(key, value, options) {
+      options = buildValidadateOptions(this._options, options);
+      return this.storageStrategy.setItem(key, value, options);
+    }
+  }, {
+    key: 'getItem',
+    value: function getItem(key, options) {
+      options = buildValidadateOptions(this._options, options);
+      return this.storageStrategy.getItem(key, options);
+    }
+  }, {
+    key: 'removeItem',
+    value: function removeItem(key, options) {
+      options = buildValidadateOptions(this._options, options);
+      return this.storageStrategy.removeItem(key, options);
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems(options) {
+      options = buildValidadateOptions(this._options, options);
+      return this.storageStrategy.getAllItems(options);
+    }
+  }]);
 
   return DataCapsule;
 }(BaseStorage);
@@ -869,10 +890,19 @@ module.exports = DataCapsule;
 /*!*****************************************!*\
   !*** ./utils/frame-storage-listener.js ***!
   \*****************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -888,64 +918,69 @@ var FrameStorageListener = function () {
     _classCallCheck(this, FrameStorageListener);
 
     this.storageStrategy = BaseStorage.verify(strategy);
-    this.stopListener = undefined;
+    this.stopListener;
   }
 
-  FrameStorageListener.prototype.start = function start(verifier, interceptor) {
-    if (!verifier || typeof verifier !== 'function') {
-      throw new Error('start function must get a verifier function as a first argument');
-    }
-
-    if (interceptor && typeof interceptor !== 'function') {
-      throw new Error('the interceptor must be a function');
-    }
-
-    var storageStrategy = BaseStorage.verify(this.storageStrategy);
-    this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
-
-    function messageHandler(e, reply) {
-      if (typeof e.data !== 'string') {
-        return;
+  _createClass(FrameStorageListener, [{
+    key: 'start',
+    value: function start(verifier, interceptor) {
+      if (!verifier || typeof verifier !== 'function') {
+        throw new Error('start function must get a verifier function as a first argument');
       }
 
-      var _greedySplit = greedySplit(e.data, '|', 3),
-          token = _greedySplit[0],
-          method = _greedySplit[1],
-          payload = _greedySplit[2];
+      if (interceptor && typeof interceptor !== 'function') {
+        throw new Error('the interceptor must be a function');
+      }
 
-      var respond = function respond(status, data) {
-        if (status === 'resolve') {
-          var _response = [status, JSON.stringify({ data: data })].join('|');
-          return reply(_response);
+      var storageStrategy = BaseStorage.verify(this.storageStrategy);
+      this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
+
+      function messageHandler(e, reply) {
+        if (typeof e.data !== 'string') {
+          return;
         }
 
-        var response = [status, data].join('|');
-        return reply(response);
-      };
+        var _greedySplit = greedySplit(e.data, '|', 3),
+            _greedySplit2 = _slicedToArray(_greedySplit, 3),
+            token = _greedySplit2[0],
+            method = _greedySplit2[1],
+            payload = _greedySplit2[2];
 
-      if (!verifier(e.source, e.origin, token)) {
-        return respond('reject', new Error('message was not authorized'));
+        var respond = function respond(status, data) {
+          if (status === 'resolve') {
+            var _response = [status, JSON.stringify({ data: data })].join('|');
+            return reply(_response);
+          }
+
+          var response = [status, data].join('|');
+          return reply(response);
+        };
+
+        if (!verifier(e.source, e.origin, token)) {
+          return respond('reject', new Error('message was not authorized'));
+        }
+
+        var invoke = storageStrategy[method].bind(storageStrategy);
+
+        var params = JSON.parse(payload).data;
+        var options = params[params.length - 1];
+
+        var modifiedOptions = interceptor ? interceptor(options, e.source, e.origin, token) : options;
+        params[params.length - 1] = modifiedOptions;
+
+        return invoke.apply(undefined, _toConsumableArray(params)).then(function (result) {
+          return respond('resolve', result);
+        }).catch(function (error) {
+          return respond('reject', error.message || error);
+        });
       }
-
-      var invoke = storageStrategy[method].bind(storageStrategy);
-
-      var params = JSON.parse(payload).data;
-      var options = params[params.length - 1];
-
-      var modifiedOptions = interceptor ? interceptor(options, e.source, e.origin, token) : options;
-      params[params.length - 1] = modifiedOptions;
-
-      return invoke.apply(undefined, params).then(function (result) {
-        return respond('resolve', result);
-      }).catch(function (error) {
-        return respond('reject', error.message || error);
-      });
     }
-  };
-
-  FrameStorageListener.prototype.stop = function stop() {
-    this.stopListener && this.stopListener();
-  };
+  }, {
+    key: 'stop',
+    value: function stop() {
+      this.stopListener && this.stopListener();
+    }
+  }]);
 
   return FrameStorageListener;
 }();
@@ -957,7 +992,7 @@ module.exports = FrameStorageListener;
 /*!***************************************************!*\
   !*** ../node_modules/message-channel/listener.js ***!
   \***************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -970,7 +1005,7 @@ module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
 /*!*********************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listener.js ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1038,7 +1073,7 @@ module.exports = listener;
 /*!***************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listen-factory.js ***!
   \***************************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1082,12 +1117,14 @@ function listenFactory(port, callback) {
 /*!****************************************!*\
   !*** ./utils/local-storage-cleaner.js ***!
   \****************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 /* global localStorage */
+
 
 var _require = __webpack_require__(/*! ./record-utils */ 7),
     getCacheRecords = _require.getCacheRecords,
@@ -1145,10 +1182,17 @@ module.exports = localStorageCleaner;
 /*!*************************************!*\
   !*** ./strategies/frame-storage.js ***!
   \*************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1170,86 +1214,90 @@ var FrameStorageStrategy = function (_BaseStorage) {
   function FrameStorageStrategy(target, origin, token) {
     _classCallCheck(this, FrameStorageStrategy);
 
-    var _this = _possibleConstructorReturn(this, _BaseStorage.call(this));
+    var _this = _possibleConstructorReturn(this, (FrameStorageStrategy.__proto__ || Object.getPrototypeOf(FrameStorageStrategy)).call(this));
 
     _this.target = target;
     _this.origin = origin;
     _this.token = token;
-    _this.channel = undefined;
+    _this.channel;
     return _this;
   }
 
-  FrameStorageStrategy.prototype.getChannel = function getChannel() {
-    var _this2 = this;
+  _createClass(FrameStorageStrategy, [{
+    key: 'getChannel',
+    value: function getChannel() {
+      var _this2 = this;
 
-    if (this.channel) {
-      return Promise.resolve(this.channel);
-    }
+      if (this.channel) {
+        return Promise.resolve(this.channel);
+      }
 
-    return connectMessageChannel('data-capsule', {
-      target: this.target,
-      origin: this.origin,
-      connectionMaxTimeout: CONNECTION_MAX_TIMEOUT,
-      messageMaxTimeout: MESSAGE_MAX_TIMEOUT
-    }).then(function (channel) {
-      _this2.channel = channel;
-      return channel;
-    });
-  };
-
-  FrameStorageStrategy.prototype.sendCommand = function sendCommand(method, params) {
-    var _this3 = this;
-
-    var payload = { data: params };
-
-    return this.getChannel().then(function (sendToChannel) {
-      var message = [_this3.token, method, JSON.stringify(payload)].join('|');
-
-      return sendToChannel(message).then(function (e) {
-        var _greedySplit = greedySplit(e.data, '|', 2),
-            status = _greedySplit[0],
-            payload = _greedySplit[1];
-
-        if (status === 'reject') {
-          throw payload;
-        }
-
-        return JSON.parse(payload).data;
+      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT, messageMaxTimeout: MESSAGE_MAX_TIMEOUT }).then(function (channel) {
+        _this2.channel = channel;
+        return channel;
       });
-    });
-  };
-
-  FrameStorageStrategy.prototype.setItem = function setItem() {
-    for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
-      params[_key] = arguments[_key];
     }
+  }, {
+    key: 'sendCommand',
+    value: function sendCommand(method, params) {
+      var _this3 = this;
 
-    return this.sendCommand('setItem', params);
-  };
+      var payload = { data: params };
 
-  FrameStorageStrategy.prototype.getItem = function getItem() {
-    for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      params[_key2] = arguments[_key2];
+      return this.getChannel().then(function (sendToChannel) {
+        var message = [_this3.token, method, JSON.stringify(payload)].join('|');
+
+        return sendToChannel(message).then(function (e) {
+          var _greedySplit = greedySplit(e.data, '|', 2),
+              _greedySplit2 = _slicedToArray(_greedySplit, 2),
+              status = _greedySplit2[0],
+              payload = _greedySplit2[1];
+
+          if (status === 'reject') {
+            throw payload;
+          }
+
+          return JSON.parse(payload).data;
+        });
+      });
     }
+  }, {
+    key: 'setItem',
+    value: function setItem() {
+      for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+        params[_key] = arguments[_key];
+      }
 
-    return this.sendCommand('getItem', params);
-  };
-
-  FrameStorageStrategy.prototype.removeItem = function removeItem() {
-    for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-      params[_key3] = arguments[_key3];
+      return this.sendCommand('setItem', params);
     }
+  }, {
+    key: 'getItem',
+    value: function getItem() {
+      for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        params[_key2] = arguments[_key2];
+      }
 
-    return this.sendCommand('removeItem', params);
-  };
-
-  FrameStorageStrategy.prototype.getAllItems = function getAllItems() {
-    for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-      params[_key4] = arguments[_key4];
+      return this.sendCommand('getItem', params);
     }
+  }, {
+    key: 'removeItem',
+    value: function removeItem() {
+      for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        params[_key3] = arguments[_key3];
+      }
 
-    return this.sendCommand('getAllItems', params);
-  };
+      return this.sendCommand('removeItem', params);
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems() {
+      for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        params[_key4] = arguments[_key4];
+      }
+
+      return this.sendCommand('getAllItems', params);
+    }
+  }]);
 
   return FrameStorageStrategy;
 }(BaseStorage);
@@ -1261,7 +1309,7 @@ module.exports = FrameStorageStrategy;
 /*!**************************************************!*\
   !*** ../node_modules/message-channel/connect.js ***!
   \**************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1274,7 +1322,7 @@ module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 16);
 /*!*******************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
   \*******************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1329,7 +1377,7 @@ module.exports = connect;
 /*!************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
   \************************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1392,7 +1440,7 @@ function sendFactory(port, options) {
 /*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1433,7 +1481,7 @@ module.exports = v4;
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -1479,7 +1527,7 @@ if (getRandomValues) {
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -1515,7 +1563,7 @@ module.exports = bytesToUuid;
 /*!*********************************************!*\
   !*** ../node_modules/axios/lib/defaults.js ***!
   \*********************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1614,14 +1662,14 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node-libs-browser/node_modules/process/browser.js */ 34)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 34)))
 
 /***/ }),
 /* 22 */
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/helpers/bind.js ***!
   \*************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1645,7 +1693,7 @@ module.exports = function bind(fn, thisArg) {
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/adapters/xhr.js ***!
   \*************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1677,7 +1725,7 @@ module.exports = function xhrAdapter(config) {
     // For IE 8/9 CORS support
     // Only supports POST and GET calls and doesn't returns the response headers.
     // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if ( true &&
+    if ("development" !== 'test' &&
         typeof window !== 'undefined' &&
         window.XDomainRequest && !('withCredentials' in request) &&
         !isURLSameOrigin(config.url)) {
@@ -1838,7 +1886,7 @@ module.exports = function xhrAdapter(config) {
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/core/createError.js ***!
   \*****************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1869,7 +1917,7 @@ module.exports = function createError(message, config, code, request, response) 
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/cancel/isCancel.js ***!
   \****************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1887,7 +1935,7 @@ module.exports = function isCancel(value) {
 /*!**************************************************!*\
   !*** ../node_modules/axios/lib/cancel/Cancel.js ***!
   \**************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1919,12 +1967,14 @@ module.exports = Cancel;
 /*!*******************!*\
   !*** ./global.js ***!
   \*******************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 /* global window */
+
 
 var dataCapsuleTools = __webpack_require__(/*! ./index */ 28);
 
@@ -1939,10 +1989,13 @@ module.exports = dataCapsuleTools;
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listener */ 9);
 var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 6);
@@ -1967,9 +2020,7 @@ function InMemoryStorageCapsule(options) {
 
 function LocalStorageCachedCapsule(options) {
   return new DataCapsule(Object.assign({}, options, {
-    strategy: new CachedStorageStrategy({
-      remoteStrategy: options.remoteStrategy
-    })
+    strategy: new CachedStorageStrategy({ remoteStrategy: options.remoteStrategy })
   }));
 }
 
@@ -1993,10 +2044,15 @@ module.exports = {
 /*!***********************************!*\
   !*** ./strategies/wix-storage.js ***!
   \***********************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2017,70 +2073,76 @@ var WixStorageStrategy = function (_BaseStorage) {
   function WixStorageStrategy() {
     _classCallCheck(this, WixStorageStrategy);
 
-    return _possibleConstructorReturn(this, _BaseStorage.apply(this, arguments));
+    return _possibleConstructorReturn(this, (WixStorageStrategy.__proto__ || Object.getPrototypeOf(WixStorageStrategy)).apply(this, arguments));
   }
 
-  WixStorageStrategy.prototype.setItem = function setItem(key, value, options) {
-    var payload = {
-      nameSpace: options.namespace,
-      key: key,
-      blob: value
-    };
-    if (options.scope && options.scope.siteId) {
-      payload.siteId = options.scope.siteId;
+  _createClass(WixStorageStrategy, [{
+    key: 'setItem',
+    value: function setItem(key, value, options) {
+      var payload = {
+        nameSpace: options.namespace,
+        key: key,
+        blob: value
+      };
+      if (options.scope && options.scope.siteId) {
+        payload.siteId = options.scope.siteId;
+      }
+      if (options.expiration) {
+        payload.TTLInDays = Math.ceil(options.expiration / (60 * 60 * 24));
+      }
+      return axios.post('/_api/wix-user-preferences-webapp/set', payload).then(function () {
+        return undefined;
+      }).catch(function () {
+        throw SERVER_ERROR;
+      });
     }
-    if (options.expiration) {
-      payload.TTLInDays = Math.ceil(options.expiration / (60 * 60 * 24));
+  }, {
+    key: 'removeItem',
+    value: function removeItem(key, options) {
+      var payload = {
+        nameSpace: options.namespace,
+        key: key
+      };
+      if (options.scope && options.scope.siteId) {
+        payload.siteId = options.scope.siteId;
+      }
+      return axios.post('/_api/wix-user-preferences-webapp/delete', payload).then(function () {
+        return undefined;
+      }).catch(function () {
+        throw SERVER_ERROR;
+      });
     }
-    return axios.post('/_api/wix-user-preferences-webapp/set', payload).then(function () {
-      return undefined;
-    }).catch(function () {
-      throw SERVER_ERROR;
-    });
-  };
+  }, {
+    key: 'getItem',
+    value: function getItem(key, options) {
+      var siteId = options.scope && options.scope.siteId;
+      var path = siteId ? 'getVolatilePrefForSite' : 'getVolatilePrefForKey';
+      var url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId, key].filter(function (x) {
+        return x;
+      }).join('/');
 
-  WixStorageStrategy.prototype.removeItem = function removeItem(key, options) {
-    var payload = {
-      nameSpace: options.namespace,
-      key: key
-    };
-    if (options.scope && options.scope.siteId) {
-      payload.siteId = options.scope.siteId;
+      return axios.get(url).then(function (res) {
+        return res.data[key];
+      }).catch(function (err) {
+        throw err.response.status === 404 ? NOT_FOUND : SERVER_ERROR;
+      });
     }
-    return axios.post('/_api/wix-user-preferences-webapp/delete', payload).then(function () {
-      return undefined;
-    }).catch(function () {
-      throw SERVER_ERROR;
-    });
-  };
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems(options) {
+      var siteId = options.scope && options.scope.siteId;
+      var path = siteId ? 'getVolatilePrefsForSite' : 'getVolatilePrefs';
+      var url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId].filter(function (x) {
+        return x;
+      }).join('/');
 
-  WixStorageStrategy.prototype.getItem = function getItem(key, options) {
-    var siteId = options.scope && options.scope.siteId;
-    var path = siteId ? 'getVolatilePrefForSite' : 'getVolatilePrefForKey';
-    var url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId, key].filter(function (x) {
-      return x;
-    }).join('/');
-
-    return axios.get(url).then(function (res) {
-      return res.data[key];
-    }).catch(function (err) {
-      throw err.response.status === 404 ? NOT_FOUND : SERVER_ERROR;
-    });
-  };
-
-  WixStorageStrategy.prototype.getAllItems = function getAllItems(options) {
-    var siteId = options.scope && options.scope.siteId;
-    var path = siteId ? 'getVolatilePrefsForSite' : 'getVolatilePrefs';
-    var url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId].filter(function (x) {
-      return x;
-    }).join('/');
-
-    return axios.get(url).then(function (res) {
-      return res.data;
-    }).catch(function () {
-      throw SERVER_ERROR;
-    });
-  };
+      return axios.get(url).then(function (res) {
+        return res.data;
+      }).catch(function () {
+        throw SERVER_ERROR;
+      });
+    }
+  }]);
 
   return WixStorageStrategy;
 }(BaseStorage);
@@ -2092,7 +2154,7 @@ module.exports = WixStorageStrategy;
 /*!**************************************!*\
   !*** ../node_modules/axios/index.js ***!
   \**************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2104,7 +2166,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 31);
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/axios.js ***!
   \******************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2169,7 +2231,7 @@ module.exports.default = axios;
 /*!******************************************!*\
   !*** ../node_modules/is-buffer/index.js ***!
   \******************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -2202,7 +2264,7 @@ function isSlowBuffer (obj) {
 /*!***********************************************!*\
   !*** ../node_modules/axios/lib/core/Axios.js ***!
   \***********************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2298,10 +2360,10 @@ module.exports = Axios;
 
 /***/ }),
 /* 34 */
-/*!*************************************************************************!*\
-  !*** ../node_modules/node-libs-browser/node_modules/process/browser.js ***!
-  \*************************************************************************/
-/*! no static exports found */
+/*!******************************************!*\
+  !*** ../node_modules/process/browser.js ***!
+  \******************************************/
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -2497,7 +2559,7 @@ process.umask = function() { return 0; };
 /*!****************************************************************!*\
   !*** ../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \****************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2522,7 +2584,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /*!************************************************!*\
   !*** ../node_modules/axios/lib/core/settle.js ***!
   \************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2561,7 +2623,7 @@ module.exports = function settle(resolve, reject, response) {
 /*!******************************************************!*\
   !*** ../node_modules/axios/lib/core/enhanceError.js ***!
   \******************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2595,7 +2657,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/buildURL.js ***!
   \*****************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2676,7 +2738,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /*!*********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/parseHeaders.js ***!
   \*********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2726,7 +2788,7 @@ module.exports = function parseHeaders(headers) {
 /*!************************************************************!*\
   !*** ../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2807,7 +2869,7 @@ module.exports = (
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/helpers/btoa.js ***!
   \*************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2856,7 +2918,7 @@ module.exports = btoa;
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/cookies.js ***!
   \****************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2922,7 +2984,7 @@ module.exports = (
 /*!************************************************************!*\
   !*** ../node_modules/axios/lib/core/InterceptorManager.js ***!
   \************************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2987,7 +3049,7 @@ module.exports = InterceptorManager;
 /*!*********************************************************!*\
   !*** ../node_modules/axios/lib/core/dispatchRequest.js ***!
   \*********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3079,7 +3141,7 @@ module.exports = function dispatchRequest(config) {
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/core/transformData.js ***!
   \*******************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3112,7 +3174,7 @@ module.exports = function transformData(data, headers, fns) {
 /*!**********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \**********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3139,7 +3201,7 @@ module.exports = function isAbsoluteURL(url) {
 /*!********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/combineURLs.js ***!
   \********************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3166,7 +3228,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*******************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3236,7 +3298,7 @@ module.exports = CancelToken;
 /*!***************************************************!*\
   !*** ../node_modules/axios/lib/helpers/spread.js ***!
   \***************************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3276,10 +3338,15 @@ module.exports = function spread(callback) {
 /*!**************************************!*\
   !*** ./strategies/cached-storage.js ***!
   \**************************************/
-/*! no static exports found */
+/*! dynamic exports provided */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3292,7 +3359,6 @@ var _require = __webpack_require__(/*! ../utils/constants */ 1),
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 var LocalStorageStrategy = __webpack_require__(/*! ./local-storage */ 6);
-
 var DELETED = '___DELETED___';
 
 var CachedStorageStrategy = function (_BaseStorage) {
@@ -3305,77 +3371,85 @@ var CachedStorageStrategy = function (_BaseStorage) {
 
     _classCallCheck(this, CachedStorageStrategy);
 
-    var _this = _possibleConstructorReturn(this, _BaseStorage.call(this));
+    var _this = _possibleConstructorReturn(this, (CachedStorageStrategy.__proto__ || Object.getPrototypeOf(CachedStorageStrategy)).call(this));
 
     _this.remoteStrategy = BaseStorage.verify(remoteStrategy);
     _this.localStrategy = BaseStorage.verify(localStrategy);
     return _this;
   }
 
-  CachedStorageStrategy.prototype._cacheItem = function _cacheItem(key, value, options) {
-    return this.localStrategy.setItem(key, value, Object.assign(options, { expiration: 3600 }));
-  };
-
-  CachedStorageStrategy.prototype.setItem = function setItem(key, value, options) {
-    var _this2 = this;
-
-    return this.remoteStrategy.setItem(key, value, options).then(function () {
-      return _this2._cacheItem(key, value, options);
-    });
-  };
-
-  CachedStorageStrategy.prototype.removeItem = function removeItem(key, options) {
-    var _this3 = this;
-
-    return this.remoteStrategy.removeItem(key, options).then(function () {
-      return _this3._cacheItem(key, DELETED, options);
-    });
-  };
-
-  CachedStorageStrategy.prototype._getRemoteAndCache = function _getRemoteAndCache(key, options) {
-    var _this4 = this;
-
-    return this.remoteStrategy.getItem(key, options).then(function (value) {
-      return _this4._cacheItem(key, value, options).then(function () {
-        return value;
-      });
-    }).catch(function (e) {
-      if (e === NOT_FOUND) {
-        return _this4._cacheItem(key, DELETED, options).then(function () {
-          throw e;
-        });
-      }
-      throw e;
-    });
-  };
-
-  CachedStorageStrategy.prototype.getItem = function getItem(key, options) {
-    var _this5 = this;
-
-    function throwIfDeletedOrReturn(value) {
-      if (value === DELETED) {
-        throw NOT_FOUND;
-      }
-
-      return value;
+  _createClass(CachedStorageStrategy, [{
+    key: '_cacheItem',
+    value: function _cacheItem(key, value, options) {
+      return this.localStrategy.setItem(key, value, Object.assign(options, { expiration: 3600 }));
     }
+  }, {
+    key: 'setItem',
+    value: function setItem(key, value, options) {
+      var _this2 = this;
 
-    return this.localStrategy.getItem(key, options).catch(function () {
-      return _this5._getRemoteAndCache(key, options);
-    }).then(throwIfDeletedOrReturn);
-  };
-
-  CachedStorageStrategy.prototype.getAllItems = function getAllItems(options) {
-    var _this6 = this;
-
-    return this.remoteStrategy.getAllItems(options).then(function (items) {
-      return Promise.all(Object.keys(items).map(function (key) {
-        return _this6._cacheItem(key, items[key], options);
-      })).then(function () {
-        return items;
+      return this.remoteStrategy.setItem(key, value, options).then(function () {
+        return _this2._cacheItem(key, value, options);
       });
-    });
-  };
+    }
+  }, {
+    key: 'removeItem',
+    value: function removeItem(key, options) {
+      var _this3 = this;
+
+      return this.remoteStrategy.removeItem(key, options).then(function () {
+        return _this3._cacheItem(key, DELETED, options);
+      });
+    }
+  }, {
+    key: '_getRemoteAndCache',
+    value: function _getRemoteAndCache(key, options) {
+      var _this4 = this;
+
+      return this.remoteStrategy.getItem(key, options).then(function (value) {
+        return _this4._cacheItem(key, value, options).then(function () {
+          return value;
+        });
+      }).catch(function (e) {
+        if (e === NOT_FOUND) {
+          return _this4._cacheItem(key, DELETED, options).then(function () {
+            throw e;
+          });
+        }
+        throw e;
+      });
+    }
+  }, {
+    key: 'getItem',
+    value: function getItem(key, options) {
+      var _this5 = this;
+
+      function throwIfDeletedOrReturn(value) {
+        if (value === DELETED) {
+          throw NOT_FOUND;
+        }
+
+        return value;
+      }
+
+      return this.localStrategy.getItem(key, options).catch(function () {
+        return _this5._getRemoteAndCache(key, options);
+      }).then(throwIfDeletedOrReturn);
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems(options) {
+      var _this6 = this;
+
+      return this.remoteStrategy.getAllItems(options).then(function (items) {
+        return Promise.all(Object.keys(items).map(function (key) {
+          return _this6._cacheItem(key, items[key], options);
+        })).then(function () {
+          return items;
+        });
+      });
+    }
+  }]);
 
   return CachedStorageStrategy;
 }(BaseStorage);
@@ -3387,14 +3461,20 @@ module.exports = CachedStorageStrategy;
 /*!*****************************************!*\
   !*** ./strategies/in-memory-storage.js ***!
   \*****************************************/
-/*! exports provided: InMemoryStrategy */
+/*! dynamic exports provided */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module uses injected variables (module) */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InMemoryStrategy", function() { return InMemoryStrategy; });
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -3406,89 +3486,58 @@ var _require = __webpack_require__(/*! ../utils/constants */ 1),
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
-var InMemoryStrategy = function (_BaseStorage) {
+var InMemoryStrategy = exports.InMemoryStrategy = function (_BaseStorage) {
   _inherits(InMemoryStrategy, _BaseStorage);
 
   function InMemoryStrategy() {
     _classCallCheck(this, InMemoryStrategy);
 
-    var _this = _possibleConstructorReturn(this, _BaseStorage.call(this));
+    var _this = _possibleConstructorReturn(this, (InMemoryStrategy.__proto__ || Object.getPrototypeOf(InMemoryStrategy)).call(this));
 
     _this.memoryMap = {};
     return _this;
   }
 
-  InMemoryStrategy.prototype.setItem = function setItem(key, value) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  _createClass(InMemoryStrategy, [{
+    key: 'setItem',
+    value: function setItem(key, value) {
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-    if (typeof this.memoryMap[options.namespace] === 'undefined') {
-      this.memoryMap[options.namespace] = {};
+      if (typeof this.memoryMap[options.namespace] === 'undefined') {
+        this.memoryMap[options.namespace] = {};
+      }
+      this.memoryMap[options.namespace][key] = value;
+      return Promise.resolve();
     }
-    this.memoryMap[options.namespace][key] = value;
-    return Promise.resolve();
-  };
+  }, {
+    key: 'getItem',
+    value: function getItem(key) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-  InMemoryStrategy.prototype.getItem = function getItem(key) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var data = this.memoryMap[options.namespace] && this.memoryMap[options.namespace][key];
+      return typeof data !== 'undefined' ? Promise.resolve(data) : Promise.reject(NOT_FOUND);
+    }
+  }, {
+    key: 'removeItem',
+    value: function removeItem(key) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    var data = this.memoryMap[options.namespace] && this.memoryMap[options.namespace][key];
-    return typeof data !== 'undefined' ? Promise.resolve(data) : Promise.reject(NOT_FOUND);
-  };
+      delete this.memoryMap[options.namespace][key];
+      return Promise.resolve();
+    }
+  }, {
+    key: 'getAllItems',
+    value: function getAllItems() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  InMemoryStrategy.prototype.removeItem = function removeItem(key) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    delete this.memoryMap[options.namespace][key];
-    return Promise.resolve();
-  };
-
-  InMemoryStrategy.prototype.getAllItems = function getAllItems() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    return Promise.resolve(this.memoryMap[options.namespace]);
-  };
+      return Promise.resolve(this.memoryMap[options.namespace]);
+    }
+  }]);
 
   return InMemoryStrategy;
 }(BaseStorage);
 
 module.exports = InMemoryStrategy;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/harmony-module.js */ 52)(module)))
-
-/***/ }),
-/* 52 */
-/*!*********************************************************!*\
-  !*** ../node_modules/webpack/buildin/harmony-module.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
-
-module.exports = function(originalModule) {
-	if (!originalModule.webpackPolyfill) {
-		var module = Object.create(originalModule);
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		Object.defineProperty(module, "exports", {
-			enumerable: true
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
 
 /***/ })
 /******/ ]);
