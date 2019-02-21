@@ -15,7 +15,7 @@
     "start": "yoshi start",
     "pretest": "yoshi lint && yoshi build",
     "build": ":",
-    "test": ":",
+    "test": "yoshi test",
     "release": "yoshi release; bower-auto-release --dist dist/statics"
   },
   "dependencies": {
