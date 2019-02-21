@@ -1,6 +1,4 @@
-'use strict';
-
-const {NOT_FOUND} = require('../utils/constants');
+const { NOT_FOUND } = require('../utils/constants');
 const BaseStorage = require('../base-storage');
 
 export class InMemoryStrategy extends BaseStorage {
@@ -18,8 +16,12 @@ export class InMemoryStrategy extends BaseStorage {
   }
 
   getItem(key, options = {}) {
-    const data = this.memoryMap[options.namespace] && this.memoryMap[options.namespace][key];
-    return typeof data !== 'undefined' ? Promise.resolve(data) : Promise.reject(NOT_FOUND);
+    const data =
+      this.memoryMap[options.namespace] &&
+      this.memoryMap[options.namespace][key];
+    return typeof data !== 'undefined'
+      ? Promise.resolve(data)
+      : Promise.reject(NOT_FOUND);
   }
 
   removeItem(key, options = {}) {
