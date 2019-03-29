@@ -41,7 +41,7 @@ class FrameStorageListener {
       };
 
       if (!verifier(e.source, e.origin, token)) {
-        return respond('reject', new Error('message was not authorized'));
+        return respond('reject', 'message was not authorized');
       }
 
       const invoke = storageStrategy[method].bind(storageStrategy);

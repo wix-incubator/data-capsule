@@ -3,7 +3,7 @@
 const greedySplit = require('greedy-split');
 const connectMessageChannel = require('message-channel/connect');
 const BaseStorage = require('../base-storage');
-const {CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT} = require('../utils/constants');
+const {CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT, toError} = require('../utils/constants');
 
 class FrameStorageStrategy extends BaseStorage {
   constructor(target, origin, token) {
@@ -37,7 +37,7 @@ class FrameStorageStrategy extends BaseStorage {
           .then(e => {
             const [status, payload] = greedySplit(e.data, '|', 2);
             if (status === 'reject') {
-              throw payload;
+              throw toError(payload);
             }
 
             return JSON.parse(payload).data;
