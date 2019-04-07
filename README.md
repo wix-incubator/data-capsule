@@ -68,7 +68,7 @@ And shorter alternative:
 ```js
 import {LocalStorageCapsule} from 'data-capsule';
 
-const capsule = new LocalStorageCapsule({namespace: 'wix'});
+const capsule = LocalStorageCapsule({namespace: 'wix'});
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
 ```
@@ -97,7 +97,7 @@ And shorter alternative:
 ```js
 import {LocalStorageCachedCapsule, WixStorageStrategy} from 'data-capsule';
 
-const capsule = new LocalStorageCachedCapsule({
+const capsule = LocalStorageCachedCapsule({
   remoteStrategy: new WixStorageStrategy(),
   namespace: 'wix'
 });
@@ -126,7 +126,7 @@ And shorter alternative:
 ```js
 import {InMemoryStorageCapsule} from 'data-capsule';
 
-const capsule = new LocalStorageCapsule({namespace: 'wix'});
+const capsule = InMemoryStorageCapsule({namespace: 'wix'});
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
 ```
