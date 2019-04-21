@@ -161,7 +161,7 @@ var errors = {
 function toError(str) {
   return Object.values(errors).find(function (err) {
     return err.message === str;
-  }) || str;
+  }) || new Error(str);
 }
 
 module.exports = {
@@ -957,7 +957,7 @@ var FrameStorageListener = function () {
         };
 
         if (!verifier(e.source, e.origin, token)) {
-          return respond('reject', new Error('message was not authorized'));
+          return respond('reject', 'message was not authorized');
         }
 
         var invoke = storageStrategy[method].bind(storageStrategy);
@@ -1206,7 +1206,8 @@ var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
     CONNECTION_MAX_TIMEOUT = _require.CONNECTION_MAX_TIMEOUT,
-    MESSAGE_MAX_TIMEOUT = _require.MESSAGE_MAX_TIMEOUT;
+    MESSAGE_MAX_TIMEOUT = _require.MESSAGE_MAX_TIMEOUT,
+    toError = _require.toError;
 
 var FrameStorageStrategy = function (_BaseStorage) {
   _inherits(FrameStorageStrategy, _BaseStorage);
@@ -1254,7 +1255,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
               payload = _greedySplit2[1];
 
           if (status === 'reject') {
-            throw payload;
+            throw toError(payload);
           }
 
           return JSON.parse(payload).data;

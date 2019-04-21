@@ -163,7 +163,7 @@ var errors = {
 function toError(str) {
   return Object.values(errors).find(function (err) {
     return err.message === str;
-  }) || str;
+  }) || new Error(str);
 }
 
 module.exports = {
@@ -898,7 +898,7 @@ var FrameStorageListener = function () {
         };
 
         if (!verifier(e.source, e.origin, token)) {
-          return respond('reject', new Error('message was not authorized'));
+          return respond('reject', 'message was not authorized');
         }
 
         var invoke = storageStrategy[method].bind(storageStrategy);
