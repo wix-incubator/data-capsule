@@ -59,12 +59,12 @@ describe('frame-storage-strategy', () => {
         window.document.querySelector('#result').appendChild(text);
       })
       .catch((e) => {
-        const text = window.document.createTextNode(e);
+        const text = window.document.createTextNode(e.toString());
         window.document.querySelector('#result').appendChild(text);
       });
     `);
     const result = await browser.findElement(by.id('result')).getText();
-    expect(result).to.equal(NOT_FOUND.message);
+    expect(result).to.equal(NOT_FOUND.toString());
   });
 
   it('should get all items', async () => {
@@ -76,7 +76,7 @@ describe('frame-storage-strategy', () => {
         window.document.querySelector('#result').appendChild(text);
       })
       .catch((e) => {
-        const text = window.document.createTextNode(e);
+        const text = window.document.createTextNode(e.toString());
         window.document.querySelector('#result').appendChild(text);
       });
     `);
@@ -106,7 +106,7 @@ describe('frame-storage-strategy', () => {
   });
 });
 
-describe('frame-storage-strategy when the token is differenet', () => {
+describe('frame-storage-strategy when the token is different', () => {
   beforeEach(async () => {
     await browser.get(`http://localhost:3000`);
     await browser.executeScript(`
@@ -139,13 +139,13 @@ describe('frame-storage-strategy when the token is differenet', () => {
         window.document.querySelector('#result').appendChild(text);
       })
       .catch((e) => {
-        const text = window.document.createTextNode(e);
+        const text = window.document.createTextNode(e.toString());
         window.document.querySelector('#result').appendChild(text);
       });
     `);
     const result = await browser.findElement(by.id('result')).getText();
 
-    expect(result).to.equal('Error: message was not authorized');
+    expect(result).to.equal(new Error('message was not authorized').toString());
   });
 });
 
@@ -251,11 +251,11 @@ describe('frame-storage-strategy with custom host strategy', () => {
         window.document.querySelector('#result').appendChild(text);
       })
       .catch((e) => {
-        const text = window.document.createTextNode(e);
+        const text = window.document.createTextNode(e.toString());
         window.document.querySelector('#result').appendChild(text);
       });
     `);
     const result = await browser.findElement(by.id('result')).getText();
-    expect(result).to.equal('byebye');
+    expect(result).to.equal(new Error('byebye').toString());
   });
 });

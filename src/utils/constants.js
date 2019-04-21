@@ -4,7 +4,7 @@ const errors = {
 };
 
 function toError(str) {
-  return Object.values(errors).find(err => err.message === str) || str;
+  return Object.values(errors).find(err => err.message === str) || new Error(str);
 }
 
 module.exports = {
