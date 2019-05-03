@@ -10,8 +10,12 @@ function getCacheKey(key, options) {
   return getCachePrefix(options) + key;
 }
 
+function stringify(obj) {
+  return typeof obj === 'string' ? obj : JSON.stringify(obj);
+}
+
 function getCachePrefix(options) {
-  return [STORAGE_PREFIX, options.namespace, options.scope]
+  return [STORAGE_PREFIX, options.namespace, stringify(options.scope)]
     .filter(x => x)
     .join(PREFIX_SEPARATOR) + KEY_SEPARATOR;
 }

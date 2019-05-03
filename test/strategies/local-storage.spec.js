@@ -57,6 +57,14 @@ describe('localstorage-strategy', () => {
     expect(await capsule.getItem('shahata', {scope: 'wix2'})).to.equal(456);
   });
 
+  it('should allow scope to be an object', async () => {
+    const capsule = new LocalStorageCapsule({namespace: 'wix'});
+    await capsule.setItem('shahata', 123, {scope: {key: 'wix1'}});
+    await capsule.setItem('shahata', 456, {scope: {key: 'wix2'}});
+    expect(await capsule.getItem('shahata', {scope: {key: 'wix1'}})).to.equal(123);
+    expect(await capsule.getItem('shahata', {scope: {key: 'wix2'}})).to.equal(456);
+  });
+
   it('should optionally pass a scope in constructor', async () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix', scope: 'scope'});
     await capsule.setItem('shahata', 123);
