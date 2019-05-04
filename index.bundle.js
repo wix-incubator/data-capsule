@@ -105,6 +105,11 @@ var BaseStorage = function () {
   }
 
   _createClass(BaseStorage, [{
+    key: 'extendScope',
+    value: function extendScope(scope) {
+      return scope;
+    }
+  }, {
     key: 'setItem',
     value: function setItem(key, value, options) {
       throw options;
@@ -835,12 +840,6 @@ function validateNamespace(options) {
   }
 }
 
-function buildValidadateOptions(capsuleOptions, options) {
-  options = Object.assign({}, capsuleOptions, options);
-  validateNamespace(options);
-  return options;
-}
-
 var DataCapsule = function (_BaseStorage) {
   _inherits(DataCapsule, _BaseStorage);
 
@@ -859,27 +858,35 @@ var DataCapsule = function (_BaseStorage) {
   }
 
   _createClass(DataCapsule, [{
+    key: '_buildValidateOptions',
+    value: function _buildValidateOptions(capsuleOptions, options) {
+      options = Object.assign({}, capsuleOptions, options);
+      options.scope = this.storageStrategy.extendScope(options.scope);
+      validateNamespace(options);
+      return options;
+    }
+  }, {
     key: 'setItem',
     value: function setItem(key, value, options) {
-      options = buildValidadateOptions(this._options, options);
+      options = this._buildValidateOptions(this._options, options);
       return this.storageStrategy.setItem(key, value, options);
     }
   }, {
     key: 'getItem',
     value: function getItem(key, options) {
-      options = buildValidadateOptions(this._options, options);
+      options = this._buildValidateOptions(this._options, options);
       return this.storageStrategy.getItem(key, options);
     }
   }, {
     key: 'removeItem',
     value: function removeItem(key, options) {
-      options = buildValidadateOptions(this._options, options);
+      options = this._buildValidateOptions(this._options, options);
       return this.storageStrategy.removeItem(key, options);
     }
   }, {
     key: 'getAllItems',
     value: function getAllItems(options) {
-      options = buildValidadateOptions(this._options, options);
+      options = this._buildValidateOptions(this._options, options);
       return this.storageStrategy.getAllItems(options);
     }
   }]);
@@ -2055,6 +2062,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* global document */
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2072,6 +2080,19 @@ var _require = __webpack_require__(/*! ../utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND,
     SERVER_ERROR = _require.SERVER_ERROR;
 
+function getCookieValue(name) {
+  if (typeof document === 'undefined') {
+    return '';
+  } else {
+    return (document.cookie.match(name + '=([^;]*)') || ['']).pop();
+  }
+}
+
+function getUserId() {
+  var wixClient = getCookieValue('wixClient').split('|');
+  return wixClient[6] || getCookieValue('_wixCIDX');
+}
+
 var WixStorageStrategy = function (_BaseStorage) {
   _inherits(WixStorageStrategy, _BaseStorage);
 
@@ -2082,6 +2103,11 @@ var WixStorageStrategy = function (_BaseStorage) {
   }
 
   _createClass(WixStorageStrategy, [{
+    key: 'extendScope',
+    value: function extendScope(scope) {
+      return Object.assign({ userId: getUserId() }, scope);
+    }
+  }, {
     key: 'setItem',
     value: function setItem(key, value, options) {
       var payload = {
@@ -3384,6 +3410,11 @@ var CachedStorageStrategy = function (_BaseStorage) {
   }
 
   _createClass(CachedStorageStrategy, [{
+    key: 'extendScope',
+    value: function extendScope(scope) {
+      return this.remoteStrategy.extendScope(scope);
+    }
+  }, {
     key: '_cacheItem',
     value: function _cacheItem(key, value, options) {
       return this.localStrategy.setItem(key, value, Object.assign(options, { expiration: 3600 }));

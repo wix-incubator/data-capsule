@@ -106,6 +106,11 @@ var BaseStorage = function () {
   }
 
   _createClass(BaseStorage, [{
+    key: 'extendScope',
+    value: function extendScope(scope) {
+      return scope;
+    }
+  }, {
     key: 'setItem',
     value: function setItem(key, value, options) {
       throw options;
@@ -765,12 +770,6 @@ function validateNamespace(options) {
   }
 }
 
-function buildValidadateOptions(capsuleOptions, options) {
-  options = Object.assign({}, capsuleOptions, options);
-  validateNamespace(options);
-  return options;
-}
-
 var DataCapsule = function (_BaseStorage) {
   _inherits(DataCapsule, _BaseStorage);
 
@@ -789,27 +788,35 @@ var DataCapsule = function (_BaseStorage) {
   }
 
   _createClass(DataCapsule, [{
+    key: '_buildValidateOptions',
+    value: function _buildValidateOptions(capsuleOptions, options) {
+      options = Object.assign({}, capsuleOptions, options);
+      options.scope = this.storageStrategy.extendScope(options.scope);
+      validateNamespace(options);
+      return options;
+    }
+  }, {
     key: 'setItem',
     value: function setItem(key, value, options) {
-      options = buildValidadateOptions(this._options, options);
+      options = this._buildValidateOptions(this._options, options);
       return this.storageStrategy.setItem(key, value, options);
     }
   }, {
     key: 'getItem',
     value: function getItem(key, options) {
-      options = buildValidadateOptions(this._options, options);
+      options = this._buildValidateOptions(this._options, options);
       return this.storageStrategy.getItem(key, options);
     }
   }, {
     key: 'removeItem',
     value: function removeItem(key, options) {
-      options = buildValidadateOptions(this._options, options);
+      options = this._buildValidateOptions(this._options, options);
       return this.storageStrategy.removeItem(key, options);
     }
   }, {
     key: 'getAllItems',
     value: function getAllItems(options) {
-      options = buildValidadateOptions(this._options, options);
+      options = this._buildValidateOptions(this._options, options);
       return this.storageStrategy.getAllItems(options);
     }
   }]);
