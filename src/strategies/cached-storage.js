@@ -12,6 +12,10 @@ class CachedStorageStrategy extends BaseStorage {
     this.localStrategy = BaseStorage.verify(localStrategy);
   }
 
+  extendScope(scope) {
+    return this.remoteStrategy.extendScope(scope);
+  }
+
   _cacheItem(key, value, options) {
     return this.localStrategy.setItem(key, value, Object.assign(options, {expiration: 3600}));
   }

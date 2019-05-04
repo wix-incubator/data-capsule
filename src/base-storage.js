@@ -9,6 +9,10 @@ class BaseStorage {
     });
   }
 
+  extendScope(scope) {
+    return scope;
+  }
+
   setItem(key, value, options) {
     throw options;
   }

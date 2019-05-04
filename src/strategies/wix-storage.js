@@ -1,10 +1,28 @@
+/* global document */
 'use strict';
 
 const axios = require('axios');
 const BaseStorage = require('../base-storage');
 const {NOT_FOUND, SERVER_ERROR} = require('../utils/constants');
 
+function getCookieValue(name) {
+  if (typeof document === 'undefined') {
+    return '';
+  } else {
+    return (document.cookie.match(`${name}=([^;]*)`) || ['']).pop();
+  }
+}
+
+function getUserId() {
+  const wixClient = getCookieValue('wixClient').split('|');
+  return wixClient[6] || getCookieValue('_wixCIDX');
+}
+
 class WixStorageStrategy extends BaseStorage {
+  extendScope(scope) {
+    return Object.assign({userId: getUserId()}, scope);
+  }
+
   setItem(key, value, options) {
     const payload = {
       nameSpace: options.namespace,

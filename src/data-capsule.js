@@ -10,12 +10,6 @@ function validateNamespace(options) {
   }
 }
 
-function buildValidadateOptions(capsuleOptions, options) {
-  options = Object.assign({}, capsuleOptions, options);
-  validateNamespace(options);
-  return options;
-}
-
 class DataCapsule extends BaseStorage {
   constructor({strategy, namespace, scope}) {
     super();
@@ -23,23 +17,30 @@ class DataCapsule extends BaseStorage {
     this._options = {namespace, scope};
   }
 
+  _buildValidateOptions(capsuleOptions, options) {
+    options = Object.assign({}, capsuleOptions, options);
+    options.scope = this.storageStrategy.extendScope(options.scope);
+    validateNamespace(options);
+    return options;
+  }
+
   setItem(key, value, options) {
-    options = buildValidadateOptions(this._options, options);
+    options = this._buildValidateOptions(this._options, options);
     return this.storageStrategy.setItem(key, value, options);
   }
 
   getItem(key, options) {
-    options = buildValidadateOptions(this._options, options);
+    options = this._buildValidateOptions(this._options, options);
     return this.storageStrategy.getItem(key, options);
   }
 
   removeItem(key, options) {
-    options = buildValidadateOptions(this._options, options);
+    options = this._buildValidateOptions(this._options, options);
     return this.storageStrategy.removeItem(key, options);
   }
 
   getAllItems(options) {
-    options = buildValidadateOptions(this._options, options);
+    options = this._buildValidateOptions(this._options, options);
     return this.storageStrategy.getAllItems(options);
   }
 }

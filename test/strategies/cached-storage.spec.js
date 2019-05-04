@@ -23,6 +23,25 @@ describe('cached-storage-strategy', () => {
     expect(await capsule.getItem('shahata', {namespace: 'wix'})).to.equal(123);
   });
 
+  it('should cache items per user', async () => {
+    global.document = {cookie: '_wixCIDX=userId1'};
+    const capsule1 = new LocalStorageCachedCapsule({remoteStrategy: new WixStorageStrategy()});
+    nock('http://localhost').post('/_api/wix-user-preferences-webapp/set',
+      {nameSpace: 'wix', key: 'shahata', blob: 123}).reply(200);
+    await capsule1.setItem('shahata', 123, {namespace: 'wix'});
+
+    global.document = {cookie: '_wixCIDX=userId2'};
+    const capsule2 = new LocalStorageCachedCapsule({remoteStrategy: new WixStorageStrategy()});
+    nock('http://localhost').post('/_api/wix-user-preferences-webapp/set',
+      {nameSpace: 'wix', key: 'shahata', blob: 456}).reply(200);
+    await capsule2.setItem('shahata', 456, {namespace: 'wix'});
+
+    global.document = {cookie: '_wixCIDX=userId1'};
+    expect(await capsule1.getItem('shahata', {namespace: 'wix'})).to.equal(123);
+    global.document = {cookie: '_wixCIDX=userId2'};
+    expect(await capsule2.getItem('shahata', {namespace: 'wix'})).to.equal(456);
+  });
+
   it('should query server if item is not in cache', async () => {
     const capsule = new LocalStorageCachedCapsule({remoteStrategy: new WixStorageStrategy()});
     nock('http://localhost').get('/_api/wix-user-preferences-webapp/getVolatilePrefForKey/wix/shahata')
