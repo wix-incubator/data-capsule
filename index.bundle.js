@@ -2105,6 +2105,7 @@ var WixStorageStrategy = function (_BaseStorage) {
   _createClass(WixStorageStrategy, [{
     key: 'extendScope',
     value: function extendScope(scope) {
+      scope = typeof scope === 'string' ? { siteId: scope } : scope;
       return Object.assign({ userId: getUserId() }, scope);
     }
   }, {
