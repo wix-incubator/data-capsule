@@ -19,6 +19,13 @@ describe('wix-storage-strategy', () => {
     await capsule.setItem('shahata', 123, {namespace: 'wix', scope: {siteId: 456}});
   });
 
+  it('should set item with string scope', async () => {
+    const capsule = new DataCapsule({strategy: new WixStorageStrategy()});
+    nock('http://localhost').post('/_api/wix-user-preferences-webapp/set',
+      {nameSpace: 'wix', key: 'shahata', blob: 123, siteId: '456'}).reply(200);
+    await capsule.setItem('shahata', 123, {namespace: 'wix', scope: '456'});
+  });
+
   it('should set item with expiration', async () => {
     const capsule = new DataCapsule({strategy: new WixStorageStrategy()});
     nock('http://localhost').post('/_api/wix-user-preferences-webapp/set',

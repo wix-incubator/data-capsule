@@ -20,6 +20,7 @@ function getUserId() {
 
 class WixStorageStrategy extends BaseStorage {
   extendScope(scope) {
+    scope = typeof scope === 'string' ? {siteId: scope} : scope;
     return Object.assign({userId: getUserId()}, scope);
   }
 

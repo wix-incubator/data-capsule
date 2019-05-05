@@ -1,6 +1,6 @@
 # data-capsule [![Build Status](https://travis-ci.org/wix/data-capsule.svg?branch=master)](https://travis-ci.org/wix/data-capsule)
 
-A pluggable capsule for storing key/value data for your application.
+A plugable capsule for storing key/value data for your application.
 
 Following plugins support is built in:
  1. LocalStorage - works with browser's native local storage, plugin automatically manages expiration and auto-cleans to never exceed quota.
@@ -30,7 +30,7 @@ const {DataCapsule, LocalStorageStrategy} = DataCapsuleTools;
 
 ## DataCapsule
 
-DataCapsule is the one responsible for your needs. When you create a capsule you must provide a `strategy` (see below) for *how* data will be saved. In addition, you can optionally provide a `namespace` and `scope` for your capsule. If you didn't provide `namespace` in costructor, you must do so for each operation you do on the capsule. However, `scope` is optional. The idea is that `namespace` distinguishes your data from other applications who are using the same strategy (for example in case of localstorage, other applications that run in the same origin), and `scope` distinguishes your data from data the same application might write when in different context (for example, user id is often used as `scope`). Even if you provided `namespace` and `scope` in constructor, you may override it for specific operation by passing different `namespace` or `scope` when passing `options` to one of the capsule's methods.
+DataCapsule is the one responsible for your needs. When you create a capsule you must provide a `strategy` (see below) for *how* data will be saved. In addition, you can optionally provide a `namespace` and `scope` for your capsule. If you didn't provide `namespace` in constructor, you must do so for each operation you do on the capsule. However, `scope` is optional. The idea is that `namespace` distinguishes your data from other applications who are using the same strategy (for example in case of localstorage, other applications that run in the same origin), and `scope` distinguishes your data from data the same application might write when in different context (for example, user id is often used as `scope`). Even if you provided `namespace` and `scope` in constructor, you may override it for specific operation by passing different `namespace` or `scope` when passing `options` to one of the capsule's methods.
 
 ```js
 constructor(options) {
@@ -46,7 +46,7 @@ After instantiating a `DataCapsule` with your chosen strategy (see some strategi
  1. `setItem(key, value, options): Promise<void>` - Just pass a `key` (string) and `value` (any serializable type) and it will be saved. As described above, the `options` object may contain `namespace` and `scope` if you didn't do so in constructur or would like to override the values you passed in constructor. Only in `setItems`, you can also pass `expiration` (in seconds) in `options`. If you didn't pass `expiration`, the storage strategy you provided may decide on a default `expiration`. The returned promise indicates if operation was successful.
  2. `getItem(key, options): Promise<value>` - Just pass a `key` (string) and returned promise will get resolved with the `value` that you previously saved. The `options` object may contain `namespace` and `scope` if you didn't do so in constructur or would like to override the values you passed in constructor. In case no such key exists in storage, promise will get rejected with exception NOT_FOUND (you can `import {NOT_FOUND} from 'data-capsule` and test if `err === NOT_FOUND` if you want to distinguish this case from other errors).
  3. `removeItem(key, options): Promise<void>` - Just pass a `key` (string). The `options` object may contain `namespace` and `scope` if you didn't do so in constructur or would like to override the values you passed in constructor. The returned promise indicates if operation was successful.
- 4. `getAllItems(options): Promise<key/value>` - Returned promise will get resolved with a key/value map containing all keys that are stored in this `namespace`/`scope` and their values. Keys lookup will be done according to the `namespace` and `scope` you passed in constructor and in `options`. As usual: If you didn't provide `namespace` in costructor, you must do so for each operation you do on the capsule. However, `scope` is optional.
+ 4. `getAllItems(options): Promise<key/value>` - Returned promise will get resolved with a key/value map containing all keys that are stored in this `namespace`/`scope` and their values. Keys lookup will be done according to the `namespace` and `scope` you passed in constructor and in `options`. As usual: If you didn't provide `namespace` in constructor, you must do so for each operation you do on the capsule. However, `scope` is optional.
 
 ## LocalStorage
 
@@ -57,7 +57,7 @@ import {DataCapsule, LocalStorageStrategy} from 'data-capsule';
 
 const capsule = new DataCapsule({
   strategy: new LocalStorageStrategy(),
-  namespace: 'wix'
+  namespace: '${your-app-namespace}'
 });
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
@@ -68,7 +68,7 @@ And shorter alternative:
 ```js
 import {LocalStorageCapsule} from 'data-capsule';
 
-const capsule = LocalStorageCapsule({namespace: 'wix'});
+const capsule = LocalStorageCapsule({namespace: '${your-app-namespace}'});
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
 ```
@@ -85,7 +85,7 @@ const capsule = new DataCapsule({
     remoteStrategy: new WixStorageStrategy(),
     localStrategy: new LocalStorageStrategy()
   }),
-  namespace: 'wix'
+  namespace: '${your-app-namespace}'
 });
 await capsule.setItem('shahata', 123); //send setItem request to server
 console.log(await capsule.getItem('shahata')); // logs 123
@@ -99,7 +99,22 @@ import {LocalStorageCachedCapsule, WixStorageStrategy} from 'data-capsule';
 
 const capsule = LocalStorageCachedCapsule({
   remoteStrategy: new WixStorageStrategy(),
-  namespace: 'wix'
+  namespace: '${your-app-namespace}'
+});
+await capsule.setItem('shahata', 123); //send setItem request to server
+console.log(await capsule.getItem('shahata')); // logs 123
+// ^ does not send getItem request to server since value is cached
+```
+
+Site scoped example **(can be used only by wix applications)**:
+
+```js
+import {LocalStorageCachedCapsule, WixStorageStrategy} from 'data-capsule';
+
+const capsule = LocalStorageCachedCapsule({
+  remoteStrategy: new WixStorageStrategy(),
+  scope: '${meta-site-id}',
+  namespace: '${your-app-namespace}'
 });
 await capsule.setItem('shahata', 123); //send setItem request to server
 console.log(await capsule.getItem('shahata')); // logs 123
@@ -115,7 +130,7 @@ import {DataCapsule, InMemoryStorageStrategy} from 'data-capsule';
 
 const capsule = new DataCapsule({
   strategy: new InMemoryStorageStrategy(),
-  namespace: 'wix'
+  namespace: '${your-app-namespace}'
 });
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
@@ -126,7 +141,7 @@ And shorter alternative:
 ```js
 import {InMemoryStorageCapsule} from 'data-capsule';
 
-const capsule = InMemoryStorageCapsule({namespace: 'wix'});
+const capsule = InMemoryStorageCapsule({namespace: '${your-app-namespace}'});
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
 ```
@@ -187,7 +202,7 @@ import {DataCapsule, FrameStorageStrategy} from 'data-capsule';
 
 const capsule = new DataCapsule({
   strategy: new FrameStorageStrategy(window.top, '*', 'secret'),
-  namespace: 'wix'
+  namespace: '${your-app-namespace}'
 });
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
