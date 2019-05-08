@@ -18,13 +18,16 @@
     "test": "yoshi test",
     "release": "yoshi release; bower-auto-release --dist dist/statics"
   },
+  "peerDependencies": {
+    "axios": "^0.18.0"
+  },
   "dependencies": {
-    "axios": "^0.16.2",
     "greedy-split": "^1.0.0",
     "message-channel": "^2.0.0"
   },
   "private": false,
   "devDependencies": {
+    "axios": "^0.18.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-stage-0": "^6.5.0",
