@@ -16,7 +16,7 @@ export class BaseStorage {
   setItem(key: string, value: any, options?: SetOptions): Promise<void>;
   getItem(key: string, options?: Options): Promise<any>;
   removeItem(key: string, options?: Options): Promise<void>;
-  getAllItem(options?: Options): Promise<{[key: string]: any}>;
+  getAllItems(options?: Options): Promise<{[key: string]: any}>;
 }
 
 export class DataCapsule extends BaseStorage {
@@ -33,7 +33,7 @@ export class FrameStorageStrategy extends BaseStorage {
   setItem(...params: any[]): Promise<undefined>;
   getItem(...params: any[]): Promise<any>;
   removeItem(...params: any[]): Promise<undefined>;
-  getAllItem(...params: any[]): Promise<{[key: string]: any}>;
+  getAllItems(...params: any[]): Promise<{[key: string]: any}>;
 }
 
 export class FrameStorageListener {
