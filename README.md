@@ -192,10 +192,11 @@ listener.start((source, origin, token) => token === 'secret');
 listener.stop();
 ```
 
-In frame window you create a `DataCapsule` with a `FrameStorageStrategy` strategy. Note `FrameStorageStrategy` constructor requires the follwing arguments:
+In frame window you create a `DataCapsule` with a `FrameStorageStrategy` strategy. Note `FrameStorageStrategy` constructor requires the following arguments:
  1. `target` - The window which runs the listener that will work with the real storage on our behalf. Typically this will be `window.top` since the whole idea of this strategy is to use 1st party data storage instead of problematic 3rd party.
  2. `origin` - The origin that `target` window must be in for the events to be dispatched. This value can be `'*'` but this is **widely unrecommended** since it is dangerous and opens your application for malicious attacks.
  3. `token` - This token is later passed to the `start` callback in order to help verify that the messages from this frame can be trusted. What this token represents, how it gets verified in callback and how it is initially passed to frame is up to you.
+ 4. `opts` - options for the FrameStorageStrategy we support connectionMaxTimeout (default is 2000ms should be extended in case you get max timeout of 2000ms exceeded) and messageMaxTimeout (default is 8000).
 
 ```js
 import {DataCapsule, FrameStorageStrategy} from 'data-capsule';

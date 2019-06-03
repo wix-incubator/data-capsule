@@ -7,6 +7,49 @@ const {browser, element, by} = require('protractor');
 const switchToIFrame = () => browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());
 const switchToMainFrame = () => browser.switchTo().frame(null);
 
+describe('frame-storage-strategy connectionMaxTimeout', () => {
+  beforeEach(async () => {
+    await browser.get(`http://localhost:3000`);
+    await browser.executeScript(`
+    LocalStorageStrategy = DataCapsuleTools.LocalStorageStrategy;
+    FrameStorageListener = DataCapsuleTools.FrameStorageListener;
+    listener = new FrameStorageListener(new LocalStorageStrategy());
+    listener.start((source, origin, token) => token === 'secret');
+    `);
+
+    await switchToIFrame();
+
+    await browser.executeScript(`
+    DataCapsule = DataCapsuleTools.DataCapsule;
+    FrameStorageStrategy = DataCapsuleTools.FrameStorageStrategy;
+    capsule = new DataCapsule({strategy: new FrameStorageStrategy(window.top, '*', 'secret', {connectionMaxTimeout: '1'})});
+    `);
+  });
+
+  afterEach(async () => {
+    await switchToMainFrame();
+    await browser.executeScript(`localStorage.clear();`);
+  });
+
+  it('should not store and retrieve information as timeout is too short', async () => {
+    await browser.executeScript(`
+    capsule.setItem('hey', 'ho', {namespace: 'wix'})
+      .then(() => capsule.getItem('hey', {namespace: 'wix'}))
+      .then((result) => {
+        const text = window.document.createTextNode(result);
+        window.document.querySelector('#result').appendChild(text);
+      })
+      .catch((e) => {
+        const text = window.document.createTextNode('FAILURE '+e.message);
+        window.document.querySelector('#result').appendChild(text);
+      });
+    `);
+    const result = await browser.findElement(by.id('result')).getText();
+
+    expect(result).to.equal('FAILURE max timeout of 1ms exceeded');
+  });
+
+});
 describe('frame-storage-strategy', () => {
   beforeEach(async () => {
     await browser.get(`http://localhost:3000`);
