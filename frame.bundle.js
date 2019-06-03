@@ -166,7 +166,9 @@ var errors = {
 };
 
 function toError(str) {
-  return Object.values(errors).find(function (err) {
+  return Object.keys(errors).map(function (key) {
+    return errors[key];
+  }).find(function (err) {
     return err.message === str;
   }) || new Error(str);
 }
