@@ -8,13 +8,13 @@ const switchToIFrame = () => browser.switchTo().frame(element(by.tagName('iframe
 const switchToMainFrame = () => browser.switchTo().frame(null);
 
 describe('frame-storage-strategy connectionMaxTimeout', () => {
+  const timeout = 10;
   beforeEach(async () => {
     await browser.get(`http://localhost:3000`);
     await browser.executeScript(`
     LocalStorageStrategy = DataCapsuleTools.LocalStorageStrategy;
     FrameStorageListener = DataCapsuleTools.FrameStorageListener;
     listener = new FrameStorageListener(new LocalStorageStrategy());
-    listener.start((source, origin, token) => token === 'secret');
     `);
 
     await switchToIFrame();
@@ -22,7 +22,7 @@ describe('frame-storage-strategy connectionMaxTimeout', () => {
     await browser.executeScript(`
     DataCapsule = DataCapsuleTools.DataCapsule;
     FrameStorageStrategy = DataCapsuleTools.FrameStorageStrategy;
-    capsule = new DataCapsule({strategy: new FrameStorageStrategy(window.top, '*', 'secret', {connectionMaxTimeout: '1'})});
+    capsule = new DataCapsule({strategy: new FrameStorageStrategy(window.top, '*', 'secret', {connectionMaxTimeout: '${timeout}'})});
     `);
   });
 
@@ -46,7 +46,7 @@ describe('frame-storage-strategy connectionMaxTimeout', () => {
     `);
     const result = await browser.findElement(by.id('result')).getText();
 
-    expect(result).to.equal('FAILURE max timeout of 1ms exceeded');
+    expect(result).to.equal(`FAILURE max timeout of ${timeout}ms exceeded`);
   });
 
 });
