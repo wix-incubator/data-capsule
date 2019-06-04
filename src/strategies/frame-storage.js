@@ -6,20 +6,27 @@ const BaseStorage = require('../base-storage');
 const {CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT, toError} = require('../utils/constants');
 
 class FrameStorageStrategy extends BaseStorage {
-  constructor(target, origin, token) {
+  constructor(target, origin, token, opts = {}) {
     super();
     this.target = target;
     this.origin = origin;
     this.token = token;
     this.channel;
+    this.opts = opts;
   }
 
   getChannel() {
     if (this.channel) {
       return Promise.resolve(this.channel);
     }
+    const {connectionMaxTimeout = CONNECTION_MAX_TIMEOUT, messageMaxTimeout = MESSAGE_MAX_TIMEOUT} = this.opts;
 
-    return connectMessageChannel('data-capsule', {target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT, messageMaxTimeout: MESSAGE_MAX_TIMEOUT})
+    return connectMessageChannel('data-capsule', {
+      target: this.target,
+      origin: this.origin,
+      connectionMaxTimeout,
+      messageMaxTimeout
+    })
       .then(channel => {
         this.channel = channel;
         return channel;
