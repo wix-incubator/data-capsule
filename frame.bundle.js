@@ -221,6 +221,8 @@ var FrameStorageStrategy = function (_BaseStorage) {
   _inherits(FrameStorageStrategy, _BaseStorage);
 
   function FrameStorageStrategy(target, origin, token) {
+    var opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
     _classCallCheck(this, FrameStorageStrategy);
 
     var _this = _possibleConstructorReturn(this, (FrameStorageStrategy.__proto__ || Object.getPrototypeOf(FrameStorageStrategy)).call(this));
@@ -229,6 +231,7 @@ var FrameStorageStrategy = function (_BaseStorage) {
     _this.origin = origin;
     _this.token = token;
     _this.channel;
+    _this.opts = opts;
     return _this;
   }
 
@@ -240,8 +243,19 @@ var FrameStorageStrategy = function (_BaseStorage) {
       if (this.channel) {
         return Promise.resolve(this.channel);
       }
+      var _opts = this.opts,
+          _opts$connectionMaxTi = _opts.connectionMaxTimeout,
+          connectionMaxTimeout = _opts$connectionMaxTi === undefined ? CONNECTION_MAX_TIMEOUT : _opts$connectionMaxTi,
+          _opts$messageMaxTimeo = _opts.messageMaxTimeout,
+          messageMaxTimeout = _opts$messageMaxTimeo === undefined ? MESSAGE_MAX_TIMEOUT : _opts$messageMaxTimeo;
 
-      return connectMessageChannel('data-capsule', { target: this.target, origin: this.origin, connectionMaxTimeout: CONNECTION_MAX_TIMEOUT, messageMaxTimeout: MESSAGE_MAX_TIMEOUT }).then(function (channel) {
+
+      return connectMessageChannel('data-capsule', {
+        target: this.target,
+        origin: this.origin,
+        connectionMaxTimeout: connectionMaxTimeout,
+        messageMaxTimeout: messageMaxTimeout
+      }).then(function (channel) {
         _this2.channel = channel;
         return channel;
       });
