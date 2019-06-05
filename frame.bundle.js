@@ -232,6 +232,14 @@ var FrameStorageStrategy = function (_BaseStorage) {
     _this.token = token;
     _this.channel;
     _this.opts = opts;
+    var _this$opts = _this.opts,
+        _this$opts$connection = _this$opts.connectionMaxTimeout,
+        connectionMaxTimeout = _this$opts$connection === undefined ? CONNECTION_MAX_TIMEOUT : _this$opts$connection,
+        _this$opts$messageMax = _this$opts.messageMaxTimeout,
+        messageMaxTimeout = _this$opts$messageMax === undefined ? MESSAGE_MAX_TIMEOUT : _this$opts$messageMax;
+
+    _this.connectionMaxTimeout = connectionMaxTimeout;
+    _this.messageMaxTimeout = messageMaxTimeout;
     return _this;
   }
 
@@ -243,18 +251,12 @@ var FrameStorageStrategy = function (_BaseStorage) {
       if (this.channel) {
         return Promise.resolve(this.channel);
       }
-      var _opts = this.opts,
-          _opts$connectionMaxTi = _opts.connectionMaxTimeout,
-          connectionMaxTimeout = _opts$connectionMaxTi === undefined ? CONNECTION_MAX_TIMEOUT : _opts$connectionMaxTi,
-          _opts$messageMaxTimeo = _opts.messageMaxTimeout,
-          messageMaxTimeout = _opts$messageMaxTimeo === undefined ? MESSAGE_MAX_TIMEOUT : _opts$messageMaxTimeo;
-
 
       return connectMessageChannel('data-capsule', {
         target: this.target,
         origin: this.origin,
-        connectionMaxTimeout: connectionMaxTimeout,
-        messageMaxTimeout: messageMaxTimeout
+        connectionMaxTimeout: this.connectionMaxTimeout,
+        messageMaxTimeout: this.messageMaxTimeout
       }).then(function (channel) {
         _this2.channel = channel;
         return channel;
