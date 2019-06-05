@@ -29,7 +29,7 @@ export class CachedStorageStrategy extends BaseStorage {}
 export class InMemoryStorageStrategy extends BaseStorage {}
 
 export class FrameStorageStrategy extends BaseStorage {
-  constructor(target: Window, origin: string, token: string);
+  constructor(target: Window, origin: string, token: string, opts: object);
   setItem(...params: any[]): Promise<undefined>;
   getItem(...params: any[]): Promise<any>;
   removeItem(...params: any[]): Promise<undefined>;
