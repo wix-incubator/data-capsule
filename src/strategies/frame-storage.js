@@ -13,19 +13,21 @@ class FrameStorageStrategy extends BaseStorage {
     this.token = token;
     this.channel;
     this.opts = opts;
+    const {connectionMaxTimeout = CONNECTION_MAX_TIMEOUT, messageMaxTimeout = MESSAGE_MAX_TIMEOUT} = this.opts;
+    this.connectionMaxTimeout = connectionMaxTimeout;
+    this.messageMaxTimeout = messageMaxTimeout;
   }
 
   getChannel() {
     if (this.channel) {
       return Promise.resolve(this.channel);
     }
-    const {connectionMaxTimeout = CONNECTION_MAX_TIMEOUT, messageMaxTimeout = MESSAGE_MAX_TIMEOUT} = this.opts;
 
     return connectMessageChannel('data-capsule', {
       target: this.target,
       origin: this.origin,
-      connectionMaxTimeout,
-      messageMaxTimeout
+      connectionMaxTimeout: this.connectionMaxTimeout,
+      messageMaxTimeout: this.messageMaxTimeout
     })
       .then(channel => {
         this.channel = channel;
