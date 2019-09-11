@@ -3,7 +3,7 @@
 const sinon = require('sinon');
 const {expect} = require('chai');
 const {LocalStorage} = require('node-localstorage');
-const {NOT_FOUND, LocalStorageCapsule} = require('../../src');
+const {NOT_FOUND, LocalStorageCapsule, LOCAL_STORAGE_UNSUPPORTED} = require('../../src');
 
 describe('localstorage-strategy', () => {
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe('localstorage-strategy', () => {
   });
 
   afterEach(() => {
-    global.localStorage.clear();
+    global.localStorage && global.localStorage.clear();
   });
 
   it('should store and retrieve information', async () => {
@@ -135,5 +135,11 @@ describe('localstorage-strategy', () => {
     const capsule = new LocalStorageCapsule({namespace: 'wix'});
     await capsule.setItem('shahata', 1, {scope: {userId: 123}});
     expect(await capsule.getAllItems({scope: {userId: 123}})).to.eql({shahata: 1});
+  });
+
+  it('should reject if get from local storage fails', async () => {
+    const capsule = new LocalStorageCapsule({namespace: 'wix'});
+    global.localStorage = undefined;
+    await expect(capsule.getItem('shahata')).to.be.rejectedWith(LOCAL_STORAGE_UNSUPPORTED);
   });
 });

@@ -3,7 +3,7 @@
 
 const BaseStorage = require('../base-storage');
 const localStorageCleaner = require('../utils/local-storage-cleaner');
-const {STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR, NOT_FOUND} = require('../utils/constants');
+const {STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR, NOT_FOUND, LOCAL_STORAGE_UNSUPPORTED} = require('../utils/constants');
 const {getCacheRecords, deserializeData, isExpired} = require('../utils/record-utils');
 
 function getCacheKey(key, options) {
@@ -49,7 +49,12 @@ class LocalStorageStrategy extends BaseStorage {
 
   getItem(key, options) {
     const fullKey = getCacheKey(key, options);
-    let data = localStorage.getItem(fullKey);
+    let data;
+    try {
+      data = localStorage.getItem(fullKey);
+    } catch (e) {
+      return Promise.reject(LOCAL_STORAGE_UNSUPPORTED);
+    }
     data = data && deserializeData(data);
     if (data && !isExpired(data)) {
       updateAccessTime(fullKey, data);

@@ -1,6 +1,7 @@
 const errors = {
   NOT_FOUND: new Error('Key was not found in capsule'),
-  SERVER_ERROR: new Error('Failed to perform operarion on server')
+  SERVER_ERROR: new Error('Failed to perform operarion on server'),
+  LOCAL_STORAGE_UNSUPPORTED: new Error('LocalStorage is not supported')
 };
 
 function toError(str) {
@@ -18,4 +19,5 @@ module.exports = {
   MESSAGE_MAX_TIMEOUT: 8000,
   SERVER_ERROR: errors.SERVER_ERROR,
   toError,
+  LOCAL_STORAGE_UNSUPPORTED: errors.LOCAL_STORAGE_UNSUPPORTED,
 };
