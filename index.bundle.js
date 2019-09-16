@@ -160,7 +160,8 @@ module.exports = BaseStorage;
 
 var errors = {
   NOT_FOUND: new Error('Key was not found in capsule'),
-  SERVER_ERROR: new Error('Failed to perform operarion on server')
+  SERVER_ERROR: new Error('Failed to perform operarion on server'),
+  LOCAL_STORAGE_UNSUPPORTED: new Error('LocalStorage is not supported')
 };
 
 function toError(str) {
@@ -179,7 +180,8 @@ module.exports = {
   CONNECTION_MAX_TIMEOUT: 2000,
   MESSAGE_MAX_TIMEOUT: 8000,
   SERVER_ERROR: errors.SERVER_ERROR,
-  toError: toError
+  toError: toError,
+  LOCAL_STORAGE_UNSUPPORTED: errors.LOCAL_STORAGE_UNSUPPORTED
 };
 
 /***/ }),
@@ -670,7 +672,8 @@ var _require = __webpack_require__(/*! ../utils/constants */ 1),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
     KEY_SEPARATOR = _require.KEY_SEPARATOR,
-    NOT_FOUND = _require.NOT_FOUND;
+    NOT_FOUND = _require.NOT_FOUND,
+    LOCAL_STORAGE_UNSUPPORTED = _require.LOCAL_STORAGE_UNSUPPORTED;
 
 var _require2 = __webpack_require__(/*! ../utils/record-utils */ 7),
     getCacheRecords = _require2.getCacheRecords,
@@ -733,7 +736,12 @@ var LocalStorageStrategy = function (_BaseStorage) {
     key: 'getItem',
     value: function getItem(key, options) {
       var fullKey = getCacheKey(key, options);
-      var data = localStorage.getItem(fullKey);
+      var data = void 0;
+      try {
+        data = localStorage.getItem(fullKey);
+      } catch (e) {
+        return Promise.reject(LOCAL_STORAGE_UNSUPPORTED);
+      }
       data = data && deserializeData(data);
       if (data && !isExpired(data)) {
         updateAccessTime(fullKey, data);
