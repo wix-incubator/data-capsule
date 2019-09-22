@@ -1,9 +1,13 @@
 /* global document */
 'use strict';
 
-const axios = require('axios');
+const axiosLib = require('axios');
 const BaseStorage = require('../base-storage');
 const {NOT_FOUND, SERVER_ERROR} = require('../utils/constants');
+
+const axios = axiosLib.create({
+  baseURL: 'https://www.wix.com'
+});
 
 function getCookieValue(name) {
   if (typeof document === 'undefined') {
