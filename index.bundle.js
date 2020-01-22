@@ -1992,7 +1992,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 48);
+      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 47);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
@@ -2257,8 +2257,8 @@ var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listene
 var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 6);
 var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
 var WixStorageStrategy = __webpack_require__(/*! ./strategies/wix-storage */ 31);
-var CachedStorageStrategy = __webpack_require__(/*! ./strategies/cached-storage */ 51);
-var InMemoryStorageStrategy = __webpack_require__(/*! ./strategies/in-memory-storage */ 52);
+var CachedStorageStrategy = __webpack_require__(/*! ./strategies/cached-storage */ 50);
+var InMemoryStorageStrategy = __webpack_require__(/*! ./strategies/in-memory-storage */ 51);
 
 var _require = __webpack_require__(/*! ./utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
@@ -2488,14 +2488,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ 28);
-axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 49);
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 48);
 axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 23);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(/*! ./helpers/spread */ 50);
+axios.spread = __webpack_require__(/*! ./helpers/spread */ 49);
 
 module.exports = axios;
 
@@ -3281,7 +3281,6 @@ module.exports = function parseHeaders(headers) {
 
 
 var utils = __webpack_require__(/*! ./../utils */ 2);
-var isValidXss = __webpack_require__(/*! ./isValidXss */ 47);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -3301,10 +3300,6 @@ module.exports = (
     */
       function resolveURL(url) {
         var href = url;
-
-        if (isValidXss(url)) {
-          throw new Error('URL contains XSS injection attempt');
-        }
 
         if (msie) {
         // IE needs attribute set twice to normalize properties
@@ -3355,26 +3350,6 @@ module.exports = (
 
 /***/ }),
 /* 47 */
-/*!*******************************************************!*\
-  !*** ../node_modules/axios/lib/helpers/isValidXss.js ***!
-  \*******************************************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isValidXss(requestURL) {
-  var xssRegex = /(\b)(on\w+)=|javascript|(<\s*)(\/*)script/gi;
-  return xssRegex.test(requestURL);
-};
-
-
-
-/***/ }),
-/* 48 */
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/cookies.js ***!
   \****************************************************/
@@ -3440,7 +3415,7 @@ module.exports = (
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*******************************************************/
@@ -3510,7 +3485,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /*!***************************************************!*\
   !*** ../node_modules/axios/lib/helpers/spread.js ***!
   \***************************************************/
@@ -3550,7 +3525,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /*!**************************************!*\
   !*** ./strategies/cached-storage.js ***!
   \**************************************/
@@ -3678,7 +3653,7 @@ var CachedStorageStrategy = function (_BaseStorage) {
 module.exports = CachedStorageStrategy;
 
 /***/ }),
-/* 52 */
+/* 51 */
 /*!*****************************************!*\
   !*** ./strategies/in-memory-storage.js ***!
   \*****************************************/
