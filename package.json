@@ -15,10 +15,10 @@
     "pretest": "yoshi lint && yoshi build",
     "build": "yoshi build",
     "test": "yoshi test --mocha --protractor",
-    "release": "yoshi release; bower-auto-release --dist dist/statics"
+    "release": "bower-auto-release --dist dist/statics"
   },
   "dependencies": {
-    "axios": ">=0.16 <=0.19",
+    "axios": "^0.19.2",
     "greedy-split": "^1.0.0",
     "message-channel": "^2.0.0"
   },
@@ -33,14 +33,15 @@
     "nock": "^9.0.2",
     "node-localstorage": "^1.3.0",
     "protractor": "^5.4.3",
-    "sinon": "^1.17.7",
+    "sinon": "^9.0.1",
     "yoshi": "^4.47.1"
   },
   "eslintConfig": {
     "extends": "yoshi"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "versionBumpStrategy": "patch"
   },
   "yoshi": {
     "entry": {
