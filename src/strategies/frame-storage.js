@@ -1,9 +1,11 @@
-'use strict';
-
 const greedySplit = require('greedy-split');
 const connectMessageChannel = require('message-channel/connect');
 const BaseStorage = require('../base-storage');
-const {CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT, toError} = require('../utils/constants');
+const {
+  CONNECTION_MAX_TIMEOUT,
+  MESSAGE_MAX_TIMEOUT,
+  toError,
+} = require('../utils/constants');
 
 class FrameStorageStrategy extends BaseStorage {
   constructor(target, origin, token, opts = {}) {
@@ -11,9 +13,12 @@ class FrameStorageStrategy extends BaseStorage {
     this.target = target;
     this.origin = origin;
     this.token = token;
-    this.channel;
+    this.channel = undefined;
     this.opts = opts;
-    const {connectionMaxTimeout = CONNECTION_MAX_TIMEOUT, messageMaxTimeout = MESSAGE_MAX_TIMEOUT} = this.opts;
+    const {
+      connectionMaxTimeout = CONNECTION_MAX_TIMEOUT,
+      messageMaxTimeout = MESSAGE_MAX_TIMEOUT,
+    } = this.opts;
     this.connectionMaxTimeout = connectionMaxTimeout;
     this.messageMaxTimeout = messageMaxTimeout;
   }
@@ -27,31 +32,29 @@ class FrameStorageStrategy extends BaseStorage {
       target: this.target,
       origin: this.origin,
       connectionMaxTimeout: this.connectionMaxTimeout,
-      messageMaxTimeout: this.messageMaxTimeout
-    })
-      .then(channel => {
-        this.channel = channel;
-        return channel;
-      });
+      messageMaxTimeout: this.messageMaxTimeout,
+    }).then(channel => {
+      this.channel = channel;
+      return channel;
+    });
   }
 
   sendCommand(method, params) {
-    const payload = {data: params};
+    const payload = { data: params };
 
-    return this.getChannel()
-      .then(sendToChannel => {
-        const message = [this.token, method, JSON.stringify(payload)].join('|');
+    return this.getChannel().then(sendToChannel => {
+      const message = [this.token, method, JSON.stringify(payload)].join('|');
 
-        return sendToChannel(message)
-          .then(e => {
-            const [status, payload] = greedySplit(e.data, '|', 2);
-            if (status === 'reject') {
-              throw toError(payload);
-            }
+      return sendToChannel(message).then(e => {
+        const [status, eventPayload] = greedySplit(e.data, '|', 2);
 
-            return JSON.parse(payload).data;
-          });
+        if (status === 'reject') {
+          throw toError(eventPayload);
+        }
+
+        return JSON.parse(eventPayload).data;
       });
+    });
   }
 
   setItem(...params) {

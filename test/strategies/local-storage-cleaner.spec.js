@@ -1,9 +1,7 @@
-'use strict';
-
 const sinon = require('sinon');
-const {expect} = require('chai');
-const {LocalStorage} = require('node-localstorage');
-const {NOT_FOUND, LocalStorageCapsule} = require('../../src');
+const { expect } = require('chai');
+const { LocalStorage } = require('node-localstorage');
+const { NOT_FOUND, LocalStorageCapsule } = require('../../src');
 
 describe('local-storage-cleaner', () => {
   const oneKilobyte = new Array(1000).fill('a').join('');
@@ -11,7 +9,7 @@ describe('local-storage-cleaner', () => {
 
   beforeEach(() => {
     clock = sinon.useFakeTimers(Date.now());
-    global.localStorage = new LocalStorage('./limited', 4000); //only 4k in local storage
+    global.localStorage = new LocalStorage('./limited', 4000); // only 4k in local storage
   });
 
   afterEach(() => {
@@ -20,7 +18,7 @@ describe('local-storage-cleaner', () => {
   });
 
   it('should clean oldest records first', async () => {
-    const capsule = new LocalStorageCapsule({namespace: 'w'});
+    const capsule = new LocalStorageCapsule({ namespace: 'w' });
     clock.tick(1);
     await capsule.setItem('k1', oneKilobyte);
     clock.tick(1);
@@ -28,7 +26,7 @@ describe('local-storage-cleaner', () => {
     clock.tick(1);
     await capsule.setItem('k3', oneKilobyte);
     clock.tick(1);
-    await capsule.setItem('k4', oneKilobyte + oneKilobyte); //need to remove 2 old records to free up 2k
+    await capsule.setItem('k4', oneKilobyte + oneKilobyte); // need to remove 2 old records to free up 2k
 
     await expect(capsule.getItem('k1')).to.be.rejectedWith(NOT_FOUND);
     await expect(capsule.getItem('k2')).to.be.rejectedWith(NOT_FOUND);
@@ -37,7 +35,7 @@ describe('local-storage-cleaner', () => {
   });
 
   it('should clean last accessed records first', async () => {
-    const capsule = new LocalStorageCapsule({namespace: 'w'});
+    const capsule = new LocalStorageCapsule({ namespace: 'w' });
     clock.tick(1);
     await capsule.setItem('k1', oneKilobyte);
     clock.tick(1);
@@ -45,7 +43,7 @@ describe('local-storage-cleaner', () => {
     clock.tick(1);
     await capsule.setItem('k3', oneKilobyte);
     clock.tick(1);
-    await capsule.getItem('k2'); //access k2 so it is not removed first
+    await capsule.getItem('k2'); // access k2 so it is not removed first
     clock.tick(1);
     await capsule.setItem('k4', oneKilobyte + oneKilobyte);
 
@@ -56,14 +54,14 @@ describe('local-storage-cleaner', () => {
   });
 
   it('should clean expired records first ', async () => {
-    const capsule = new LocalStorageCapsule({namespace: 'w'});
+    const capsule = new LocalStorageCapsule({ namespace: 'w' });
     clock.tick(1);
     await capsule.setItem('k1', oneKilobyte);
     clock.tick(1);
     await capsule.setItem('k2', oneKilobyte);
     clock.tick(1);
-    await capsule.setItem('k3', oneKilobyte, {expiration: 2});
-    clock.tick(2000); //k3 is expired so in addition we only remove k1 to free up 2k
+    await capsule.setItem('k3', oneKilobyte, { expiration: 2 });
+    clock.tick(2000); // k3 is expired so in addition we only remove k1 to free up 2k
     await capsule.setItem('k4', oneKilobyte + oneKilobyte);
 
     await expect(capsule.getItem('k1')).to.be.rejectedWith(NOT_FOUND);
