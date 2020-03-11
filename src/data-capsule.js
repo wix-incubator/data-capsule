@@ -1,5 +1,3 @@
-'use strict';
-
 const BaseStorage = require('./base-storage');
 
 function validateNamespace(options) {
@@ -11,10 +9,10 @@ function validateNamespace(options) {
 }
 
 class DataCapsule extends BaseStorage {
-  constructor({strategy, namespace, scope}) {
+  constructor({ strategy, namespace, scope }) {
     super();
     this.storageStrategy = BaseStorage.verify(strategy);
-    this._options = {namespace, scope};
+    this._options = { namespace, scope };
   }
 
   _buildValidateOptions(capsuleOptions, options) {

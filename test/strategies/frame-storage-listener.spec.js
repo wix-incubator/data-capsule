@@ -1,11 +1,11 @@
-'use strict';
-
-const {expect} = require('chai');
-const {FrameStorageListener} = require('../../src');
+const { expect } = require('chai');
+const { FrameStorageListener } = require('../../src');
 
 describe('frame-storage-listener', () => {
   it('should throw if non BaseStorage is passed', () => {
-    expect(() => new FrameStorageListener({})).to.throw('must extend BaseStorage');
+    expect(() => new FrameStorageListener({})).to.throw(
+      'must extend BaseStorage',
+    );
   });
 
   it('should throw if a verifier is not passed', () => {
@@ -14,7 +14,9 @@ describe('frame-storage-listener', () => {
       listener.start();
       throw new Error();
     } catch (e) {
-      expect(e.message).to.equal('start function must get a verifier function as a first argument');
+      expect(e.message).to.equal(
+        'start function must get a verifier function as a first argument',
+      );
     }
   });
 
@@ -24,7 +26,9 @@ describe('frame-storage-listener', () => {
       listener.start('hey-ho');
       throw new Error();
     } catch (e) {
-      expect(e.message).to.equal('start function must get a verifier function as a first argument');
+      expect(e.message).to.equal(
+        'start function must get a verifier function as a first argument',
+      );
     }
   });
 
