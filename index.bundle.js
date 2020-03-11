@@ -7,7 +7,7 @@
 		exports["data-capsule"] = factory();
 	else
 		root["data-capsule"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})((typeof self !== 'undefined' ? self : this), function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -46,12 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -67,9 +87,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.369.0/";
 /******/
-/******/ 	__webpack_require__.p = typeof window !== 'undefined' && window.__STATICS_BASE_URL__ || __webpack_require__.p;
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 29);
 /******/ })
@@ -79,66 +99,51 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*************************!*\
   !*** ./base-storage.js ***!
   \*************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var BaseStorage = function () {
+var BaseStorage = /*#__PURE__*/function () {
   function BaseStorage() {
     var _this = this;
 
-    _classCallCheck(this, BaseStorage);
-
     ['setItem', 'getItem', 'removeItem', 'getAllItems'].forEach(function (method) {
       if (_this[method] === BaseStorage.prototype[method]) {
-        throw new Error('BaseStorage method [' + method + '] must be overriden!');
+        throw new Error("BaseStorage method [" + method + "] must be overriden!");
       }
     });
   }
 
-  _createClass(BaseStorage, [{
-    key: 'extendScope',
-    value: function extendScope(scope) {
-      return scope;
+  var _proto = BaseStorage.prototype;
+
+  _proto.extendScope = function extendScope(scope) {
+    return scope;
+  };
+
+  _proto.setItem = function setItem(key, value, options) {
+    throw options;
+  };
+
+  _proto.getItem = function getItem(key, options) {
+    throw options;
+  };
+
+  _proto.removeItem = function removeItem(key, options) {
+    throw options;
+  };
+
+  _proto.getAllItems = function getAllItems(options) {
+    throw options;
+  };
+
+  BaseStorage.verify = function verify(strategy) {
+    if (strategy instanceof BaseStorage) {
+      return strategy;
+    } else {
+      throw new Error("This class must extend BaseStorage!");
     }
-  }, {
-    key: 'setItem',
-    value: function setItem(key, value, options) {
-      throw options;
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem(key, options) {
-      throw options;
-    }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key, options) {
-      throw options;
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems(options) {
-      throw options;
-    }
-  }], [{
-    key: 'verify',
-    value: function verify(strategy) {
-      if (strategy instanceof BaseStorage) {
-        return strategy;
-      } else {
-        throw new Error('This class must extend BaseStorage!');
-      }
-    }
-  }]);
+  };
 
   return BaseStorage;
 }();
@@ -150,13 +155,10 @@ module.exports = BaseStorage;
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
+/***/ (function(module, exports) {
 
 var errors = {
   NOT_FOUND: new Error('Key was not found in capsule'),
@@ -189,7 +191,7 @@ module.exports = {
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/utils.js ***!
   \******************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -546,7 +548,7 @@ module.exports = {
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
   \*********************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -599,7 +601,7 @@ var parseConnectionMessage = exports.parseConnectionMessage = function parseConn
 /*!*************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/constants.js ***!
   \*************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -621,7 +623,7 @@ var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -658,24 +660,16 @@ module.exports = greedySplit;
 /*!*************************************!*\
   !*** ./strategies/local-storage.js ***!
   \*************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
 /* global localStorage */
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
+
 var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 13);
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
@@ -716,70 +710,71 @@ function serializeData(value, options) {
 function updateAccessTime(fullKey, data) {
   var expiration = data.expiration,
       createdAt = data.createdAt;
-
-  localStorage.setItem(fullKey, serializeData(data.value, { expiration: expiration, createdAt: createdAt }));
+  localStorage.setItem(fullKey, serializeData(data.value, {
+    expiration: expiration,
+    createdAt: createdAt
+  }));
 }
 
-var LocalStorageStrategy = function (_BaseStorage) {
-  _inherits(LocalStorageStrategy, _BaseStorage);
+var LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
+  _inheritsLoose(LocalStorageStrategy, _BaseStorage);
 
   function LocalStorageStrategy() {
-    _classCallCheck(this, LocalStorageStrategy);
-
-    return _possibleConstructorReturn(this, (LocalStorageStrategy.__proto__ || Object.getPrototypeOf(LocalStorageStrategy)).apply(this, arguments));
+    return _BaseStorage.apply(this, arguments) || this;
   }
 
-  _createClass(LocalStorageStrategy, [{
-    key: 'setItem',
-    value: function setItem(key, value, options) {
-      key = getCacheKey(key, options);
-      value = serializeData(value, options);
-      try {
-        localStorage.setItem(key, value);
-      } catch (e) {
-        localStorageCleaner(key.length + value.length);
-        localStorage.setItem(key, value);
+  var _proto = LocalStorageStrategy.prototype;
+
+  _proto.setItem = function setItem(key, value, options) {
+    key = getCacheKey(key, options);
+    value = serializeData(value, options);
+
+    try {
+      localStorage.setItem(key, value);
+    } catch (e) {
+      localStorageCleaner(key.length + value.length);
+      localStorage.setItem(key, value);
+    }
+
+    return Promise.resolve();
+  };
+
+  _proto.getItem = function getItem(key, options) {
+    var fullKey = getCacheKey(key, options);
+    var data;
+
+    try {
+      data = localStorage.getItem(fullKey);
+    } catch (e) {
+      return Promise.reject(LOCAL_STORAGE_UNSUPPORTED);
+    }
+
+    data = data && deserializeData(data);
+
+    if (data && !isExpired(data)) {
+      updateAccessTime(fullKey, data);
+      return Promise.resolve(data.value);
+    } else {
+      return Promise.reject(NOT_FOUND);
+    }
+  };
+
+  _proto.removeItem = function removeItem(key, options) {
+    key = getCacheKey(key, options);
+    localStorage.removeItem(key);
+    return Promise.resolve();
+  };
+
+  _proto.getAllItems = function getAllItems(options) {
+    var prefix = getCachePrefix(options);
+    var items = {};
+    getCacheRecords(prefix).forEach(function (record) {
+      if (!isExpired(record)) {
+        items[record.key] = record.value;
       }
-      return Promise.resolve();
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem(key, options) {
-      var fullKey = getCacheKey(key, options);
-      var data = void 0;
-      try {
-        data = localStorage.getItem(fullKey);
-      } catch (e) {
-        return Promise.reject(LOCAL_STORAGE_UNSUPPORTED);
-      }
-      data = data && deserializeData(data);
-      if (data && !isExpired(data)) {
-        updateAccessTime(fullKey, data);
-        return Promise.resolve(data.value);
-      } else {
-        return Promise.reject(NOT_FOUND);
-      }
-    }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key, options) {
-      key = getCacheKey(key, options);
-      localStorage.removeItem(key);
-      return Promise.resolve();
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems(options) {
-      var prefix = getCachePrefix(options);
-      var items = {};
-      getCacheRecords(prefix).forEach(function (record) {
-        if (!isExpired(record)) {
-          items[record.key] = record.value;
-        }
-      });
-      return Promise.resolve(items);
-    }
-  }]);
+    });
+    return Promise.resolve(items);
+  };
 
   return LocalStorageStrategy;
 }(BaseStorage);
@@ -791,17 +786,12 @@ module.exports = LocalStorageStrategy;
 /*!*******************************!*\
   !*** ./utils/record-utils.js ***!
   \*******************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 /* global localStorage */
-
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
     STORAGE_PREFIX = _require.STORAGE_PREFIX,
     PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
@@ -809,19 +799,24 @@ var _require = __webpack_require__(/*! ../utils/constants */ 1),
 
 function parseCacheKey(cacheKey) {
   var _cacheKey$split = cacheKey.split(KEY_SEPARATOR),
-      _cacheKey$split2 = _slicedToArray(_cacheKey$split, 2),
-      prefix = _cacheKey$split2[0],
-      key = _cacheKey$split2[1];
+      prefix = _cacheKey$split[0],
+      key = _cacheKey$split[1];
 
   var _prefix$split = prefix.split(PREFIX_SEPARATOR),
-      _prefix$split2 = _slicedToArray(_prefix$split, 3),
-      namespace = _prefix$split2[1],
-      scope = _prefix$split2[2];
+      namespace = _prefix$split[1],
+      scope = _prefix$split[2];
 
   if (scope === undefined) {
-    return { namespace: namespace, key: key };
+    return {
+      namespace: namespace,
+      key: key
+    };
   } else {
-    return { namespace: namespace, scope: scope, key: key };
+    return {
+      namespace: namespace,
+      scope: scope,
+      key: key
+    };
   }
 }
 
@@ -829,12 +824,16 @@ function deserializeData(data) {
   return JSON.parse(data);
 }
 
-function getCacheRecords() {
-  var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : STORAGE_PREFIX + PREFIX_SEPARATOR;
+function getCacheRecords(prefix) {
+  if (prefix === void 0) {
+    prefix = STORAGE_PREFIX + PREFIX_SEPARATOR;
+  }
 
   var items = [];
+
   for (var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
+
     if (key.startsWith(prefix)) {
       var data = localStorage.getItem(key);
       items.push(Object.assign({
@@ -843,6 +842,7 @@ function getCacheRecords() {
       }, deserializeData(data), parseCacheKey(key)));
     }
   }
+
   return items;
 }
 
@@ -865,21 +865,12 @@ module.exports = {
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
 
@@ -891,56 +882,52 @@ function validateNamespace(options) {
   }
 }
 
-var DataCapsule = function (_BaseStorage) {
-  _inherits(DataCapsule, _BaseStorage);
+var DataCapsule = /*#__PURE__*/function (_BaseStorage) {
+  _inheritsLoose(DataCapsule, _BaseStorage);
 
   function DataCapsule(_ref) {
+    var _this;
+
     var strategy = _ref.strategy,
         namespace = _ref.namespace,
         scope = _ref.scope;
-
-    _classCallCheck(this, DataCapsule);
-
-    var _this = _possibleConstructorReturn(this, (DataCapsule.__proto__ || Object.getPrototypeOf(DataCapsule)).call(this));
-
+    _this = _BaseStorage.call(this) || this;
     _this.storageStrategy = BaseStorage.verify(strategy);
-    _this._options = { namespace: namespace, scope: scope };
+    _this._options = {
+      namespace: namespace,
+      scope: scope
+    };
     return _this;
   }
 
-  _createClass(DataCapsule, [{
-    key: '_buildValidateOptions',
-    value: function _buildValidateOptions(capsuleOptions, options) {
-      options = Object.assign({}, capsuleOptions, options);
-      options.scope = this.storageStrategy.extendScope(options.scope);
-      validateNamespace(options);
-      return options;
-    }
-  }, {
-    key: 'setItem',
-    value: function setItem(key, value, options) {
-      options = this._buildValidateOptions(this._options, options);
-      return this.storageStrategy.setItem(key, value, options);
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem(key, options) {
-      options = this._buildValidateOptions(this._options, options);
-      return this.storageStrategy.getItem(key, options);
-    }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key, options) {
-      options = this._buildValidateOptions(this._options, options);
-      return this.storageStrategy.removeItem(key, options);
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems(options) {
-      options = this._buildValidateOptions(this._options, options);
-      return this.storageStrategy.getAllItems(options);
-    }
-  }]);
+  var _proto = DataCapsule.prototype;
+
+  _proto._buildValidateOptions = function _buildValidateOptions(capsuleOptions, options) {
+    options = Object.assign({}, capsuleOptions, options);
+    options.scope = this.storageStrategy.extendScope(options.scope);
+    validateNamespace(options);
+    return options;
+  };
+
+  _proto.setItem = function setItem(key, value, options) {
+    options = this._buildValidateOptions(this._options, options);
+    return this.storageStrategy.setItem(key, value, options);
+  };
+
+  _proto.getItem = function getItem(key, options) {
+    options = this._buildValidateOptions(this._options, options);
+    return this.storageStrategy.getItem(key, options);
+  };
+
+  _proto.removeItem = function removeItem(key, options) {
+    options = this._buildValidateOptions(this._options, options);
+    return this.storageStrategy.removeItem(key, options);
+  };
+
+  _proto.getAllItems = function getAllItems(options) {
+    options = this._buildValidateOptions(this._options, options);
+    return this.storageStrategy.getAllItems(options);
+  };
 
   return DataCapsule;
 }(BaseStorage);
@@ -952,97 +939,86 @@ module.exports = DataCapsule;
 /*!*****************************************!*\
   !*** ./utils/frame-storage-listener.js ***!
   \*****************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 var listenerMessageChannel = __webpack_require__(/*! message-channel/listener */ 10);
+
 var greedySplit = __webpack_require__(/*! greedy-split */ 5);
+
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
+
 var LocalStorageStrategy = __webpack_require__(/*! ../strategies/local-storage */ 6);
 
-var FrameStorageListener = function () {
-  function FrameStorageListener() {
-    var strategy = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new LocalStorageStrategy();
-
-    _classCallCheck(this, FrameStorageListener);
+var FrameStorageListener = /*#__PURE__*/function () {
+  function FrameStorageListener(strategy) {
+    if (strategy === void 0) {
+      strategy = new LocalStorageStrategy();
+    }
 
     this.storageStrategy = BaseStorage.verify(strategy);
-    this.stopListener;
+    this.stopListener = undefined;
   }
 
-  _createClass(FrameStorageListener, [{
-    key: 'start',
-    value: function start(verifier, interceptor) {
-      if (!verifier || typeof verifier !== 'function') {
-        throw new Error('start function must get a verifier function as a first argument');
+  var _proto = FrameStorageListener.prototype;
+
+  _proto.start = function start(verifier, interceptor) {
+    if (!verifier || typeof verifier !== 'function') {
+      throw new Error('start function must get a verifier function as a first argument');
+    }
+
+    if (interceptor && typeof interceptor !== 'function') {
+      throw new Error('the interceptor must be a function');
+    }
+
+    var storageStrategy = BaseStorage.verify(this.storageStrategy);
+    this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
+
+    function messageHandler(e, reply) {
+      if (typeof e.data !== 'string') {
+        return;
       }
 
-      if (interceptor && typeof interceptor !== 'function') {
-        throw new Error('the interceptor must be a function');
-      }
+      var _greedySplit = greedySplit(e.data, '|', 3),
+          token = _greedySplit[0],
+          method = _greedySplit[1],
+          payload = _greedySplit[2];
 
-      var storageStrategy = BaseStorage.verify(this.storageStrategy);
-      this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
+      var respond = function respond(status, data) {
+        if (status === 'resolve') {
+          var _response = [status, JSON.stringify({
+            data: data
+          })].join('|');
 
-      function messageHandler(e, reply) {
-        if (typeof e.data !== 'string') {
-          return;
+          return reply(_response);
         }
 
-        var _greedySplit = greedySplit(e.data, '|', 3),
-            _greedySplit2 = _slicedToArray(_greedySplit, 3),
-            token = _greedySplit2[0],
-            method = _greedySplit2[1],
-            payload = _greedySplit2[2];
+        var response = [status, data].join('|');
+        return reply(response);
+      };
 
-        var respond = function respond(status, data) {
-          if (status === 'resolve') {
-            var _response = [status, JSON.stringify({ data: data })].join('|');
-            return reply(_response);
-          }
-
-          var response = [status, data].join('|');
-          return reply(response);
-        };
-
-        if (!verifier(e.source, e.origin, token)) {
-          return respond('reject', 'message was not authorized');
-        }
-
-        var invoke = storageStrategy[method].bind(storageStrategy);
-
-        var params = JSON.parse(payload).data;
-        var options = params[params.length - 1];
-
-        var modifiedOptions = interceptor ? interceptor(options, e.source, e.origin, token) : options;
-        params[params.length - 1] = modifiedOptions;
-
-        return invoke.apply(undefined, _toConsumableArray(params)).then(function (result) {
-          return respond('resolve', result);
-        }).catch(function (error) {
-          return respond('reject', error.message || error);
-        });
+      if (!verifier(e.source, e.origin, token)) {
+        return respond('reject', 'message was not authorized');
       }
+
+      var invoke = storageStrategy[method].bind(storageStrategy);
+      var params = JSON.parse(payload).data;
+      var options = params[params.length - 1];
+      var modifiedOptions = interceptor ? interceptor(options, e.source, e.origin, token) : options;
+      params[params.length - 1] = modifiedOptions;
+      return invoke.apply(void 0, params).then(function (result) {
+        return respond('resolve', result);
+      })["catch"](function (error) {
+        return respond('reject', error.message || error);
+      });
     }
-  }, {
-    key: 'stop',
-    value: function stop() {
-      this.stopListener && this.stopListener();
-    }
-  }]);
+  };
+
+  _proto.stop = function stop() {
+    this.stopListener && this.stopListener();
+  };
 
   return FrameStorageListener;
 }();
@@ -1054,7 +1030,7 @@ module.exports = FrameStorageListener;
 /*!***************************************************!*\
   !*** ../node_modules/message-channel/listener.js ***!
   \***************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1067,7 +1043,7 @@ module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
 /*!*********************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listener.js ***!
   \*********************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1135,7 +1111,7 @@ module.exports = listener;
 /*!***************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listen-factory.js ***!
   \***************************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1179,21 +1155,20 @@ function listenFactory(port, callback) {
 /*!****************************************!*\
   !*** ./utils/local-storage-cleaner.js ***!
   \****************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 /* global localStorage */
-
-
 var _require = __webpack_require__(/*! ./record-utils */ 7),
     getCacheRecords = _require.getCacheRecords,
     isExpired = _require.isExpired;
 
-function deleteRecord(cleaner) {
-  var record = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : cleaner.records[0];
+function deleteRecord(cleaner, record) {
+  if (record === void 0) {
+    record = cleaner.records[0];
+  }
 
   localStorage.removeItem(record.originalKey);
   return {
@@ -1225,14 +1200,19 @@ function canClean(cleaner) {
 
 function deleteOld(cleaner) {
   cleaner.records.sort(lastUsedSort);
+
   while (canClean(cleaner)) {
     cleaner = deleteRecord(cleaner);
   }
+
   return cleaner;
 }
 
 function localStorageCleaner(requiredSpace) {
-  var cleaner = { records: getCacheRecords(), requiredSpace: requiredSpace };
+  var cleaner = {
+    records: getCacheRecords(),
+    requiredSpace: requiredSpace
+  };
   cleaner = deleteExpired(cleaner);
   deleteOld(cleaner);
 }
@@ -1244,26 +1224,17 @@ module.exports = localStorageCleaner;
 /*!*************************************!*\
   !*** ./strategies/frame-storage.js ***!
   \*************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 var greedySplit = __webpack_require__(/*! greedy-split */ 5);
+
 var connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 15);
+
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
@@ -1271,112 +1242,105 @@ var _require = __webpack_require__(/*! ../utils/constants */ 1),
     MESSAGE_MAX_TIMEOUT = _require.MESSAGE_MAX_TIMEOUT,
     toError = _require.toError;
 
-var FrameStorageStrategy = function (_BaseStorage) {
-  _inherits(FrameStorageStrategy, _BaseStorage);
+var FrameStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
+  _inheritsLoose(FrameStorageStrategy, _BaseStorage);
 
-  function FrameStorageStrategy(target, origin, token) {
-    var opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  function FrameStorageStrategy(target, origin, token, opts) {
+    var _this;
 
-    _classCallCheck(this, FrameStorageStrategy);
+    if (opts === void 0) {
+      opts = {};
+    }
 
-    var _this = _possibleConstructorReturn(this, (FrameStorageStrategy.__proto__ || Object.getPrototypeOf(FrameStorageStrategy)).call(this));
-
+    _this = _BaseStorage.call(this) || this;
     _this.target = target;
     _this.origin = origin;
     _this.token = token;
-    _this.channel;
+    _this.channel = undefined;
     _this.opts = opts;
     var _this$opts = _this.opts,
         _this$opts$connection = _this$opts.connectionMaxTimeout,
-        connectionMaxTimeout = _this$opts$connection === undefined ? CONNECTION_MAX_TIMEOUT : _this$opts$connection,
+        connectionMaxTimeout = _this$opts$connection === void 0 ? CONNECTION_MAX_TIMEOUT : _this$opts$connection,
         _this$opts$messageMax = _this$opts.messageMaxTimeout,
-        messageMaxTimeout = _this$opts$messageMax === undefined ? MESSAGE_MAX_TIMEOUT : _this$opts$messageMax;
-
+        messageMaxTimeout = _this$opts$messageMax === void 0 ? MESSAGE_MAX_TIMEOUT : _this$opts$messageMax;
     _this.connectionMaxTimeout = connectionMaxTimeout;
     _this.messageMaxTimeout = messageMaxTimeout;
     return _this;
   }
 
-  _createClass(FrameStorageStrategy, [{
-    key: 'getChannel',
-    value: function getChannel() {
-      var _this2 = this;
+  var _proto = FrameStorageStrategy.prototype;
 
-      if (this.channel) {
-        return Promise.resolve(this.channel);
-      }
+  _proto.getChannel = function getChannel() {
+    var _this2 = this;
 
-      return connectMessageChannel('data-capsule', {
-        target: this.target,
-        origin: this.origin,
-        connectionMaxTimeout: this.connectionMaxTimeout,
-        messageMaxTimeout: this.messageMaxTimeout
-      }).then(function (channel) {
-        _this2.channel = channel;
-        return channel;
+    if (this.channel) {
+      return Promise.resolve(this.channel);
+    }
+
+    return connectMessageChannel('data-capsule', {
+      target: this.target,
+      origin: this.origin,
+      connectionMaxTimeout: this.connectionMaxTimeout,
+      messageMaxTimeout: this.messageMaxTimeout
+    }).then(function (channel) {
+      _this2.channel = channel;
+      return channel;
+    });
+  };
+
+  _proto.sendCommand = function sendCommand(method, params) {
+    var _this3 = this;
+
+    var payload = {
+      data: params
+    };
+    return this.getChannel().then(function (sendToChannel) {
+      var message = [_this3.token, method, JSON.stringify(payload)].join('|');
+      return sendToChannel(message).then(function (e) {
+        var _greedySplit = greedySplit(e.data, '|', 2),
+            status = _greedySplit[0],
+            eventPayload = _greedySplit[1];
+
+        if (status === 'reject') {
+          throw toError(eventPayload);
+        }
+
+        return JSON.parse(eventPayload).data;
       });
+    });
+  };
+
+  _proto.setItem = function setItem() {
+    for (var _len = arguments.length, params = new Array(_len), _key = 0; _key < _len; _key++) {
+      params[_key] = arguments[_key];
     }
-  }, {
-    key: 'sendCommand',
-    value: function sendCommand(method, params) {
-      var _this3 = this;
 
-      var payload = { data: params };
+    return this.sendCommand('setItem', params);
+  };
 
-      return this.getChannel().then(function (sendToChannel) {
-        var message = [_this3.token, method, JSON.stringify(payload)].join('|');
-
-        return sendToChannel(message).then(function (e) {
-          var _greedySplit = greedySplit(e.data, '|', 2),
-              _greedySplit2 = _slicedToArray(_greedySplit, 2),
-              status = _greedySplit2[0],
-              payload = _greedySplit2[1];
-
-          if (status === 'reject') {
-            throw toError(payload);
-          }
-
-          return JSON.parse(payload).data;
-        });
-      });
+  _proto.getItem = function getItem() {
+    for (var _len2 = arguments.length, params = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      params[_key2] = arguments[_key2];
     }
-  }, {
-    key: 'setItem',
-    value: function setItem() {
-      for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
-        params[_key] = arguments[_key];
-      }
 
-      return this.sendCommand('setItem', params);
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem() {
-      for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        params[_key2] = arguments[_key2];
-      }
+    return this.sendCommand('getItem', params);
+  };
 
-      return this.sendCommand('getItem', params);
+  _proto.removeItem = function removeItem() {
+    for (var _len3 = arguments.length, params = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      params[_key3] = arguments[_key3];
     }
-  }, {
-    key: 'removeItem',
-    value: function removeItem() {
-      for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-        params[_key3] = arguments[_key3];
-      }
 
-      return this.sendCommand('removeItem', params);
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems() {
-      for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-        params[_key4] = arguments[_key4];
-      }
+    return this.sendCommand('removeItem', params);
+  };
 
-      return this.sendCommand('getAllItems', params);
+  _proto.getAllItems = function getAllItems() {
+    for (var _len4 = arguments.length, params = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+      params[_key4] = arguments[_key4];
     }
-  }]);
+
+    return this.sendCommand('getAllItems', params);
+  };
 
   return FrameStorageStrategy;
 }(BaseStorage);
@@ -1388,7 +1352,7 @@ module.exports = FrameStorageStrategy;
 /*!**************************************************!*\
   !*** ../node_modules/message-channel/connect.js ***!
   \**************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1401,7 +1365,7 @@ module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 16);
 /*!*******************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
   \*******************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1456,7 +1420,7 @@ module.exports = connect;
 /*!************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
   \************************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1519,7 +1483,7 @@ function sendFactory(port, options) {
 /*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1560,7 +1524,7 @@ module.exports = v4;
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -1606,7 +1570,7 @@ if (getRandomValues) {
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -1644,7 +1608,7 @@ module.exports = bytesToUuid;
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/helpers/bind.js ***!
   \*************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1668,7 +1632,7 @@ module.exports = function bind(fn, thisArg) {
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/buildURL.js ***!
   \*****************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1752,7 +1716,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/cancel/isCancel.js ***!
   \****************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1770,7 +1734,7 @@ module.exports = function isCancel(value) {
 /*!*********************************************!*\
   !*** ../node_modules/axios/lib/defaults.js ***!
   \*********************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1874,14 +1838,14 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 38)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ 38)))
 
 /***/ }),
 /* 25 */
 /*!*************************************************!*\
   !*** ../node_modules/axios/lib/adapters/xhr.js ***!
   \*************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2074,7 +2038,7 @@ module.exports = function xhrAdapter(config) {
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/core/createError.js ***!
   \*****************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2105,7 +2069,7 @@ module.exports = function createError(message, config, code, request, response) 
 /*!*****************************************************!*\
   !*** ../node_modules/axios/lib/core/mergeConfig.js ***!
   \*****************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2191,7 +2155,7 @@ module.exports = function mergeConfig(config1, config2) {
 /*!**************************************************!*\
   !*** ../node_modules/axios/lib/cancel/Cancel.js ***!
   \**************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2223,15 +2187,12 @@ module.exports = Cancel;
 /*!*******************!*\
   !*** ./global.js ***!
   \*******************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 /* global window */
-
-
 var dataCapsuleTools = __webpack_require__(/*! ./index */ 30);
 
 if (typeof window !== 'undefined') {
@@ -2245,38 +2206,47 @@ module.exports = dataCapsuleTools;
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
 var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listener */ 9);
+
 var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 6);
+
 var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
+
 var WixStorageStrategy = __webpack_require__(/*! ./strategies/wix-storage */ 31);
+
 var CachedStorageStrategy = __webpack_require__(/*! ./strategies/cached-storage */ 50);
+
 var InMemoryStorageStrategy = __webpack_require__(/*! ./strategies/in-memory-storage */ 51);
 
 var _require = __webpack_require__(/*! ./utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
+
 var DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
 
 function LocalStorageCapsule(options) {
-  return new DataCapsule(Object.assign({}, options, { strategy: new LocalStorageStrategy() }));
+  return new DataCapsule(Object.assign({}, options, {
+    strategy: new LocalStorageStrategy()
+  }));
 }
 
 function InMemoryStorageCapsule(options) {
-  return new DataCapsule(Object.assign({}, options, { strategy: new InMemoryStorageStrategy() }));
+  return new DataCapsule(Object.assign({}, options, {
+    strategy: new InMemoryStorageStrategy()
+  }));
 }
 
 function LocalStorageCachedCapsule(options) {
   return new DataCapsule(Object.assign({}, options, {
-    strategy: new CachedStorageStrategy({ remoteStrategy: options.remoteStrategy })
+    strategy: new CachedStorageStrategy({
+      remoteStrategy: options.remoteStrategy
+    })
   }));
 }
 
@@ -2300,24 +2270,16 @@ module.exports = {
 /*!***********************************!*\
   !*** ./strategies/wix-storage.js ***!
   \***********************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
 /* global document */
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var axios = __webpack_require__(/*! axios */ 32);
+
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
@@ -2328,7 +2290,7 @@ function getCookieValue(name) {
   if (typeof document === 'undefined') {
     return '';
   } else {
-    return (document.cookie.match(name + '=([^;]*)') || ['']).pop();
+    return (document.cookie.match(name + "=([^;]*)") || ['']).pop();
   }
 }
 
@@ -2337,88 +2299,88 @@ function getUserId() {
   return wixClient[6] || getCookieValue('_wixCIDX');
 }
 
-var WixStorageStrategy = function (_BaseStorage) {
-  _inherits(WixStorageStrategy, _BaseStorage);
+var WixStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
+  _inheritsLoose(WixStorageStrategy, _BaseStorage);
 
   function WixStorageStrategy() {
-    _classCallCheck(this, WixStorageStrategy);
-
-    return _possibleConstructorReturn(this, (WixStorageStrategy.__proto__ || Object.getPrototypeOf(WixStorageStrategy)).apply(this, arguments));
+    return _BaseStorage.apply(this, arguments) || this;
   }
 
-  _createClass(WixStorageStrategy, [{
-    key: 'extendScope',
-    value: function extendScope(scope) {
-      scope = typeof scope === 'string' ? { siteId: scope } : scope;
-      return Object.assign({ userId: getUserId() }, scope);
-    }
-  }, {
-    key: 'setItem',
-    value: function setItem(key, value, options) {
-      var payload = {
-        nameSpace: options.namespace,
-        key: key,
-        blob: value
-      };
-      if (options.scope && options.scope.siteId) {
-        payload.siteId = options.scope.siteId;
-      }
-      if (options.expiration) {
-        payload.TTLInDays = Math.ceil(options.expiration / (60 * 60 * 24));
-      }
-      return axios.post('/_api/wix-user-preferences-webapp/set', payload).then(function () {
-        return undefined;
-      }).catch(function () {
-        throw SERVER_ERROR;
-      });
-    }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key, options) {
-      var payload = {
-        nameSpace: options.namespace,
-        key: key
-      };
-      if (options.scope && options.scope.siteId) {
-        payload.siteId = options.scope.siteId;
-      }
-      return axios.post('/_api/wix-user-preferences-webapp/delete', payload).then(function () {
-        return undefined;
-      }).catch(function () {
-        throw SERVER_ERROR;
-      });
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem(key, options) {
-      var siteId = options.scope && options.scope.siteId;
-      var path = siteId ? 'getVolatilePrefForSite' : 'getVolatilePrefForKey';
-      var url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId, key].filter(function (x) {
-        return x;
-      }).join('/');
+  var _proto = WixStorageStrategy.prototype;
 
-      return axios.get(url).then(function (res) {
-        return res.data[key];
-      }).catch(function (err) {
-        throw err.response.status === 404 ? NOT_FOUND : SERVER_ERROR;
-      });
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems(options) {
-      var siteId = options.scope && options.scope.siteId;
-      var path = siteId ? 'getVolatilePrefsForSite' : 'getVolatilePrefs';
-      var url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId].filter(function (x) {
-        return x;
-      }).join('/');
+  _proto.extendScope = function extendScope(scope) {
+    scope = typeof scope === 'string' ? {
+      siteId: scope
+    } : scope;
+    return Object.assign({
+      userId: getUserId()
+    }, scope);
+  };
 
-      return axios.get(url).then(function (res) {
-        return res.data;
-      }).catch(function () {
-        throw SERVER_ERROR;
-      });
+  _proto.setItem = function setItem(key, value, options) {
+    var payload = {
+      nameSpace: options.namespace,
+      key: key,
+      blob: value
+    };
+
+    if (options.scope && options.scope.siteId) {
+      payload.siteId = options.scope.siteId;
     }
-  }]);
+
+    if (options.expiration) {
+      payload.TTLInDays = Math.ceil(options.expiration / (60 * 60 * 24));
+    }
+
+    return axios.post('/_api/wix-user-preferences-webapp/set', payload).then(function () {
+      return undefined;
+    })["catch"](function () {
+      throw SERVER_ERROR;
+    });
+  };
+
+  _proto.removeItem = function removeItem(key, options) {
+    var payload = {
+      nameSpace: options.namespace,
+      key: key
+    };
+
+    if (options.scope && options.scope.siteId) {
+      payload.siteId = options.scope.siteId;
+    }
+
+    return axios.post('/_api/wix-user-preferences-webapp/delete', payload).then(function () {
+      return undefined;
+    })["catch"](function () {
+      throw SERVER_ERROR;
+    });
+  };
+
+  _proto.getItem = function getItem(key, options) {
+    var siteId = options.scope && options.scope.siteId;
+    var path = siteId ? 'getVolatilePrefForSite' : 'getVolatilePrefForKey';
+    var url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId, key].filter(function (x) {
+      return x;
+    }).join('/');
+    return axios.get(url).then(function (res) {
+      return res.data[key];
+    })["catch"](function (err) {
+      throw err.response.status === 404 ? NOT_FOUND : SERVER_ERROR;
+    });
+  };
+
+  _proto.getAllItems = function getAllItems(options) {
+    var siteId = options.scope && options.scope.siteId;
+    var path = siteId ? 'getVolatilePrefsForSite' : 'getVolatilePrefs';
+    var url = ['/_api/wix-user-preferences-webapp', path, options.namespace, siteId].filter(function (x) {
+      return x;
+    }).join('/');
+    return axios.get(url).then(function (res) {
+      return res.data;
+    })["catch"](function () {
+      throw SERVER_ERROR;
+    });
+  };
 
   return WixStorageStrategy;
 }(BaseStorage);
@@ -2430,7 +2392,7 @@ module.exports = WixStorageStrategy;
 /*!**************************************!*\
   !*** ../node_modules/axios/index.js ***!
   \**************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2442,7 +2404,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 33);
 /*!******************************************!*\
   !*** ../node_modules/axios/lib/axios.js ***!
   \******************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2508,7 +2470,7 @@ module.exports.default = axios;
 /*!***********************************************!*\
   !*** ../node_modules/axios/lib/core/Axios.js ***!
   \***********************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2615,7 +2577,7 @@ module.exports = Axios;
 /*!************************************************************!*\
   !*** ../node_modules/axios/lib/core/InterceptorManager.js ***!
   \************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2680,7 +2642,7 @@ module.exports = InterceptorManager;
 /*!*********************************************************!*\
   !*** ../node_modules/axios/lib/core/dispatchRequest.js ***!
   \*********************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2772,7 +2734,7 @@ module.exports = function dispatchRequest(config) {
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/core/transformData.js ***!
   \*******************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2805,7 +2767,7 @@ module.exports = function transformData(data, headers, fns) {
 /*!******************************************!*\
   !*** ../node_modules/process/browser.js ***!
   \******************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -3001,7 +2963,7 @@ process.umask = function() { return 0; };
 /*!****************************************************************!*\
   !*** ../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \****************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3026,7 +2988,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /*!************************************************!*\
   !*** ../node_modules/axios/lib/core/settle.js ***!
   \************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3064,7 +3026,7 @@ module.exports = function settle(resolve, reject, response) {
 /*!******************************************************!*\
   !*** ../node_modules/axios/lib/core/enhanceError.js ***!
   \******************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3119,7 +3081,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/core/buildFullPath.js ***!
   \*******************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3152,7 +3114,7 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /*!**********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \**********************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3179,7 +3141,7 @@ module.exports = function isAbsoluteURL(url) {
 /*!********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/combineURLs.js ***!
   \********************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3206,7 +3168,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /*!*********************************************************!*\
   !*** ../node_modules/axios/lib/helpers/parseHeaders.js ***!
   \*********************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3272,7 +3234,7 @@ module.exports = function parseHeaders(headers) {
 /*!************************************************************!*\
   !*** ../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3353,7 +3315,7 @@ module.exports = (
 /*!****************************************************!*\
   !*** ../node_modules/axios/lib/helpers/cookies.js ***!
   \****************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3419,7 +3381,7 @@ module.exports = (
 /*!*******************************************************!*\
   !*** ../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*******************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3489,7 +3451,7 @@ module.exports = CancelToken;
 /*!***************************************************!*\
   !*** ../node_modules/axios/lib/helpers/spread.js ***!
   \***************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3529,123 +3491,110 @@ module.exports = function spread(callback) {
 /*!**************************************!*\
   !*** ./strategies/cached-storage.js ***!
   \**************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
+
 var LocalStorageStrategy = __webpack_require__(/*! ./local-storage */ 6);
+
 var DELETED = '___DELETED___';
 
-var CachedStorageStrategy = function (_BaseStorage) {
-  _inherits(CachedStorageStrategy, _BaseStorage);
+var CachedStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
+  _inheritsLoose(CachedStorageStrategy, _BaseStorage);
 
   function CachedStorageStrategy(_ref) {
+    var _this;
+
     var remoteStrategy = _ref.remoteStrategy,
         _ref$localStrategy = _ref.localStrategy,
-        localStrategy = _ref$localStrategy === undefined ? new LocalStorageStrategy() : _ref$localStrategy;
-
-    _classCallCheck(this, CachedStorageStrategy);
-
-    var _this = _possibleConstructorReturn(this, (CachedStorageStrategy.__proto__ || Object.getPrototypeOf(CachedStorageStrategy)).call(this));
-
+        localStrategy = _ref$localStrategy === void 0 ? new LocalStorageStrategy() : _ref$localStrategy;
+    _this = _BaseStorage.call(this) || this;
     _this.remoteStrategy = BaseStorage.verify(remoteStrategy);
     _this.localStrategy = BaseStorage.verify(localStrategy);
     return _this;
   }
 
-  _createClass(CachedStorageStrategy, [{
-    key: 'extendScope',
-    value: function extendScope(scope) {
-      return this.remoteStrategy.extendScope(scope);
-    }
-  }, {
-    key: '_cacheItem',
-    value: function _cacheItem(key, value, options) {
-      return this.localStrategy.setItem(key, value, Object.assign(options, { expiration: 3600 }));
-    }
-  }, {
-    key: 'setItem',
-    value: function setItem(key, value, options) {
-      var _this2 = this;
+  var _proto = CachedStorageStrategy.prototype;
 
-      return this.remoteStrategy.setItem(key, value, options).then(function () {
-        return _this2._cacheItem(key, value, options);
-      });
-    }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key, options) {
-      var _this3 = this;
+  _proto.extendScope = function extendScope(scope) {
+    return this.remoteStrategy.extendScope(scope);
+  };
 
-      return this.remoteStrategy.removeItem(key, options).then(function () {
-        return _this3._cacheItem(key, DELETED, options);
-      });
-    }
-  }, {
-    key: '_getRemoteAndCache',
-    value: function _getRemoteAndCache(key, options) {
-      var _this4 = this;
+  _proto._cacheItem = function _cacheItem(key, value, options) {
+    return this.localStrategy.setItem(key, value, Object.assign(options, {
+      expiration: 3600
+    }));
+  };
 
-      return this.remoteStrategy.getItem(key, options).then(function (value) {
-        return _this4._cacheItem(key, value, options).then(function () {
-          return value;
-        });
-      }).catch(function (e) {
-        if (e === NOT_FOUND) {
-          return _this4._cacheItem(key, DELETED, options).then(function () {
-            throw e;
-          });
-        }
-        throw e;
-      });
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem(key, options) {
-      var _this5 = this;
+  _proto.setItem = function setItem(key, value, options) {
+    var _this2 = this;
 
-      function throwIfDeletedOrReturn(value) {
-        if (value === DELETED) {
-          throw NOT_FOUND;
-        }
+    return this.remoteStrategy.setItem(key, value, options).then(function () {
+      return _this2._cacheItem(key, value, options);
+    });
+  };
 
+  _proto.removeItem = function removeItem(key, options) {
+    var _this3 = this;
+
+    return this.remoteStrategy.removeItem(key, options).then(function () {
+      return _this3._cacheItem(key, DELETED, options);
+    });
+  };
+
+  _proto._getRemoteAndCache = function _getRemoteAndCache(key, options) {
+    var _this4 = this;
+
+    return this.remoteStrategy.getItem(key, options).then(function (value) {
+      return _this4._cacheItem(key, value, options).then(function () {
         return value;
+      });
+    })["catch"](function (e) {
+      if (e === NOT_FOUND) {
+        return _this4._cacheItem(key, DELETED, options).then(function () {
+          throw e;
+        });
       }
 
-      return this.localStrategy.getItem(key, options).catch(function () {
-        return _this5._getRemoteAndCache(key, options);
-      }).then(throwIfDeletedOrReturn);
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems(options) {
-      var _this6 = this;
+      throw e;
+    });
+  };
 
-      return this.remoteStrategy.getAllItems(options).then(function (items) {
-        return Promise.all(Object.keys(items).map(function (key) {
-          return _this6._cacheItem(key, items[key], options);
-        })).then(function () {
-          return items;
-        });
-      });
+  _proto.getItem = function getItem(key, options) {
+    var _this5 = this;
+
+    function throwIfDeletedOrReturn(value) {
+      if (value === DELETED) {
+        throw NOT_FOUND;
+      }
+
+      return value;
     }
-  }]);
+
+    return this.localStrategy.getItem(key, options)["catch"](function () {
+      return _this5._getRemoteAndCache(key, options);
+    }).then(throwIfDeletedOrReturn);
+  };
+
+  _proto.getAllItems = function getAllItems(options) {
+    var _this6 = this;
+
+    return this.remoteStrategy.getAllItems(options).then(function (items) {
+      return Promise.all(Object.keys(items).map(function (key) {
+        return _this6._cacheItem(key, items[key], options);
+      })).then(function () {
+        return items;
+      });
+    });
+  };
 
   return CachedStorageStrategy;
 }(BaseStorage);
@@ -3657,83 +3606,113 @@ module.exports = CachedStorageStrategy;
 /*!*****************************************!*\
   !*** ./strategies/in-memory-storage.js ***!
   \*****************************************/
-/*! dynamic exports provided */
+/*! exports provided: InMemoryStrategy */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/*! ModuleConcatenation bailout: Module uses injected variables (module) */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InMemoryStrategy", function() { return InMemoryStrategy; });
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
-var InMemoryStrategy = exports.InMemoryStrategy = function (_BaseStorage) {
-  _inherits(InMemoryStrategy, _BaseStorage);
+var InMemoryStrategy = /*#__PURE__*/function (_BaseStorage) {
+  _inheritsLoose(InMemoryStrategy, _BaseStorage);
 
   function InMemoryStrategy() {
-    _classCallCheck(this, InMemoryStrategy);
+    var _this;
 
-    var _this = _possibleConstructorReturn(this, (InMemoryStrategy.__proto__ || Object.getPrototypeOf(InMemoryStrategy)).call(this));
-
+    _this = _BaseStorage.call(this) || this;
     _this.memoryMap = {};
     return _this;
   }
 
-  _createClass(InMemoryStrategy, [{
-    key: 'setItem',
-    value: function setItem(key, value) {
-      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var _proto = InMemoryStrategy.prototype;
 
-      if (typeof this.memoryMap[options.namespace] === 'undefined') {
-        this.memoryMap[options.namespace] = {};
-      }
-      this.memoryMap[options.namespace][key] = value;
-      return Promise.resolve();
+  _proto.setItem = function setItem(key, value, options) {
+    if (options === void 0) {
+      options = {};
     }
-  }, {
-    key: 'getItem',
-    value: function getItem(key) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-      var data = this.memoryMap[options.namespace] && this.memoryMap[options.namespace][key];
-      return typeof data !== 'undefined' ? Promise.resolve(data) : Promise.reject(NOT_FOUND);
+    if (typeof this.memoryMap[options.namespace] === 'undefined') {
+      this.memoryMap[options.namespace] = {};
     }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-      delete this.memoryMap[options.namespace][key];
-      return Promise.resolve();
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems() {
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    this.memoryMap[options.namespace][key] = value;
+    return Promise.resolve();
+  };
 
-      return Promise.resolve(this.memoryMap[options.namespace]);
+  _proto.getItem = function getItem(key, options) {
+    if (options === void 0) {
+      options = {};
     }
-  }]);
+
+    var data = this.memoryMap[options.namespace] && this.memoryMap[options.namespace][key];
+    return typeof data !== 'undefined' ? Promise.resolve(data) : Promise.reject(NOT_FOUND);
+  };
+
+  _proto.removeItem = function removeItem(key, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    delete this.memoryMap[options.namespace][key];
+    return Promise.resolve();
+  };
+
+  _proto.getAllItems = function getAllItems(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return Promise.resolve(this.memoryMap[options.namespace]);
+  };
 
   return InMemoryStrategy;
 }(BaseStorage);
-
 module.exports = InMemoryStrategy;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/harmony-module.js */ 52)(module)))
+
+/***/ }),
+/* 52 */
+/*!*********************************************************!*\
+  !*** ../node_modules/webpack/buildin/harmony-module.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports) {
+
+module.exports = function(originalModule) {
+	if (!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
 
 /***/ })
 /******/ ]);

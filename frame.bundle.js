@@ -7,7 +7,7 @@
 		exports["data-capsule"] = factory();
 	else
 		root["data-capsule"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})((typeof self !== 'undefined' ? self : this), function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -46,12 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -67,11 +87,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.369.0/";
 /******/
-/******/ 	__webpack_require__.p = typeof window !== 'undefined' && window.__STATICS_BASE_URL__ || __webpack_require__.p;
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 53);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -80,66 +100,51 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*************************!*\
   !*** ./base-storage.js ***!
   \*************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var BaseStorage = function () {
+var BaseStorage = /*#__PURE__*/function () {
   function BaseStorage() {
     var _this = this;
 
-    _classCallCheck(this, BaseStorage);
-
     ['setItem', 'getItem', 'removeItem', 'getAllItems'].forEach(function (method) {
       if (_this[method] === BaseStorage.prototype[method]) {
-        throw new Error('BaseStorage method [' + method + '] must be overriden!');
+        throw new Error("BaseStorage method [" + method + "] must be overriden!");
       }
     });
   }
 
-  _createClass(BaseStorage, [{
-    key: 'extendScope',
-    value: function extendScope(scope) {
-      return scope;
+  var _proto = BaseStorage.prototype;
+
+  _proto.extendScope = function extendScope(scope) {
+    return scope;
+  };
+
+  _proto.setItem = function setItem(key, value, options) {
+    throw options;
+  };
+
+  _proto.getItem = function getItem(key, options) {
+    throw options;
+  };
+
+  _proto.removeItem = function removeItem(key, options) {
+    throw options;
+  };
+
+  _proto.getAllItems = function getAllItems(options) {
+    throw options;
+  };
+
+  BaseStorage.verify = function verify(strategy) {
+    if (strategy instanceof BaseStorage) {
+      return strategy;
+    } else {
+      throw new Error("This class must extend BaseStorage!");
     }
-  }, {
-    key: 'setItem',
-    value: function setItem(key, value, options) {
-      throw options;
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem(key, options) {
-      throw options;
-    }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key, options) {
-      throw options;
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems(options) {
-      throw options;
-    }
-  }], [{
-    key: 'verify',
-    value: function verify(strategy) {
-      if (strategy instanceof BaseStorage) {
-        return strategy;
-      } else {
-        throw new Error('This class must extend BaseStorage!');
-      }
-    }
-  }]);
+  };
 
   return BaseStorage;
 }();
@@ -152,13 +157,10 @@ module.exports = BaseStorage;
 /*!****************************!*\
   !*** ./utils/constants.js ***!
   \****************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
+/***/ (function(module, exports) {
 
 var errors = {
   NOT_FOUND: new Error('Key was not found in capsule'),
@@ -192,26 +194,17 @@ module.exports = {
 /*!*************************************!*\
   !*** ./strategies/frame-storage.js ***!
   \*************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 var greedySplit = __webpack_require__(/*! greedy-split */ 5);
+
 var connectMessageChannel = __webpack_require__(/*! message-channel/connect */ 15);
+
 var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
@@ -219,112 +212,105 @@ var _require = __webpack_require__(/*! ../utils/constants */ 1),
     MESSAGE_MAX_TIMEOUT = _require.MESSAGE_MAX_TIMEOUT,
     toError = _require.toError;
 
-var FrameStorageStrategy = function (_BaseStorage) {
-  _inherits(FrameStorageStrategy, _BaseStorage);
+var FrameStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
+  _inheritsLoose(FrameStorageStrategy, _BaseStorage);
 
-  function FrameStorageStrategy(target, origin, token) {
-    var opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  function FrameStorageStrategy(target, origin, token, opts) {
+    var _this;
 
-    _classCallCheck(this, FrameStorageStrategy);
+    if (opts === void 0) {
+      opts = {};
+    }
 
-    var _this = _possibleConstructorReturn(this, (FrameStorageStrategy.__proto__ || Object.getPrototypeOf(FrameStorageStrategy)).call(this));
-
+    _this = _BaseStorage.call(this) || this;
     _this.target = target;
     _this.origin = origin;
     _this.token = token;
-    _this.channel;
+    _this.channel = undefined;
     _this.opts = opts;
     var _this$opts = _this.opts,
         _this$opts$connection = _this$opts.connectionMaxTimeout,
-        connectionMaxTimeout = _this$opts$connection === undefined ? CONNECTION_MAX_TIMEOUT : _this$opts$connection,
+        connectionMaxTimeout = _this$opts$connection === void 0 ? CONNECTION_MAX_TIMEOUT : _this$opts$connection,
         _this$opts$messageMax = _this$opts.messageMaxTimeout,
-        messageMaxTimeout = _this$opts$messageMax === undefined ? MESSAGE_MAX_TIMEOUT : _this$opts$messageMax;
-
+        messageMaxTimeout = _this$opts$messageMax === void 0 ? MESSAGE_MAX_TIMEOUT : _this$opts$messageMax;
     _this.connectionMaxTimeout = connectionMaxTimeout;
     _this.messageMaxTimeout = messageMaxTimeout;
     return _this;
   }
 
-  _createClass(FrameStorageStrategy, [{
-    key: 'getChannel',
-    value: function getChannel() {
-      var _this2 = this;
+  var _proto = FrameStorageStrategy.prototype;
 
-      if (this.channel) {
-        return Promise.resolve(this.channel);
-      }
+  _proto.getChannel = function getChannel() {
+    var _this2 = this;
 
-      return connectMessageChannel('data-capsule', {
-        target: this.target,
-        origin: this.origin,
-        connectionMaxTimeout: this.connectionMaxTimeout,
-        messageMaxTimeout: this.messageMaxTimeout
-      }).then(function (channel) {
-        _this2.channel = channel;
-        return channel;
+    if (this.channel) {
+      return Promise.resolve(this.channel);
+    }
+
+    return connectMessageChannel('data-capsule', {
+      target: this.target,
+      origin: this.origin,
+      connectionMaxTimeout: this.connectionMaxTimeout,
+      messageMaxTimeout: this.messageMaxTimeout
+    }).then(function (channel) {
+      _this2.channel = channel;
+      return channel;
+    });
+  };
+
+  _proto.sendCommand = function sendCommand(method, params) {
+    var _this3 = this;
+
+    var payload = {
+      data: params
+    };
+    return this.getChannel().then(function (sendToChannel) {
+      var message = [_this3.token, method, JSON.stringify(payload)].join('|');
+      return sendToChannel(message).then(function (e) {
+        var _greedySplit = greedySplit(e.data, '|', 2),
+            status = _greedySplit[0],
+            eventPayload = _greedySplit[1];
+
+        if (status === 'reject') {
+          throw toError(eventPayload);
+        }
+
+        return JSON.parse(eventPayload).data;
       });
+    });
+  };
+
+  _proto.setItem = function setItem() {
+    for (var _len = arguments.length, params = new Array(_len), _key = 0; _key < _len; _key++) {
+      params[_key] = arguments[_key];
     }
-  }, {
-    key: 'sendCommand',
-    value: function sendCommand(method, params) {
-      var _this3 = this;
 
-      var payload = { data: params };
+    return this.sendCommand('setItem', params);
+  };
 
-      return this.getChannel().then(function (sendToChannel) {
-        var message = [_this3.token, method, JSON.stringify(payload)].join('|');
-
-        return sendToChannel(message).then(function (e) {
-          var _greedySplit = greedySplit(e.data, '|', 2),
-              _greedySplit2 = _slicedToArray(_greedySplit, 2),
-              status = _greedySplit2[0],
-              payload = _greedySplit2[1];
-
-          if (status === 'reject') {
-            throw toError(payload);
-          }
-
-          return JSON.parse(payload).data;
-        });
-      });
+  _proto.getItem = function getItem() {
+    for (var _len2 = arguments.length, params = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      params[_key2] = arguments[_key2];
     }
-  }, {
-    key: 'setItem',
-    value: function setItem() {
-      for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
-        params[_key] = arguments[_key];
-      }
 
-      return this.sendCommand('setItem', params);
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem() {
-      for (var _len2 = arguments.length, params = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        params[_key2] = arguments[_key2];
-      }
+    return this.sendCommand('getItem', params);
+  };
 
-      return this.sendCommand('getItem', params);
+  _proto.removeItem = function removeItem() {
+    for (var _len3 = arguments.length, params = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      params[_key3] = arguments[_key3];
     }
-  }, {
-    key: 'removeItem',
-    value: function removeItem() {
-      for (var _len3 = arguments.length, params = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-        params[_key3] = arguments[_key3];
-      }
 
-      return this.sendCommand('removeItem', params);
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems() {
-      for (var _len4 = arguments.length, params = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-        params[_key4] = arguments[_key4];
-      }
+    return this.sendCommand('removeItem', params);
+  };
 
-      return this.sendCommand('getAllItems', params);
+  _proto.getAllItems = function getAllItems() {
+    for (var _len4 = arguments.length, params = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+      params[_key4] = arguments[_key4];
     }
-  }]);
+
+    return this.sendCommand('getAllItems', params);
+  };
 
   return FrameStorageStrategy;
 }(BaseStorage);
@@ -337,7 +323,7 @@ module.exports = FrameStorageStrategy;
 /*!**************************************************!*\
   !*** ../node_modules/message-channel/connect.js ***!
   \**************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -351,7 +337,7 @@ module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 16);
 /*!*******************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
   \*******************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -407,7 +393,7 @@ module.exports = connect;
 /*!************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
   \************************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -471,7 +457,7 @@ function sendFactory(port, options) {
 /*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -513,7 +499,7 @@ module.exports = v4;
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -560,7 +546,7 @@ if (getRandomValues) {
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
@@ -599,7 +585,7 @@ module.exports = bytesToUuid;
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
   \*********************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -653,7 +639,7 @@ var parseConnectionMessage = exports.parseConnectionMessage = function parseConn
 /*!*************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/constants.js ***!
   \*************************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -676,7 +662,7 @@ var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -710,20 +696,17 @@ module.exports = greedySplit;
 
 /***/ }),
 
-/***/ 52:
+/***/ 53:
 /*!*************************!*\
   !*** ./global-frame.js ***!
   \*************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 /* global window */
-
-
-var dataCapsuleTools = __webpack_require__(/*! ./frame */ 53);
+var dataCapsuleTools = __webpack_require__(/*! ./frame */ 54);
 
 if (typeof window !== 'undefined') {
   window.DataCapsuleTools = dataCapsuleTools;
@@ -733,17 +716,14 @@ module.exports = dataCapsuleTools;
 
 /***/ }),
 
-/***/ 53:
+/***/ 54:
 /*!******************!*\
   !*** ./frame.js ***!
   \******************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 var FrameStorageStrategy = __webpack_require__(/*! ./strategies/frame-storage */ 14);
 
@@ -751,6 +731,7 @@ var _require = __webpack_require__(/*! ./utils/constants */ 1),
     NOT_FOUND = _require.NOT_FOUND;
 
 var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
+
 var DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
 
 module.exports = {
@@ -766,21 +747,12 @@ module.exports = {
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
-/*! dynamic exports provided */
+/*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
 
@@ -792,56 +764,52 @@ function validateNamespace(options) {
   }
 }
 
-var DataCapsule = function (_BaseStorage) {
-  _inherits(DataCapsule, _BaseStorage);
+var DataCapsule = /*#__PURE__*/function (_BaseStorage) {
+  _inheritsLoose(DataCapsule, _BaseStorage);
 
   function DataCapsule(_ref) {
+    var _this;
+
     var strategy = _ref.strategy,
         namespace = _ref.namespace,
         scope = _ref.scope;
-
-    _classCallCheck(this, DataCapsule);
-
-    var _this = _possibleConstructorReturn(this, (DataCapsule.__proto__ || Object.getPrototypeOf(DataCapsule)).call(this));
-
+    _this = _BaseStorage.call(this) || this;
     _this.storageStrategy = BaseStorage.verify(strategy);
-    _this._options = { namespace: namespace, scope: scope };
+    _this._options = {
+      namespace: namespace,
+      scope: scope
+    };
     return _this;
   }
 
-  _createClass(DataCapsule, [{
-    key: '_buildValidateOptions',
-    value: function _buildValidateOptions(capsuleOptions, options) {
-      options = Object.assign({}, capsuleOptions, options);
-      options.scope = this.storageStrategy.extendScope(options.scope);
-      validateNamespace(options);
-      return options;
-    }
-  }, {
-    key: 'setItem',
-    value: function setItem(key, value, options) {
-      options = this._buildValidateOptions(this._options, options);
-      return this.storageStrategy.setItem(key, value, options);
-    }
-  }, {
-    key: 'getItem',
-    value: function getItem(key, options) {
-      options = this._buildValidateOptions(this._options, options);
-      return this.storageStrategy.getItem(key, options);
-    }
-  }, {
-    key: 'removeItem',
-    value: function removeItem(key, options) {
-      options = this._buildValidateOptions(this._options, options);
-      return this.storageStrategy.removeItem(key, options);
-    }
-  }, {
-    key: 'getAllItems',
-    value: function getAllItems(options) {
-      options = this._buildValidateOptions(this._options, options);
-      return this.storageStrategy.getAllItems(options);
-    }
-  }]);
+  var _proto = DataCapsule.prototype;
+
+  _proto._buildValidateOptions = function _buildValidateOptions(capsuleOptions, options) {
+    options = Object.assign({}, capsuleOptions, options);
+    options.scope = this.storageStrategy.extendScope(options.scope);
+    validateNamespace(options);
+    return options;
+  };
+
+  _proto.setItem = function setItem(key, value, options) {
+    options = this._buildValidateOptions(this._options, options);
+    return this.storageStrategy.setItem(key, value, options);
+  };
+
+  _proto.getItem = function getItem(key, options) {
+    options = this._buildValidateOptions(this._options, options);
+    return this.storageStrategy.getItem(key, options);
+  };
+
+  _proto.removeItem = function removeItem(key, options) {
+    options = this._buildValidateOptions(this._options, options);
+    return this.storageStrategy.removeItem(key, options);
+  };
+
+  _proto.getAllItems = function getAllItems(options) {
+    options = this._buildValidateOptions(this._options, options);
+    return this.storageStrategy.getAllItems(options);
+  };
 
   return DataCapsule;
 }(BaseStorage);
