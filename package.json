@@ -41,7 +41,8 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
-    "versionBumpStrategy": "patch"
+    "versionBumpStrategy": "patch",
+    "access": "public"
   },
   "yoshi": {
     "entry": {
