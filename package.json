@@ -15,7 +15,7 @@
     "pretest": "yoshi lint && yoshi build",
     "build": "yoshi build",
     "test": "yoshi test --mocha --protractor",
-    "release": "bower-auto-release --dist dist/statics"
+    "postpublish": "bower-auto-release --dist dist/statics"
   },
   "dependencies": {
     "axios": "^0.19.2",
