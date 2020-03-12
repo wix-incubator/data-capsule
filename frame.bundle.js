@@ -87,11 +87,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.371.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.372.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -696,7 +696,7 @@ module.exports = greedySplit;
 
 /***/ }),
 
-/***/ 53:
+/***/ 52:
 /*!*************************!*\
   !*** ./global-frame.js ***!
   \*************************/
@@ -706,7 +706,7 @@ module.exports = greedySplit;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global window */
-var dataCapsuleTools = __webpack_require__(/*! ./frame */ 54);
+var dataCapsuleTools = __webpack_require__(/*! ./frame */ 53);
 
 if (typeof window !== 'undefined') {
   window.DataCapsuleTools = dataCapsuleTools;
@@ -716,7 +716,7 @@ module.exports = dataCapsuleTools;
 
 /***/ }),
 
-/***/ 54:
+/***/ 53:
 /*!******************!*\
   !*** ./frame.js ***!
   \******************/

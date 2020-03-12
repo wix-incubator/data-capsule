@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.371.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.372.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -3606,14 +3606,11 @@ module.exports = CachedStorageStrategy;
 /*!*****************************************!*\
   !*** ./strategies/in-memory-storage.js ***!
   \*****************************************/
-/*! exports provided: InMemoryStrategy */
+/*! no static exports found */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module uses injected variables (module) */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InMemoryStrategy", function() { return InMemoryStrategy; });
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 var _require = __webpack_require__(/*! ../utils/constants */ 1),
@@ -3675,44 +3672,8 @@ var InMemoryStrategy = /*#__PURE__*/function (_BaseStorage) {
 
   return InMemoryStrategy;
 }(BaseStorage);
+
 module.exports = InMemoryStrategy;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/harmony-module.js */ 52)(module)))
-
-/***/ }),
-/* 52 */
-/*!*********************************************************!*\
-  !*** ../node_modules/webpack/buildin/harmony-module.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
-
-module.exports = function(originalModule) {
-	if (!originalModule.webpackPolyfill) {
-		var module = Object.create(originalModule);
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		Object.defineProperty(module, "exports", {
-			enumerable: true
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
 
 /***/ })
 /******/ ]);
