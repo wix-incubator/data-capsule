@@ -1,7 +1,7 @@
 const { NOT_FOUND } = require('../utils/constants');
 const BaseStorage = require('../base-storage');
 
-export class InMemoryStrategy extends BaseStorage {
+class InMemoryStrategy extends BaseStorage {
   constructor() {
     super();
     this.memoryMap = {};
