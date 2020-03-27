@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.384.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.385.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
