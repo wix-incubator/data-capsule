@@ -1,10 +1,6 @@
 /* global localStorage */
 
-import {
-  STORAGE_PREFIX,
-  PREFIX_SEPARATOR,
-  KEY_SEPARATOR,
-} from './constants';
+import { STORAGE_PREFIX, PREFIX_SEPARATOR, KEY_SEPARATOR } from './constants';
 
 function parseCacheKey(cacheKey) {
   const [prefix, key] = cacheKey.split(KEY_SEPARATOR);
@@ -49,8 +45,4 @@ function isExpired(data) {
   }
 }
 
-export {
-  deserializeData,
-  getCacheRecords,
-  isExpired,
-};
+export { deserializeData, getCacheRecords, isExpired };
