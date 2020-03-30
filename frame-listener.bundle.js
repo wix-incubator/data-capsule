@@ -87,24 +87,66 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.388.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.389.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 54);
+/******/ 	return __webpack_require__(__webpack_require__.s = 48);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
+/*!****************************!*\
+  !*** ./utils/constants.js ***!
+  \****************************/
+/*! exports provided: toError, PREFIX_SEPARATOR, KEY_SEPARATOR, STORAGE_PREFIX, NOT_FOUND, CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT, SERVER_ERROR, LOCAL_STORAGE_UNSUPPORTED */
+/*! exports used: CONNECTION_MAX_TIMEOUT, KEY_SEPARATOR, LOCAL_STORAGE_UNSUPPORTED, MESSAGE_MAX_TIMEOUT, NOT_FOUND, PREFIX_SEPARATOR, SERVER_ERROR, STORAGE_PREFIX, toError */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return toError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PREFIX_SEPARATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return KEY_SEPARATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return STORAGE_PREFIX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return NOT_FOUND; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CONNECTION_MAX_TIMEOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return MESSAGE_MAX_TIMEOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SERVER_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOCAL_STORAGE_UNSUPPORTED; });
+var errors = {
+  NOT_FOUND: new Error('Key was not found in capsule'),
+  SERVER_ERROR: new Error('Failed to perform operarion on server'),
+  LOCAL_STORAGE_UNSUPPORTED: new Error('LocalStorage is not supported')
+};
+function toError(str) {
+  return Object.keys(errors).map(function (key) {
+    return errors[key];
+  }).find(function (err) {
+    return err.message === str;
+  }) || new Error(str);
+}
+var PREFIX_SEPARATOR = '|';
+var KEY_SEPARATOR = '#';
+var STORAGE_PREFIX = 'capsule';
+var NOT_FOUND = errors.NOT_FOUND;
+var CONNECTION_MAX_TIMEOUT = 2000;
+var MESSAGE_MAX_TIMEOUT = 8000;
+var SERVER_ERROR = errors.SERVER_ERROR;
+var LOCAL_STORAGE_UNSUPPORTED = errors.LOCAL_STORAGE_UNSUPPORTED;
+
+/***/ }),
+
+/***/ 1:
 /*!*************************!*\
   !*** ./base-storage.js ***!
   \*************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseStorage; });
 var BaseStorage = /*#__PURE__*/function () {
   function BaseStorage() {
     var _this = this;
@@ -149,44 +191,7 @@ var BaseStorage = /*#__PURE__*/function () {
   return BaseStorage;
 }();
 
-module.exports = BaseStorage;
 
-/***/ }),
-
-/***/ 1:
-/*!****************************!*\
-  !*** ./utils/constants.js ***!
-  \****************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
-
-var errors = {
-  NOT_FOUND: new Error('Key was not found in capsule'),
-  SERVER_ERROR: new Error('Failed to perform operarion on server'),
-  LOCAL_STORAGE_UNSUPPORTED: new Error('LocalStorage is not supported')
-};
-
-function toError(str) {
-  return Object.keys(errors).map(function (key) {
-    return errors[key];
-  }).find(function (err) {
-    return err.message === str;
-  }) || new Error(str);
-}
-
-module.exports = {
-  PREFIX_SEPARATOR: '|',
-  KEY_SEPARATOR: '#',
-  STORAGE_PREFIX: 'capsule',
-  NOT_FOUND: errors.NOT_FOUND,
-  CONNECTION_MAX_TIMEOUT: 2000,
-  MESSAGE_MAX_TIMEOUT: 8000,
-  SERVER_ERROR: errors.SERVER_ERROR,
-  toError: toError,
-  LOCAL_STORAGE_UNSUPPORTED: errors.LOCAL_STORAGE_UNSUPPORTED
-};
 
 /***/ }),
 
@@ -195,16 +200,16 @@ module.exports = {
   !*** ../node_modules/message-channel/listener.js ***!
   \***************************************************/
 /*! no static exports found */
-/*! all exports used */
+/*! exports used: default */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
+module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 13);
 
 
 /***/ }),
 
-/***/ 11:
+/***/ 13:
 /*!*********************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listener.js ***!
   \*********************************************************************/
@@ -216,11 +221,11 @@ module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 11);
 "use strict";
 
 
-var _constants = __webpack_require__(/*! ../constants */ 4);
+var _constants = __webpack_require__(/*! ../constants */ 7);
 
-var _utils = __webpack_require__(/*! ../utils */ 3);
+var _utils = __webpack_require__(/*! ../utils */ 5);
 
-var _listenFactory = __webpack_require__(/*! ./listen-factory */ 12);
+var _listenFactory = __webpack_require__(/*! ./listen-factory */ 14);
 
 var _listenFactory2 = _interopRequireDefault(_listenFactory);
 
@@ -273,7 +278,7 @@ module.exports = listener;
 
 /***/ }),
 
-/***/ 12:
+/***/ 14:
 /*!***************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listen-factory.js ***!
   \***************************************************************************/
@@ -290,7 +295,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = listenFactory;
 
-var _utils = __webpack_require__(/*! ../utils */ 3);
+var _utils = __webpack_require__(/*! ../utils */ 5);
 
 function listenFactory(port, callback) {
   port.onmessage = function (e) {
@@ -318,19 +323,92 @@ function listenFactory(port, callback) {
 
 /***/ }),
 
-/***/ 13:
-/*!****************************************!*\
-  !*** ./utils/local-storage-cleaner.js ***!
-  \****************************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 3:
+/*!*************************************************!*\
+  !*** ./strategies/local-storage.js + 2 modules ***!
+  \*************************************************/
+/*! exports provided: default */
+/*! exports used: default */
+/*! ModuleConcatenation bailout: Cannot concat with ./base-storage.js */
+/*! ModuleConcatenation bailout: Cannot concat with ./utils/constants.js */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ local_storage_LocalStorageStrategy; });
+
+// EXTERNAL MODULE: ./base-storage.js
+var base_storage = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./utils/constants.js
+var constants = __webpack_require__(0);
+
+// CONCATENATED MODULE: ./utils/record-utils.js
 /* global localStorage */
-var _require = __webpack_require__(/*! ./record-utils */ 7),
-    getCacheRecords = _require.getCacheRecords,
-    isExpired = _require.isExpired;
+
+
+function parseCacheKey(cacheKey) {
+  var _cacheKey$split = cacheKey.split(constants["b" /* KEY_SEPARATOR */]),
+      prefix = _cacheKey$split[0],
+      key = _cacheKey$split[1];
+
+  var _prefix$split = prefix.split(constants["f" /* PREFIX_SEPARATOR */]),
+      namespace = _prefix$split[1],
+      scope = _prefix$split[2];
+
+  if (scope === undefined) {
+    return {
+      namespace: namespace,
+      key: key
+    };
+  } else {
+    return {
+      namespace: namespace,
+      scope: scope,
+      key: key
+    };
+  }
+}
+
+function deserializeData(data) {
+  return JSON.parse(data);
+}
+
+function getCacheRecords(prefix) {
+  if (prefix === void 0) {
+    prefix = constants["h" /* STORAGE_PREFIX */] + constants["f" /* PREFIX_SEPARATOR */];
+  }
+
+  var items = [];
+
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+
+    if (key.startsWith(prefix)) {
+      var data = localStorage.getItem(key);
+      items.push(Object.assign({
+        size: key.length + data.length,
+        originalKey: key
+      }, deserializeData(data), parseCacheKey(key)));
+    }
+  }
+
+  return items;
+}
+
+function isExpired(data) {
+  if (data.expiration) {
+    return data.createdAt + data.expiration * 1000 <= Date.now();
+  } else {
+    return false;
+  }
+}
+
+
+// CONCATENATED MODULE: ./utils/local-storage-cleaner.js
+/* global localStorage */
+
 
 function deleteRecord(cleaner, record) {
   if (record === void 0) {
@@ -383,185 +461,7 @@ function localStorageCleaner(requiredSpace) {
   cleaner = deleteExpired(cleaner);
   deleteOld(cleaner);
 }
-
-module.exports = localStorageCleaner;
-
-/***/ }),
-
-/***/ 3:
-/*!*********************************************************!*\
-  !*** ../node_modules/message-channel/dist/src/utils.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.parseConnectionMessage = exports.constructConnectionMessage = exports.parseChannelMessage = exports.constructChannelMessage = undefined;
-
-var _constants = __webpack_require__(/*! ./constants */ 4);
-
-var constructChannelMessage = exports.constructChannelMessage = function constructChannelMessage(payload, id) {
-  if (!id) {
-    return payload;
-  }
-
-  return id + _constants.messageDelimiter + payload;
-};
-
-var parseChannelMessage = exports.parseChannelMessage = function parseChannelMessage(message) {
-  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
-  if (firstDelimiterIndex === -1) {
-    return { id: null, payload: message };
-  }
-
-  var id = message.slice(0, firstDelimiterIndex);
-  var payload = message.slice(firstDelimiterIndex + 1);
-  return { id: id, payload: payload };
-};
-
-var constructConnectionMessage = exports.constructConnectionMessage = function constructConnectionMessage(scope) {
-  return _constants.connectionRequestMsg + _constants.messageDelimiter + scope;
-};
-
-var parseConnectionMessage = exports.parseConnectionMessage = function parseConnectionMessage(message) {
-  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
-  if (firstDelimiterIndex === -1 || message.slice(0, firstDelimiterIndex) !== _constants.connectionRequestMsg) {
-    throw new Error('Invalid connection message');
-  }
-
-  var scope = message.slice(firstDelimiterIndex + 1);
-  return scope;
-};
-
-/***/ }),
-
-/***/ 4:
-/*!*************************************************************!*\
-  !*** ../node_modules/message-channel/dist/src/constants.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var connectionRequestMsg = exports.connectionRequestMsg = 'req_con';
-var connectionSuccessMsg = exports.connectionSuccessMsg = 'connection_success';
-var messageDelimiter = exports.messageDelimiter = '|';
-var deafultConnectionMaxTimeout = exports.deafultConnectionMaxTimeout = 200;
-var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
-
-/***/ }),
-
-/***/ 5:
-/*!******************************************************!*\
-  !*** ../node_modules/greedy-split/dist/src/index.js ***!
-  \******************************************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function greedySplit(str, separator, limit) {
-  var result = str.split(separator, limit);
-  if (result.length === limit) {
-    var length = 0;
-    if (typeof separator === 'string') {
-      length = result.join(separator).length;
-    } else {
-      length = result.reduce(function (l, x, i) {
-        var separatorLength = 0;
-        if (i + 1 < limit) {
-          separatorLength = str.slice(l).match(separator).shift().length;
-        }
-        return l + x.length + separatorLength;
-      }, 0);
-    }
-    result[limit - 1] += str.slice(length);
-  }
-  return result;
-}
-
-module.exports = greedySplit;
-//# sourceMappingURL=index.js.map
-
-
-/***/ }),
-
-/***/ 54:
-/*!**********************************!*\
-  !*** ./global-frame-listener.js ***!
-  \**********************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* global window */
-var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 55);
-
-if (typeof window !== 'undefined') {
-  window.DataCapsuleTools = dataCapsuleTools;
-}
-
-module.exports = dataCapsuleTools;
-
-/***/ }),
-
-/***/ 55:
-/*!***************************!*\
-  !*** ./frame-listener.js ***!
-  \***************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-var FrameStorageListener = __webpack_require__(/*! ./utils/frame-storage-listener */ 9);
-
-var LocalStorageStrategy = __webpack_require__(/*! ./strategies/local-storage */ 6);
-
-var _require = __webpack_require__(/*! ./utils/constants */ 1),
-    NOT_FOUND = _require.NOT_FOUND;
-
-var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
-
-var DataCapsule = __webpack_require__(/*! ./data-capsule */ 8);
-
-module.exports = {
-  NOT_FOUND: NOT_FOUND,
-  BaseStorage: BaseStorage,
-  DataCapsule: DataCapsule,
-  LocalStorageStrategy: LocalStorageStrategy,
-  FrameStorageListener: FrameStorageListener
-};
-
-/***/ }),
-
-/***/ 6:
-/*!*************************************!*\
-  !*** ./strategies/local-storage.js ***!
-  \*************************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
+// CONCATENATED MODULE: ./strategies/local-storage.js
 function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
@@ -575,21 +475,10 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 /* global localStorage */
-var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
 
-var localStorageCleaner = __webpack_require__(/*! ../utils/local-storage-cleaner */ 13);
 
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
-    STORAGE_PREFIX = _require.STORAGE_PREFIX,
-    PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
-    KEY_SEPARATOR = _require.KEY_SEPARATOR,
-    NOT_FOUND = _require.NOT_FOUND,
-    LOCAL_STORAGE_UNSUPPORTED = _require.LOCAL_STORAGE_UNSUPPORTED;
 
-var _require2 = __webpack_require__(/*! ../utils/record-utils */ 7),
-    getCacheRecords = _require2.getCacheRecords,
-    deserializeData = _require2.deserializeData,
-    isExpired = _require2.isExpired;
+
 
 function getCacheKey(key, options) {
   return getCachePrefix(options) + key;
@@ -600,9 +489,9 @@ function stringify(obj) {
 }
 
 function getCachePrefix(options) {
-  return [STORAGE_PREFIX, options.namespace, stringify(options.scope)].filter(function (x) {
+  return [constants["h" /* STORAGE_PREFIX */], options.namespace, stringify(options.scope)].filter(function (x) {
     return x;
-  }).join(PREFIX_SEPARATOR) + KEY_SEPARATOR;
+  }).join(constants["f" /* PREFIX_SEPARATOR */]) + constants["b" /* KEY_SEPARATOR */];
 }
 
 function serializeData(value, options) {
@@ -623,7 +512,7 @@ function updateAccessTime(fullKey, data) {
   }));
 }
 
-var LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
+var local_storage_LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
   _inheritsLoose(LocalStorageStrategy, _BaseStorage);
 
   var _super = _createSuper(LocalStorageStrategy);
@@ -655,7 +544,7 @@ var LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
     try {
       data = localStorage.getItem(fullKey);
     } catch (e) {
-      return Promise.reject(LOCAL_STORAGE_UNSUPPORTED);
+      return Promise.reject(constants["c" /* LOCAL_STORAGE_UNSUPPORTED */]);
     }
 
     data = data && deserializeData(data);
@@ -664,7 +553,7 @@ var LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
       updateAccessTime(fullKey, data);
       return Promise.resolve(data.value);
     } else {
-      return Promise.reject(NOT_FOUND);
+      return Promise.reject(constants["e" /* NOT_FOUND */]);
     }
   };
 
@@ -686,101 +575,23 @@ var LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
   };
 
   return LocalStorageStrategy;
-}(BaseStorage);
+}(base_storage["a" /* default */]);
 
-module.exports = LocalStorageStrategy;
 
-/***/ }),
-
-/***/ 7:
-/*!*******************************!*\
-  !*** ./utils/record-utils.js ***!
-  \*******************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* global localStorage */
-var _require = __webpack_require__(/*! ../utils/constants */ 1),
-    STORAGE_PREFIX = _require.STORAGE_PREFIX,
-    PREFIX_SEPARATOR = _require.PREFIX_SEPARATOR,
-    KEY_SEPARATOR = _require.KEY_SEPARATOR;
-
-function parseCacheKey(cacheKey) {
-  var _cacheKey$split = cacheKey.split(KEY_SEPARATOR),
-      prefix = _cacheKey$split[0],
-      key = _cacheKey$split[1];
-
-  var _prefix$split = prefix.split(PREFIX_SEPARATOR),
-      namespace = _prefix$split[1],
-      scope = _prefix$split[2];
-
-  if (scope === undefined) {
-    return {
-      namespace: namespace,
-      key: key
-    };
-  } else {
-    return {
-      namespace: namespace,
-      scope: scope,
-      key: key
-    };
-  }
-}
-
-function deserializeData(data) {
-  return JSON.parse(data);
-}
-
-function getCacheRecords(prefix) {
-  if (prefix === void 0) {
-    prefix = STORAGE_PREFIX + PREFIX_SEPARATOR;
-  }
-
-  var items = [];
-
-  for (var i = 0; i < localStorage.length; i++) {
-    var key = localStorage.key(i);
-
-    if (key.startsWith(prefix)) {
-      var data = localStorage.getItem(key);
-      items.push(Object.assign({
-        size: key.length + data.length,
-        originalKey: key
-      }, deserializeData(data), parseCacheKey(key)));
-    }
-  }
-
-  return items;
-}
-
-function isExpired(data) {
-  if (data.expiration) {
-    return data.createdAt + data.expiration * 1000 <= Date.now();
-  } else {
-    return false;
-  }
-}
-
-module.exports = {
-  deserializeData: deserializeData,
-  getCacheRecords: getCacheRecords,
-  isExpired: isExpired
-};
 
 /***/ }),
 
-/***/ 8:
+/***/ 4:
 /*!*************************!*\
   !*** ./data-capsule.js ***!
   \*************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DataCapsule; });
+/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base-storage */ 1);
 function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
@@ -793,7 +604,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var BaseStorage = __webpack_require__(/*! ./base-storage */ 0);
+
 
 function validateNamespace(options) {
   if (!options.namespace) {
@@ -815,7 +626,7 @@ var DataCapsule = /*#__PURE__*/function (_BaseStorage) {
         namespace = _ref.namespace,
         scope = _ref.scope;
     _this = _BaseStorage.call(this) || this;
-    _this.storageStrategy = BaseStorage.verify(strategy);
+    _this.storageStrategy = _base_storage__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].verify(strategy);
     _this._options = {
       namespace: namespace,
       scope: scope
@@ -853,36 +664,210 @@ var DataCapsule = /*#__PURE__*/function (_BaseStorage) {
   };
 
   return DataCapsule;
-}(BaseStorage);
+}(_base_storage__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]);
 
-module.exports = DataCapsule;
+
 
 /***/ }),
 
-/***/ 9:
-/*!*****************************************!*\
-  !*** ./utils/frame-storage-listener.js ***!
-  \*****************************************/
+/***/ 48:
+/*!**********************************!*\
+  !*** ./global-frame-listener.js ***!
+  \**********************************/
 /*! no static exports found */
 /*! all exports used */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-var listenerMessageChannel = __webpack_require__(/*! message-channel/listener */ 10);
+/* global window */
+var dataCapsuleTools = __webpack_require__(/*! ./frame-listener */ 49);
 
-var greedySplit = __webpack_require__(/*! greedy-split */ 5);
+if (typeof window !== 'undefined') {
+  window.DataCapsuleTools = dataCapsuleTools;
+}
 
-var BaseStorage = __webpack_require__(/*! ../base-storage */ 0);
+module.exports = dataCapsuleTools;
 
-var LocalStorageStrategy = __webpack_require__(/*! ../strategies/local-storage */ 6);
+/***/ }),
+
+/***/ 49:
+/*!***************************!*\
+  !*** ./frame-listener.js ***!
+  \***************************/
+/*! exports provided: NOT_FOUND, BaseStorage, DataCapsule, LocalStorageStrategy, FrameStorageListener */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is referenced from these modules with unsupported syntax: ./global-frame-listener.js (referenced with cjs require) */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_frame_storage_listener__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/frame-storage-listener */ 8);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FrameStorageListener", function() { return _utils_frame_storage_listener__WEBPACK_IMPORTED_MODULE_0__["a"]; });
+
+/* harmony import */ var _strategies_local_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./strategies/local-storage */ 3);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LocalStorageStrategy", function() { return _strategies_local_storage__WEBPACK_IMPORTED_MODULE_1__["a"]; });
+
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/constants */ 0);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOT_FOUND", function() { return _utils_constants__WEBPACK_IMPORTED_MODULE_2__["e"]; });
+
+/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./base-storage */ 1);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BaseStorage", function() { return _base_storage__WEBPACK_IMPORTED_MODULE_3__["a"]; });
+
+/* harmony import */ var _data_capsule__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./data-capsule */ 4);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DataCapsule", function() { return _data_capsule__WEBPACK_IMPORTED_MODULE_4__["a"]; });
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ 5:
+/*!*********************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/utils.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseConnectionMessage = exports.constructConnectionMessage = exports.parseChannelMessage = exports.constructChannelMessage = undefined;
+
+var _constants = __webpack_require__(/*! ./constants */ 7);
+
+var constructChannelMessage = exports.constructChannelMessage = function constructChannelMessage(payload, id) {
+  if (!id) {
+    return payload;
+  }
+
+  return id + _constants.messageDelimiter + payload;
+};
+
+var parseChannelMessage = exports.parseChannelMessage = function parseChannelMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1) {
+    return { id: null, payload: message };
+  }
+
+  var id = message.slice(0, firstDelimiterIndex);
+  var payload = message.slice(firstDelimiterIndex + 1);
+  return { id: id, payload: payload };
+};
+
+var constructConnectionMessage = exports.constructConnectionMessage = function constructConnectionMessage(scope) {
+  return _constants.connectionRequestMsg + _constants.messageDelimiter + scope;
+};
+
+var parseConnectionMessage = exports.parseConnectionMessage = function parseConnectionMessage(message) {
+  var firstDelimiterIndex = message.indexOf(_constants.messageDelimiter);
+  if (firstDelimiterIndex === -1 || message.slice(0, firstDelimiterIndex) !== _constants.connectionRequestMsg) {
+    throw new Error('Invalid connection message');
+  }
+
+  var scope = message.slice(firstDelimiterIndex + 1);
+  return scope;
+};
+
+/***/ }),
+
+/***/ 6:
+/*!******************************************************!*\
+  !*** ../node_modules/greedy-split/dist/src/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/*! exports used: default */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function greedySplit(str, separator, limit) {
+  var result = str.split(separator, limit);
+  if (result.length === limit) {
+    var length = 0;
+    if (typeof separator === 'string') {
+      length = result.join(separator).length;
+    } else {
+      length = result.reduce(function (l, x, i) {
+        var separatorLength = 0;
+        if (i + 1 < limit) {
+          separatorLength = str.slice(l).match(separator).shift().length;
+        }
+        return l + x.length + separatorLength;
+      }, 0);
+    }
+    result[limit - 1] += str.slice(length);
+  }
+  return result;
+}
+
+module.exports = greedySplit;
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ 7:
+/*!*************************************************************!*\
+  !*** ../node_modules/message-channel/dist/src/constants.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var connectionRequestMsg = exports.connectionRequestMsg = 'req_con';
+var connectionSuccessMsg = exports.connectionSuccessMsg = 'connection_success';
+var messageDelimiter = exports.messageDelimiter = '|';
+var deafultConnectionMaxTimeout = exports.deafultConnectionMaxTimeout = 200;
+var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
+
+/***/ }),
+
+/***/ 8:
+/*!*****************************************!*\
+  !*** ./utils/frame-storage-listener.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/*! exports used: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FrameStorageListener; });
+/* harmony import */ var message_channel_listener__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! message-channel/listener */ 10);
+/* harmony import */ var message_channel_listener__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(message_channel_listener__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var greedy_split__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! greedy-split */ 6);
+/* harmony import */ var greedy_split__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(greedy_split__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../base-storage */ 1);
+/* harmony import */ var _strategies_local_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../strategies/local-storage */ 3);
+
+
+
+
 
 var FrameStorageListener = /*#__PURE__*/function () {
   function FrameStorageListener(strategy) {
     if (strategy === void 0) {
-      strategy = new LocalStorageStrategy();
+      strategy = new _strategies_local_storage__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]();
     }
 
-    this.storageStrategy = BaseStorage.verify(strategy);
+    this.storageStrategy = _base_storage__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].verify(strategy);
     this.stopListener = undefined;
   }
 
@@ -897,15 +882,15 @@ var FrameStorageListener = /*#__PURE__*/function () {
       throw new Error('the interceptor must be a function');
     }
 
-    var storageStrategy = BaseStorage.verify(this.storageStrategy);
-    this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
+    var storageStrategy = _base_storage__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].verify(this.storageStrategy);
+    this.stopListener = message_channel_listener__WEBPACK_IMPORTED_MODULE_0___default()('data-capsule', messageHandler);
 
     function messageHandler(e, reply) {
       if (typeof e.data !== 'string') {
         return;
       }
 
-      var _greedySplit = greedySplit(e.data, '|', 3),
+      var _greedySplit = greedy_split__WEBPACK_IMPORTED_MODULE_1___default()(e.data, '|', 3),
           token = _greedySplit[0],
           method = _greedySplit[1],
           payload = _greedySplit[2];
@@ -947,7 +932,7 @@ var FrameStorageListener = /*#__PURE__*/function () {
   return FrameStorageListener;
 }();
 
-module.exports = FrameStorageListener;
+
 
 /***/ })
 
