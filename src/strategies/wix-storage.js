@@ -1,8 +1,8 @@
 /* global document */
 
-const axios = require('axios');
-const BaseStorage = require('../base-storage');
-const { NOT_FOUND, SERVER_ERROR } = require('../utils/constants');
+import axios from 'axios';
+import BaseStorage from '../base-storage';
+import { NOT_FOUND, SERVER_ERROR } from '../utils/constants';
 
 function getCookieValue(name) {
   if (typeof document === 'undefined') {
@@ -17,7 +17,7 @@ function getUserId() {
   return wixClient[6] || getCookieValue('_wixCIDX');
 }
 
-class WixStorageStrategy extends BaseStorage {
+export default class WixStorageStrategy extends BaseStorage {
   extendScope(scope) {
     scope = typeof scope === 'string' ? { siteId: scope } : scope;
     return Object.assign({ userId: getUserId() }, scope);
@@ -100,5 +100,3 @@ class WixStorageStrategy extends BaseStorage {
       });
   }
 }
-
-module.exports = WixStorageStrategy;

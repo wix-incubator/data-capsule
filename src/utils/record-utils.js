@@ -1,10 +1,10 @@
 /* global localStorage */
 
-const {
+import {
   STORAGE_PREFIX,
   PREFIX_SEPARATOR,
   KEY_SEPARATOR,
-} = require('../utils/constants');
+} from './constants';
 
 function parseCacheKey(cacheKey) {
   const [prefix, key] = cacheKey.split(KEY_SEPARATOR);
@@ -49,7 +49,7 @@ function isExpired(data) {
   }
 }
 
-module.exports = {
+export {
   deserializeData,
   getCacheRecords,
   isExpired,

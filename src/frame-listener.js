@@ -1,10 +1,10 @@
-const FrameStorageListener = require('./utils/frame-storage-listener');
-const LocalStorageStrategy = require('./strategies/local-storage');
-const { NOT_FOUND } = require('./utils/constants');
-const BaseStorage = require('./base-storage');
-const DataCapsule = require('./data-capsule');
+import FrameStorageListener from './utils/frame-storage-listener';
+import LocalStorageStrategy from './strategies/local-storage';
+import { NOT_FOUND } from './utils/constants';
+import BaseStorage from './base-storage';
+import DataCapsule from './data-capsule';
 
-module.exports = {
+export {
   NOT_FOUND,
   BaseStorage,
   DataCapsule,

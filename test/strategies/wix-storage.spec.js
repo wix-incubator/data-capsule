@@ -1,11 +1,11 @@
-const nock = require('nock');
-const { expect } = require('chai');
-const {
+import nock from 'nock';
+import { expect } from 'chai';
+import {
   SERVER_ERROR,
   NOT_FOUND,
   DataCapsule,
   WixStorageStrategy,
-} = require('../../src');
+} from '../../src';
 
 describe('wix-storage-strategy', () => {
   it('should set item', async () => {

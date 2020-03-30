@@ -1,6 +1,6 @@
 /* global localStorage */
 
-const { getCacheRecords, isExpired } = require('./record-utils');
+import { getCacheRecords, isExpired } from './record-utils';
 
 function deleteRecord(cleaner, record = cleaner.records[0]) {
   localStorage.removeItem(record.originalKey);
@@ -37,10 +37,8 @@ function deleteOld(cleaner) {
   return cleaner;
 }
 
-function localStorageCleaner(requiredSpace) {
+export default function localStorageCleaner(requiredSpace) {
   let cleaner = { records: getCacheRecords(), requiredSpace };
   cleaner = deleteExpired(cleaner);
   deleteOld(cleaner);
 }
-
-module.exports = localStorageCleaner;

@@ -1,7 +1,7 @@
-const sinon = require('sinon');
-const { expect } = require('chai');
-const { LocalStorage } = require('node-localstorage');
-const { NOT_FOUND, LocalStorageCapsule } = require('../../src');
+import sinon from 'sinon';
+import { expect } from 'chai';
+import { LocalStorage } from 'node-localstorage';
+import { NOT_FOUND, LocalStorageCapsule } from '../../src';
 
 describe('local-storage-cleaner', () => {
   const oneKilobyte = new Array(1000).fill('a').join('');

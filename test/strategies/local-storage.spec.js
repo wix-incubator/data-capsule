@@ -1,11 +1,11 @@
-const sinon = require('sinon');
-const { expect } = require('chai');
-const { LocalStorage } = require('node-localstorage');
-const {
+import sinon from 'sinon';
+import { expect } from 'chai';
+import { LocalStorage } from 'node-localstorage';
+import {
   NOT_FOUND,
   LocalStorageCapsule,
   LOCAL_STORAGE_UNSUPPORTED,
-} = require('../../src');
+} from '../../src';
 
 describe('localstorage-strategy', () => {
   beforeEach(() => {

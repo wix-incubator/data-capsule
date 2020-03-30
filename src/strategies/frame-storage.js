@@ -1,13 +1,13 @@
-const greedySplit = require('greedy-split');
-const connectMessageChannel = require('message-channel/connect');
-const BaseStorage = require('../base-storage');
-const {
+import greedySplit from 'greedy-split';
+import connectMessageChannel from 'message-channel/connect';
+import BaseStorage from '../base-storage';
+import {
   CONNECTION_MAX_TIMEOUT,
   MESSAGE_MAX_TIMEOUT,
   toError,
-} = require('../utils/constants');
+} from '../utils/constants';
 
-class FrameStorageStrategy extends BaseStorage {
+export default class FrameStorageStrategy extends BaseStorage {
   constructor(target, origin, token, opts = {}) {
     super();
     this.target = target;
@@ -73,5 +73,3 @@ class FrameStorageStrategy extends BaseStorage {
     return this.sendCommand('getAllItems', params);
   }
 }
-
-module.exports = FrameStorageStrategy;

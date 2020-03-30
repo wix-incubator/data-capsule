@@ -1,19 +1,19 @@
 /* global localStorage */
 
-const BaseStorage = require('../base-storage');
-const localStorageCleaner = require('../utils/local-storage-cleaner');
-const {
+import BaseStorage from '../base-storage';
+import localStorageCleaner from '../utils/local-storage-cleaner';
+import {
   STORAGE_PREFIX,
   PREFIX_SEPARATOR,
   KEY_SEPARATOR,
   NOT_FOUND,
   LOCAL_STORAGE_UNSUPPORTED,
-} = require('../utils/constants');
-const {
+} from '../utils/constants';
+import {
   getCacheRecords,
   deserializeData,
   isExpired,
-} = require('../utils/record-utils');
+} from '../utils/record-utils';
 
 function getCacheKey(key, options) {
   return getCachePrefix(options) + key;
@@ -48,7 +48,7 @@ function updateAccessTime(fullKey, data) {
   );
 }
 
-class LocalStorageStrategy extends BaseStorage {
+export default class LocalStorageStrategy extends BaseStorage {
   setItem(key, value, options) {
     key = getCacheKey(key, options);
     value = serializeData(value, options);
@@ -95,5 +95,3 @@ class LocalStorageStrategy extends BaseStorage {
     return Promise.resolve(items);
   }
 }
-
-module.exports = LocalStorageStrategy;

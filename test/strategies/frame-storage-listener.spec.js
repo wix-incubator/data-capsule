@@ -1,5 +1,5 @@
-const { expect } = require('chai');
-const { FrameStorageListener } = require('../../src');
+import { expect } from 'chai';
+import { FrameStorageListener } from '../../src';
 
 describe('frame-storage-listener', () => {
   it('should throw if non BaseStorage is passed', () => {
