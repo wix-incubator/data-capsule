@@ -1,12 +1,12 @@
-const FrameStorageListener = require('./utils/frame-storage-listener');
-const LocalStorageStrategy = require('./strategies/local-storage');
-const FrameStorageStrategy = require('./strategies/frame-storage');
-const WixStorageStrategy = require('./strategies/wix-storage');
-const CachedStorageStrategy = require('./strategies/cached-storage');
-const InMemoryStorageStrategy = require('./strategies/in-memory-storage');
-const { NOT_FOUND } = require('./utils/constants');
-const BaseStorage = require('./base-storage');
-const DataCapsule = require('./data-capsule');
+import FrameStorageListener from './utils/frame-storage-listener';
+import LocalStorageStrategy from './strategies/local-storage';
+import FrameStorageStrategy from './strategies/frame-storage';
+import WixStorageStrategy from './strategies/wix-storage';
+import CachedStorageStrategy from './strategies/cached-storage';
+import InMemoryStorageStrategy from './strategies/in-memory-storage';
+import { NOT_FOUND } from './utils/constants';
+import BaseStorage from './base-storage';
+import DataCapsule from './data-capsule';
 
 function LocalStorageCapsule(options) {
   return new DataCapsule(
@@ -30,7 +30,7 @@ function LocalStorageCachedCapsule(options) {
   );
 }
 
-module.exports = {
+export {
   NOT_FOUND,
   BaseStorage,
   DataCapsule,

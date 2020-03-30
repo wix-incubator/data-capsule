@@ -1,4 +1,4 @@
-const BaseStorage = require('./base-storage');
+import BaseStorage from './base-storage';
 
 function validateNamespace(options) {
   if (!options.namespace) {
@@ -8,7 +8,7 @@ function validateNamespace(options) {
   }
 }
 
-class DataCapsule extends BaseStorage {
+export default class DataCapsule extends BaseStorage {
   constructor({ strategy, namespace, scope }) {
     super();
     this.storageStrategy = BaseStorage.verify(strategy);
@@ -42,5 +42,3 @@ class DataCapsule extends BaseStorage {
     return this.storageStrategy.getAllItems(options);
   }
 }
-
-module.exports = DataCapsule;

@@ -1,4 +1,4 @@
-class BaseStorage {
+export default class BaseStorage {
   constructor() {
     ['setItem', 'getItem', 'removeItem', 'getAllItems'].forEach(method => {
       if (this[method] === BaseStorage.prototype[method]) {
@@ -35,5 +35,3 @@ class BaseStorage {
     }
   }
 }
-
-module.exports = BaseStorage;

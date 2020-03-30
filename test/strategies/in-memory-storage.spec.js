@@ -1,5 +1,5 @@
-const { expect } = require('chai');
-const { NOT_FOUND, InMemoryStorageCapsule } = require('../../src');
+import { expect } from 'chai';
+import { NOT_FOUND, InMemoryStorageCapsule } from '../../src';
 
 describe('in-memory-strategy', () => {
   it('should store and retrieve information', async () => {

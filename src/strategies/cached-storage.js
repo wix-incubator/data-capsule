@@ -1,10 +1,10 @@
-const { NOT_FOUND } = require('../utils/constants');
-const BaseStorage = require('../base-storage');
-const LocalStorageStrategy = require('./local-storage');
+import { NOT_FOUND } from '../utils/constants';
+import BaseStorage from '../base-storage';
+import LocalStorageStrategy from './local-storage';
 
 const DELETED = '___DELETED___';
 
-class CachedStorageStrategy extends BaseStorage {
+export default class CachedStorageStrategy extends BaseStorage {
   constructor({ remoteStrategy, localStrategy = new LocalStorageStrategy() }) {
     super();
     this.remoteStrategy = BaseStorage.verify(remoteStrategy);
@@ -78,5 +78,3 @@ class CachedStorageStrategy extends BaseStorage {
       );
   }
 }
-
-module.exports = CachedStorageStrategy;

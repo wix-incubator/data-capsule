@@ -1,5 +1,5 @@
-const BaseStorage = require('../src/base-storage');
-const { expect } = require('chai');
+import BaseStorage from '../src/base-storage';
+import { expect } from 'chai';
 
 describe('base-storage', () => {
   it('should throw if instantiating with pure methods', () => {

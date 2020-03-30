@@ -1,6 +1,6 @@
-const { expect } = require('chai');
-const { NOT_FOUND } = require('../../src');
-const { browser, element, by } = require('protractor');
+import { expect } from 'chai';
+import { NOT_FOUND } from '../../src';
+import { browser, element, by } from 'protractor';
 
 const switchToIFrame = () =>
   browser.switchTo().frame(element(by.tagName('iframe')).getWebElement());

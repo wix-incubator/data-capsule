@@ -1,9 +1,9 @@
-const listenerMessageChannel = require('message-channel/listener');
-const greedySplit = require('greedy-split');
-const BaseStorage = require('../base-storage');
-const LocalStorageStrategy = require('../strategies/local-storage');
+import listenerMessageChannel from 'message-channel/listener';
+import greedySplit from 'greedy-split';
+import BaseStorage from '../base-storage';
+import LocalStorageStrategy from '../strategies/local-storage';
 
-class FrameStorageListener {
+export default class FrameStorageListener {
   constructor(strategy = new LocalStorageStrategy()) {
     this.storageStrategy = BaseStorage.verify(strategy);
     this.stopListener = undefined;
@@ -68,5 +68,3 @@ class FrameStorageListener {
     this.stopListener && this.stopListener();
   }
 }
-
-module.exports = FrameStorageListener;

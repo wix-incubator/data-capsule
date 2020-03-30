@@ -1,7 +1,7 @@
-const { NOT_FOUND } = require('../utils/constants');
-const BaseStorage = require('../base-storage');
+import { NOT_FOUND } from '../utils/constants';
+import BaseStorage from '../base-storage';
 
-class InMemoryStrategy extends BaseStorage {
+export default class InMemoryStrategy extends BaseStorage {
   constructor() {
     super();
     this.memoryMap = {};
@@ -34,5 +34,3 @@ class InMemoryStrategy extends BaseStorage {
     return Promise.resolve(this.memoryMap[options.namespace]);
   }
 }
-
-module.exports = InMemoryStrategy;

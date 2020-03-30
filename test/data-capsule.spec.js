@@ -1,12 +1,12 @@
-const nock = require('nock');
-const { expect } = require('chai');
-const { LocalStorage } = require('node-localstorage');
-const {
+import nock from 'nock';
+import { expect } from 'chai';
+import { LocalStorage } from 'node-localstorage';
+import {
   DataCapsule,
   LocalStorageStrategy,
   CachedStorageStrategy,
   WixStorageStrategy,
-} = require('../src');
+} from '../src';
 
 describe('data-capsule', () => {
   describe('with localstorage strategy', () => {
