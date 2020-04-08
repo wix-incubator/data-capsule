@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.396.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.397.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -688,16 +688,6 @@ function localStorageCleaner(requiredSpace) {
   deleteOld(cleaner);
 }
 // CONCATENATED MODULE: ./strategies/local-storage.js
-function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 /* global localStorage */
@@ -740,8 +730,6 @@ function updateAccessTime(fullKey, data) {
 
 var local_storage_LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
   _inheritsLoose(LocalStorageStrategy, _BaseStorage);
-
-  var _super = _createSuper(LocalStorageStrategy);
 
   function LocalStorageStrategy() {
     return _BaseStorage.apply(this, arguments) || this;
@@ -817,16 +805,6 @@ var local_storage_LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DataCapsule; });
 /* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base-storage */ 1);
-function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 
@@ -841,8 +819,6 @@ function validateNamespace(options) {
 
 var DataCapsule = /*#__PURE__*/function (_BaseStorage) {
   _inheritsLoose(DataCapsule, _BaseStorage);
-
-  var _super = _createSuper(DataCapsule);
 
   function DataCapsule(_ref) {
     var _this;
@@ -1117,16 +1093,6 @@ var FrameStorageListener = /*#__PURE__*/function () {
 /* harmony import */ var message_channel_connect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(message_channel_connect__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../base-storage */ 1);
 /* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/constants */ 0);
-function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 
@@ -1136,8 +1102,6 @@ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.crea
 
 var FrameStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
   _inheritsLoose(FrameStorageStrategy, _BaseStorage);
-
-  var _super = _createSuper(FrameStorageStrategy);
 
   function FrameStorageStrategy(target, origin, token, opts) {
     var _this;
@@ -3377,16 +3341,6 @@ var base_storage = __webpack_require__(1);
 var constants = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./strategies/wix-storage.js
-function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 /* global document */
@@ -3409,8 +3363,6 @@ function getUserId() {
 
 var wix_storage_WixStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
   _inheritsLoose(WixStorageStrategy, _BaseStorage);
-
-  var _super = _createSuper(WixStorageStrategy);
 
   function WixStorageStrategy() {
     return _BaseStorage.apply(this, arguments) || this;
@@ -3497,16 +3449,6 @@ var wix_storage_WixStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
 
 
 // CONCATENATED MODULE: ./strategies/cached-storage.js
-function cached_storage_createSuper(Derived) { return function () { var Super = cached_storage_getPrototypeOf(Derived), result; if (cached_storage_isNativeReflectConstruct()) { var NewTarget = cached_storage_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return cached_storage_possibleConstructorReturn(this, result); }; }
-
-function cached_storage_possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return cached_storage_assertThisInitialized(self); }
-
-function cached_storage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function cached_storage_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function cached_storage_getPrototypeOf(o) { cached_storage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return cached_storage_getPrototypeOf(o); }
-
 function cached_storage_inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 
@@ -3516,8 +3458,6 @@ var DELETED = '___DELETED___';
 
 var cached_storage_CachedStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
   cached_storage_inheritsLoose(CachedStorageStrategy, _BaseStorage);
-
-  var _super = cached_storage_createSuper(CachedStorageStrategy);
 
   function CachedStorageStrategy(_ref) {
     var _this;
@@ -3610,16 +3550,6 @@ var cached_storage_CachedStorageStrategy = /*#__PURE__*/function (_BaseStorage) 
 
 
 // CONCATENATED MODULE: ./strategies/in-memory-storage.js
-function in_memory_storage_createSuper(Derived) { return function () { var Super = in_memory_storage_getPrototypeOf(Derived), result; if (in_memory_storage_isNativeReflectConstruct()) { var NewTarget = in_memory_storage_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return in_memory_storage_possibleConstructorReturn(this, result); }; }
-
-function in_memory_storage_possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return in_memory_storage_assertThisInitialized(self); }
-
-function in_memory_storage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function in_memory_storage_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function in_memory_storage_getPrototypeOf(o) { in_memory_storage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return in_memory_storage_getPrototypeOf(o); }
-
 function in_memory_storage_inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
 
@@ -3627,8 +3557,6 @@ function in_memory_storage_inheritsLoose(subClass, superClass) { subClass.protot
 
 var in_memory_storage_InMemoryStrategy = /*#__PURE__*/function (_BaseStorage) {
   in_memory_storage_inheritsLoose(InMemoryStrategy, _BaseStorage);
-
-  var _super = in_memory_storage_createSuper(InMemoryStrategy);
 
   function InMemoryStrategy() {
     var _this;
