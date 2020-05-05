@@ -24,9 +24,9 @@ describe('localstorage-strategy', () => {
     );
   });
 
-  it('should throw if no namespace in setItem', () => {
+  it('should throw if no namespace in setItem', async () => {
     const capsule = new LocalStorageCapsule();
-    expect(() => capsule.setItem('shahata', 123)).to.throw(
+    await expect(capsule.setItem('shahata', 123)).to.eventually.rejectedWith(
       'namespace is required',
     );
   });
