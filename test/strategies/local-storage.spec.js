@@ -179,11 +179,11 @@ describe('localstorage-strategy', () => {
     );
   });
 
-  describe.only('cookie consent', () => {
+  describe('cookie consent', () => {
     const allowedCategories = ['essential', 'functional'];
     const APIs = [
-      ['global', () => mockConsentPolicyManager(allowedCategories)],
-      ['js sdk', () => mockConsentPolicyManager(allowedCategories)],
+      ['global', () => mockConsentPolicyManagerGlobal(allowedCategories)],
+      ['js sdk', () => mockConsentPolicyManagerWixSdk(allowedCategories)],
     ];
 
     APIs.forEach(([name, mock]) => {
@@ -235,10 +235,24 @@ describe('localstorage-strategy', () => {
   });
 });
 
-function mockConsentPolicyManager(categories) {
+function mockConsentPolicyManagerGlobal(categories) {
   beforeEach(() => {
     global.consentPolicyManager = {
       getCurrentConsentPolicy: () => categories,
+    };
+  });
+
+  afterEach(() => {
+    delete global.consentPolicyManager;
+  });
+}
+
+function mockConsentPolicyManagerWixSdk(categories) {
+  beforeEach(() => {
+    global.Wix = {
+      Utils: {
+        getCurrentConsentPolicy: () => categories,
+      },
     };
   });
 
