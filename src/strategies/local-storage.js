@@ -2,6 +2,7 @@
 
 import BaseStorage from '../base-storage';
 import localStorageCleaner from '../utils/local-storage-cleaner';
+import { verifyConsentPolicy } from '../consent-policy';
 import {
   STORAGE_PREFIX,
   PREFIX_SEPARATOR,
@@ -49,16 +50,18 @@ function updateAccessTime(fullKey, data) {
 }
 
 export default class LocalStorageStrategy extends BaseStorage {
-  setItem(key, value, options) {
+  async setItem(key, value, options) {
     key = getCacheKey(key, options);
     value = serializeData(value, options);
+
+    this._verifyConsentPolicy(options.category);
+
     try {
       localStorage.setItem(key, value);
     } catch (e) {
       localStorageCleaner(key.length + value.length);
       localStorage.setItem(key, value);
     }
-    return Promise.resolve();
   }
 
   getItem(key, options) {
@@ -93,5 +96,11 @@ export default class LocalStorageStrategy extends BaseStorage {
       }
     });
     return Promise.resolve(items);
+  }
+
+  _verifyConsentPolicy(category) {
+    if (category && !verifyConsentPolicy(category)) {
+      throw new Error('woop 2');
+    }
   }
 }
