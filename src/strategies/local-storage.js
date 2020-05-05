@@ -54,7 +54,10 @@ export default class LocalStorageStrategy extends BaseStorage {
     key = getCacheKey(key, options);
     value = serializeData(value, options);
 
-    this._verifyConsentPolicy(options.category);
+    // not mandatory, yet (gradual enforcement)
+    if (options.category) {
+      verifyConsentPolicy(options.category);
+    }
 
     try {
       localStorage.setItem(key, value);
@@ -96,11 +99,5 @@ export default class LocalStorageStrategy extends BaseStorage {
       }
     });
     return Promise.resolve(items);
-  }
-
-  _verifyConsentPolicy(category) {
-    if (category && !verifyConsentPolicy(category)) {
-      throw new Error('woop 2');
-    }
   }
 }

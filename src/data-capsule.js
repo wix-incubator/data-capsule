@@ -1,5 +1,5 @@
 import BaseStorage from './base-storage';
-import { verifyConsentPolicyCategoryValue } from './consent-policy';
+import { verifyConsentPolicyCategoryIfExists } from './consent-policy';
 
 function validateNamespace(options) {
   if (!options.namespace) {
@@ -8,7 +8,7 @@ function validateNamespace(options) {
     throw new Error('namespace should be a string');
   }
 
-  verifyConsentPolicyCategoryValue(options.category);
+  verifyConsentPolicyCategoryIfExists(options.category);
 }
 
 export default class DataCapsule extends BaseStorage {

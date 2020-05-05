@@ -7,11 +7,13 @@ const CONSENT_POLICY_CATEGORIES = [
 
 export function verifyConsentPolicy(category) {
   const consentPolicy = getConsentPolicy();
-  return consentPolicy.indexOf(category) !== -1;
+
+  if (consentPolicy.indexOf(category) !== -1) {
+    throw new Error('woop');
+  }
 }
 
-export function verifyConsentPolicyCategoryValue(category) {
-  // category is not a mandatory field for now
+export function verifyConsentPolicyCategoryIfExists(category) {
   if (!category) return;
 
   if (CONSENT_POLICY_CATEGORIES.indexOf(category) !== -1) {
