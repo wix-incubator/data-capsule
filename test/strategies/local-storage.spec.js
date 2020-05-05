@@ -179,33 +179,41 @@ describe('localstorage-strategy', () => {
     );
   });
 
-  describe('cookie consent', () => {
+  describe.only('cookie consent', () => {
     const allowedCategories = ['essential', 'functional'];
+    const APIs = [
+      ['global', () => mockConsentPolicyManager(allowedCategories)],
+      ['js sdk', () => mockConsentPolicyManager(allowedCategories)],
+    ];
 
-    mockConsentPolicyManager(allowedCategories);
+    APIs.forEach(([name, mock]) => {
+      describe(`with ${name} API`, () => {
+        mock();
 
-    it('allows setting in case category is listed', async () => {
-      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
-      await capsule.setItem('key', 1, { category: 'essential' });
-      expect(await capsule.getAllItems()).to.eql({
-        key: 1,
-      });
-    });
+        it('allows setting in case category is listed', async () => {
+          const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+          await capsule.setItem('key', 1, { category: 'essential' });
+          expect(await capsule.getAllItems()).to.eql({
+            key: 1,
+          });
+        });
 
-    it('disallows setting in case category is unlisted', async () => {
-      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
-      await expect(
-        capsule.setItem('key', 1, { category: 'advertising' }),
-      ).to.eventually.be.rejectedWith(
-        'advertising category way not pemritted by the user',
-      );
-    });
+        it('disallows setting in case category is unlisted', async () => {
+          const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+          await expect(
+            capsule.setItem('key', 1, { category: 'advertising' }),
+          ).to.eventually.be.rejectedWith(
+            'advertising category way not pemritted by the user',
+          );
+        });
 
-    it('allows setting in case category is not passed', async () => {
-      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
-      await capsule.setItem('key', 1);
-      expect(await capsule.getAllItems()).to.eql({
-        key: 1,
+        it('allows setting in case category is not passed', async () => {
+          const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+          await capsule.setItem('key', 1);
+          expect(await capsule.getAllItems()).to.eql({
+            key: 1,
+          });
+        });
       });
     });
 
@@ -214,6 +222,15 @@ describe('localstorage-strategy', () => {
       await expect(
         capsule.setItem('key', 1, { category: 'foo' }),
       ).to.eventually.be.rejectedWith(/category must be one of/);
+    });
+
+    it('rejects any try to set item if no consent policy manager', async () => {
+      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+      await expect(
+        capsule.setItem('key', 1, { category: 'advertising' }),
+      ).to.eventually.be.rejectedWith(
+        'advertising category way not pemritted by the user',
+      );
     });
   });
 });

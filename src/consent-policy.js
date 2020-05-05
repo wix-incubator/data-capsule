@@ -27,11 +27,14 @@ function getConsentPolicy() {
 }
 
 function resolveByNativeAPI() {
-  return global.consentPolicyManager.getCurrentConsentPolicy();
+  return (
+    global.consentPolicyManager &&
+    global.consentPolicyManager.getCurrentConsentPolicy()
+  );
 }
 
 function resolveByJsSDK() {
-  return global.Wix.Utils.getCurrentConsentPolicy();
+  return global.Wix && global.Wix.Utils.getCurrentConsentPolicy();
 }
 
 function none() {
