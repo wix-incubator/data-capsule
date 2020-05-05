@@ -224,7 +224,7 @@ describe('localstorage-strategy', () => {
       ).to.eventually.be.rejectedWith(/category must be one of/);
     });
 
-    it('rejects any try to set item if no consent policy manager', async () => {
+    it('rejects any try to set an item if no consent policy manager exists', async () => {
       const capsule = new LocalStorageCapsule({ namespace: 'wix' });
       await expect(
         capsule.setItem('key', 1, { category: 'advertising' }),

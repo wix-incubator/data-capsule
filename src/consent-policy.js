@@ -1,3 +1,5 @@
+/* global consentPolicyManager, Wix */
+
 const CONSENT_POLICY_CATEGORIES = [
   'essential',
   'functional',
@@ -28,13 +30,19 @@ function getConsentPolicy() {
 
 function resolveByNativeAPI() {
   return (
-    global.consentPolicyManager &&
-    global.consentPolicyManager.getCurrentConsentPolicy()
+    consentPolicyManager &&
+    consentPolicyManager.getCurrentConsentPolicy &&
+    consentPolicyManager.getCurrentConsentPolicy()
   );
 }
 
 function resolveByJsSDK() {
-  return global.Wix && global.Wix.Utils.getCurrentConsentPolicy();
+  return (
+    Wix &&
+    Wix.Utils &&
+    Wix.Utils.getCurrentConsentPolicy &&
+    Wix.Utils.getCurrentConsentPolicy()
+  );
 }
 
 function none() {
