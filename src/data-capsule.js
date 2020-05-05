@@ -25,7 +25,7 @@ export default class DataCapsule extends BaseStorage {
     return options;
   }
 
-  setItem(key, value, options) {
+  async setItem(key, value, options) {
     options = this._buildValidateOptions(this._options, options);
     return this.storageStrategy.setItem(key, value, options);
   }

@@ -8,16 +8,16 @@ const CONSENT_POLICY_CATEGORIES = [
 export function verifyConsentPolicy(category) {
   const consentPolicy = getConsentPolicy();
 
-  if (consentPolicy.indexOf(category) !== -1) {
-    throw new Error('woop');
+  if (consentPolicy.indexOf(category) === -1) {
+    throw new Error(`${category} category way not pemritted by the user`);
   }
 }
 
 export function verifyConsentPolicyCategoryIfExists(category) {
   if (!category) return;
 
-  if (CONSENT_POLICY_CATEGORIES.indexOf(category) !== -1) {
-    const categories = CONSENT_POLICY_CATEGORIES.map(v => `'${v}'`.join(', '));
+  if (CONSENT_POLICY_CATEGORIES.indexOf(category) === -1) {
+    const categories = CONSENT_POLICY_CATEGORIES.map(v => `'${v}'`).join(', ');
     throw new Error(`category must be one of ${categories}`);
   }
 }
@@ -27,11 +27,11 @@ function getConsentPolicy() {
 }
 
 function resolveByNativeAPI() {
-  return window.consentPolicyManager.getCurrentConsentPolicy();
+  return global.consentPolicyManager.getCurrentConsentPolicy();
 }
 
 function resolveByJsSDK() {
-  return window.Wix.Utils.getCurrentConsentPolicy();
+  return global.Wix.Utils.getCurrentConsentPolicy();
 }
 
 function none() {

@@ -178,4 +178,54 @@ describe('localstorage-strategy', () => {
       LOCAL_STORAGE_UNSUPPORTED,
     );
   });
+
+  describe('cookie consent', () => {
+    const allowedCategories = ['essential', 'functional'];
+
+    mockConsentPolicyManager(allowedCategories);
+
+    it('allows setting in case category is listed', async () => {
+      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+      await capsule.setItem('key', 1, { category: 'essential' });
+      expect(await capsule.getAllItems()).to.eql({
+        key: 1,
+      });
+    });
+
+    it('disallows setting in case category is unlisted', async () => {
+      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+      await expect(
+        capsule.setItem('key', 1, { category: 'advertising' }),
+      ).to.eventually.be.rejectedWith(
+        'advertising category way not pemritted by the user',
+      );
+    });
+
+    it('allows setting in case category is not passed', async () => {
+      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+      await capsule.setItem('key', 1);
+      expect(await capsule.getAllItems()).to.eql({
+        key: 1,
+      });
+    });
+
+    it('rejects in case category is unknown', async () => {
+      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+      await expect(
+        capsule.setItem('key', 1, { category: 'foo' }),
+      ).to.eventually.be.rejectedWith(/category must be one of/);
+    });
+  });
 });
+
+function mockConsentPolicyManager(categories) {
+  beforeEach(() => {
+    global.consentPolicyManager = {
+      getCurrentConsentPolicy: () => categories,
+    };
+  });
+
+  afterEach(() => {
+    delete global.consentPolicyManager;
+  });
+}
