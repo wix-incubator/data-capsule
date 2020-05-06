@@ -1,5 +1,7 @@
 /* global consentPolicyManager, Wix */
 
+import { COOKIE_CONSENT_DISALLOWED } from './utils/constants';
+
 const CONSENT_POLICY_CATEGORIES = [
   'essential',
   'functional',
@@ -11,7 +13,7 @@ export function verifyConsentPolicy(category) {
   const consentPolicy = getConsentPolicy();
 
   if (consentPolicy.indexOf(category) === -1) {
-    throw new Error(`${category} category way not pemritted by the user`);
+    throw COOKIE_CONSENT_DISALLOWED;
   }
 }
 
@@ -30,7 +32,7 @@ function getConsentPolicy() {
 
 function resolveByNativeAPI() {
   return (
-    consentPolicyManager &&
+    typeof consentPolicyManager === 'object' &&
     consentPolicyManager.getCurrentConsentPolicy &&
     consentPolicyManager.getCurrentConsentPolicy()
   );
@@ -38,7 +40,7 @@ function resolveByNativeAPI() {
 
 function resolveByJsSDK() {
   return (
-    Wix &&
+    typeof Wix === 'object' &&
     Wix.Utils &&
     Wix.Utils.getCurrentConsentPolicy &&
     Wix.Utils.getCurrentConsentPolicy()

@@ -5,6 +5,7 @@ import {
   NOT_FOUND,
   LocalStorageCapsule,
   LOCAL_STORAGE_UNSUPPORTED,
+  COOKIE_CONSENT_DISALLOWED,
 } from '../../src';
 
 describe('localstorage-strategy', () => {
@@ -202,9 +203,7 @@ describe('localstorage-strategy', () => {
           const capsule = new LocalStorageCapsule({ namespace: 'wix' });
           await expect(
             capsule.setItem('key', 1, { category: 'advertising' }),
-          ).to.eventually.be.rejectedWith(
-            'advertising category way not pemritted by the user',
-          );
+          ).to.eventually.be.rejectedWith(COOKIE_CONSENT_DISALLOWED);
         });
 
         it('allows setting in case category is not passed', async () => {
@@ -228,9 +227,7 @@ describe('localstorage-strategy', () => {
       const capsule = new LocalStorageCapsule({ namespace: 'wix' });
       await expect(
         capsule.setItem('key', 1, { category: 'advertising' }),
-      ).to.eventually.be.rejectedWith(
-        'advertising category way not pemritted by the user',
-      );
+      ).to.eventually.be.rejectedWith(COOKIE_CONSENT_DISALLOWED);
     });
   });
 });
