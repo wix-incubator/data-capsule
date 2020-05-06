@@ -84,7 +84,7 @@ In order to comply the cookie consent regulations, every time this strategy is u
 
 DataCapsule will verify that the category the item belongs to was approved by the user. In case it was not approved, `COOKIE_CONSENT_DISALLOWED` error will be thrown (`import { COOKIE_CONSENT_DISALLOWED } from 'data-capsule`).
 
-```
+```js
 import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
 
 const capsule = LocalStorageCapsule({namespace: '${your-app-namespace}'});
