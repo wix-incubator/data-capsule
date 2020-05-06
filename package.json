@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "start": "yoshi start",
+    "pretest": "yoshi build",
     "build": "yoshi build",
     "test": "yoshi test --mocha --protractor",
     "posttest": "yoshi lint",
