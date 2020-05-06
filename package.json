@@ -14,9 +14,9 @@
   ],
   "scripts": {
     "start": "yoshi start",
-    "pretest": "yoshi lint && yoshi build",
     "build": "yoshi build",
     "test": "yoshi test --mocha --protractor",
+    "posttest": "yoshi lint",
     "postpublish": "bower-auto-release --dist dist/statics"
   },
   "dependencies": {

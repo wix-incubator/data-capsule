@@ -5,8 +5,8 @@ A plugable capsule for storing key/value data for your application.
 Following plugins support is built in:
  1. LocalStorage - works with browser's native local storage, plugin automatically manages expiration and auto-cleans to never exceed quota.
  2. WixStorage - wix internal implementation (**can be used only by wix applications, use as reference if you want to implement something similar**) of storage plugin that communicates with wix server to store the data.
- 2. CachedStorage - works with two plugins, will use one of them for persistent storage and the second for local cache in order to do less requests to more expensive persistent storage. this can be used for example with WixStorage as persistent storage on remote servers combined with LocalStorage for local cache.
- 3. FrameStorage - a nice way to offload storage request from frame to parent window. parent window can use LocalStorage, CachedStorage or any other plugin you can think of. this is extremely helpful for working around [3rd party site data issues](http://www.howtogeek.com/241006/how-to-block-third-party-cookies-in-every-web-browser/).
+ 3. CachedStorage - works with two plugins, will use one of them for persistent storage and the second for local cache in order to do less requests to more expensive persistent storage. this can be used for example with WixStorage as persistent storage on remote servers combined with LocalStorage for local cache.
+ 4. FrameStorage - a nice way to offload storage request from frame to parent window. parent window can use LocalStorage, CachedStorage or any other plugin you can think of. this is extremely helpful for working around [3rd party site data issues](http://www.howtogeek.com/241006/how-to-block-third-party-cookies-in-every-web-browser/).
 
 ## installation
 
@@ -71,6 +71,33 @@ import {LocalStorageCapsule} from 'data-capsule';
 const capsule = LocalStorageCapsule({namespace: '${your-app-namespace}'});
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
+```
+
+### Cookie Consent
+
+In order to comply the cookie consent regulations, every time this strategy is used, one of the following categories should be passed:
+
+- essential
+- functional
+- analytics
+- advertising
+
+DataCapsule will verify that the category the item belongs to was approved by the user. In case it was not approved, `COOKIE_CONSENT_DISALLOWED` error will be thrown (`import { COOKIE_CONSENT_DISALLOWED } from 'data-capsule`).
+
+```js
+import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
+
+const capsule = LocalStorageCapsule({namespace: '${your-app-namespace}'});
+
+try {
+  await capsule.setItem('shahata', 123, { category: 'advertising' });
+} catch (e) {
+  if (e === COOKIE_CONSENT_DISALLOWED) {
+    // do something
+  } else {
+    // do something else
+  }
+}
 ```
 
 ## CachedStorage
@@ -145,7 +172,6 @@ const capsule = InMemoryStorageCapsule({namespace: '${your-app-namespace}'});
 await capsule.setItem('shahata', 123);
 console.log(await capsule.getItem('shahata')); // logs 123
 ```
-
 
 ## FrameStorage
 

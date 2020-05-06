@@ -4,7 +4,7 @@ import FrameStorageStrategy from './strategies/frame-storage';
 import WixStorageStrategy from './strategies/wix-storage';
 import CachedStorageStrategy from './strategies/cached-storage';
 import InMemoryStorageStrategy from './strategies/in-memory-storage';
-import { NOT_FOUND } from './utils/constants';
+import { NOT_FOUND, CONSENT_POLICY_CATEGORIES } from './utils/constants';
 import BaseStorage from './base-storage';
 import DataCapsule from './data-capsule';
 
@@ -32,6 +32,7 @@ function LocalStorageCachedCapsule(options) {
 
 export {
   NOT_FOUND,
+  CONSENT_POLICY_CATEGORIES,
   BaseStorage,
   DataCapsule,
   FrameStorageListener,

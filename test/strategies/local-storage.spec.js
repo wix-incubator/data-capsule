@@ -5,6 +5,7 @@ import {
   NOT_FOUND,
   LocalStorageCapsule,
   LOCAL_STORAGE_UNSUPPORTED,
+  COOKIE_CONSENT_DISALLOWED,
 } from '../../src';
 
 describe('localstorage-strategy', () => {
@@ -24,9 +25,9 @@ describe('localstorage-strategy', () => {
     );
   });
 
-  it('should throw if no namespace in setItem', () => {
+  it('should throw if no namespace in setItem', async () => {
     const capsule = new LocalStorageCapsule();
-    expect(() => capsule.setItem('shahata', 123)).to.throw(
+    await expect(capsule.setItem('shahata', 123)).to.eventually.rejectedWith(
       'namespace is required',
     );
   });
@@ -178,4 +179,81 @@ describe('localstorage-strategy', () => {
       LOCAL_STORAGE_UNSUPPORTED,
     );
   });
+
+  describe('cookie consent', () => {
+    const allowedCategories = ['essential', 'functional'];
+    const APIs = [
+      ['global', () => mockConsentPolicyManagerGlobal(allowedCategories)],
+      ['js sdk', () => mockConsentPolicyManagerWixSdk(allowedCategories)],
+    ];
+
+    APIs.forEach(([name, mock]) => {
+      describe(`with ${name} API`, () => {
+        mock();
+
+        it('allows setting in case category is listed', async () => {
+          const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+          await capsule.setItem('key', 1, { category: 'essential' });
+          expect(await capsule.getAllItems()).to.eql({
+            key: 1,
+          });
+        });
+
+        it('disallows setting in case category is unlisted', async () => {
+          const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+          await expect(
+            capsule.setItem('key', 1, { category: 'advertising' }),
+          ).to.eventually.be.rejectedWith(COOKIE_CONSENT_DISALLOWED);
+        });
+
+        it('allows setting in case category is not passed', async () => {
+          const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+          await capsule.setItem('key', 1);
+          expect(await capsule.getAllItems()).to.eql({
+            key: 1,
+          });
+        });
+      });
+    });
+
+    it('rejects in case category is unknown', async () => {
+      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+      await expect(
+        capsule.setItem('key', 1, { category: 'foo' }),
+      ).to.eventually.be.rejectedWith(/category must be one of/);
+    });
+
+    it('rejects any try to set an item if no consent policy manager exists', async () => {
+      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+      await expect(
+        capsule.setItem('key', 1, { category: 'advertising' }),
+      ).to.eventually.be.rejectedWith(COOKIE_CONSENT_DISALLOWED);
+    });
+  });
 });
+
+function mockConsentPolicyManagerGlobal(categories) {
+  beforeEach(() => {
+    global.consentPolicyManager = {
+      getCurrentConsentPolicy: () => categories,
+    };
+  });
+
+  afterEach(() => {
+    delete global.consentPolicyManager;
+  });
+}
+
+function mockConsentPolicyManagerWixSdk(categories) {
+  beforeEach(() => {
+    global.Wix = {
+      Utils: {
+        getCurrentConsentPolicy: () => categories,
+      },
+    };
+  });
+
+  afterEach(() => {
+    delete global.consentPolicyManager;
+  });
+}
