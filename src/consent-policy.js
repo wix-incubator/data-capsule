@@ -27,7 +27,9 @@ export function verifyConsentPolicyCategoryIfExists(category) {
 }
 
 function getConsentPolicy() {
-  return resolveByNativeAPI() || resolveByJsSDK() || none();
+  const categories = resolveByNativeAPI() || resolveByJsSDK() || none();
+
+  return [...categories, 'essential'];
 }
 
 function resolveByNativeAPI() {

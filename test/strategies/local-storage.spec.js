@@ -181,7 +181,7 @@ describe('localstorage-strategy', () => {
   });
 
   describe('cookie consent', () => {
-    const allowedCategories = ['essential', 'functional'];
+    const allowedCategories = ['analytics', 'functional'];
     const APIs = [
       ['global', () => mockConsentPolicyManagerGlobal(allowedCategories)],
       ['js sdk', () => mockConsentPolicyManagerWixSdk(allowedCategories)],
@@ -193,7 +193,7 @@ describe('localstorage-strategy', () => {
 
         it('allows setting in case category is listed', async () => {
           const capsule = new LocalStorageCapsule({ namespace: 'wix' });
-          await capsule.setItem('key', 1, { category: 'essential' });
+          await capsule.setItem('key', 1, { category: 'functional' });
           expect(await capsule.getAllItems()).to.eql({
             key: 1,
           });
@@ -228,6 +228,14 @@ describe('localstorage-strategy', () => {
       await expect(
         capsule.setItem('key', 1, { category: 'advertising' }),
       ).to.eventually.be.rejectedWith(COOKIE_CONSENT_DISALLOWED);
+    });
+
+    it('always approves in case item is in essential category', async () => {
+      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
+      await capsule.setItem('key', 1, { category: 'essential' });
+      expect(await capsule.getAllItems()).to.eql({
+        key: 1,
+      });
     });
   });
 });
