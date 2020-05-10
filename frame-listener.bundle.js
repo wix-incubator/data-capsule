@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.430.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.431.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -507,9 +507,9 @@ var local_storage_LocalStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
 
 var CONSENT_POLICY_CATEGORIES = ['essential', 'functional', 'analytics', 'advertising'];
 function verifyConsentPolicy(category) {
-  var consentPolicy = getConsentPolicy();
+  var policy = getConsentPolicy();
 
-  if (consentPolicy.indexOf(category) === -1) {
+  if (!policy[category]) {
     throw _utils_constants__WEBPACK_IMPORTED_MODULE_0__[/* COOKIE_CONSENT_DISALLOWED */ "b"];
   }
 }
@@ -525,8 +525,10 @@ function verifyConsentPolicyCategoryIfExists(category) {
 }
 
 function getConsentPolicy() {
-  var categories = resolveByNativeAPI() || resolveByJsSDK() || none();
-  return [].concat(categories, ['essential']);
+  var _ref = resolveByNativeAPI() || resolveByJsSDK() || none(),
+      policy = _ref.policy;
+
+  return policy;
 }
 
 function resolveByNativeAPI() {
@@ -538,7 +540,9 @@ function resolveByJsSDK() {
 }
 
 function none() {
-  return [];
+  return {
+    policy: {}
+  };
 }
 
 /***/ }),
