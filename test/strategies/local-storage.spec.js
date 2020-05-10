@@ -229,21 +229,13 @@ describe('localstorage-strategy', () => {
         capsule.setItem('key', 1, { category: 'advertising' }),
       ).to.eventually.be.rejectedWith(COOKIE_CONSENT_DISALLOWED);
     });
-
-    it('always approves in case item is in essential category', async () => {
-      const capsule = new LocalStorageCapsule({ namespace: 'wix' });
-      await capsule.setItem('key', 1, { category: 'essential' });
-      expect(await capsule.getAllItems()).to.eql({
-        key: 1,
-      });
-    });
   });
 });
 
 function mockConsentPolicyManagerGlobal(categories) {
   beforeEach(() => {
     global.consentPolicyManager = {
-      getCurrentConsentPolicy: () => categories,
+      getCurrentConsentPolicy: () => ({ policy: toPolicy(categories) }),
     };
   });
 
@@ -256,7 +248,7 @@ function mockConsentPolicyManagerWixSdk(categories) {
   beforeEach(() => {
     global.Wix = {
       Utils: {
-        getCurrentConsentPolicy: () => categories,
+        getCurrentConsentPolicy: () => ({ policy: toPolicy(categories) }),
       },
     };
   });
@@ -264,4 +256,21 @@ function mockConsentPolicyManagerWixSdk(categories) {
   afterEach(() => {
     delete global.consentPolicyManager;
   });
+}
+
+function toPolicy(categories) {
+  const defaults = {
+    functional: false,
+    analytics: false,
+    advertising: false,
+    essential: false,
+  };
+
+  return categories.reduce((policy, category) => {
+    return {
+      ...defaults,
+      ...policy,
+      [category]: true,
+    };
+  }, {});
 }

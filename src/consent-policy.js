@@ -10,9 +10,9 @@ const CONSENT_POLICY_CATEGORIES = [
 ];
 
 export function verifyConsentPolicy(category) {
-  const consentPolicy = getConsentPolicy();
+  const policy = getConsentPolicy();
 
-  if (consentPolicy.indexOf(category) === -1) {
+  if (!policy[category]) {
     throw COOKIE_CONSENT_DISALLOWED;
   }
 }
@@ -27,9 +27,8 @@ export function verifyConsentPolicyCategoryIfExists(category) {
 }
 
 function getConsentPolicy() {
-  const categories = resolveByNativeAPI() || resolveByJsSDK() || none();
-
-  return [...categories, 'essential'];
+  const { policy } = resolveByNativeAPI() || resolveByJsSDK() || none();
+  return policy;
 }
 
 function resolveByNativeAPI() {
@@ -50,5 +49,5 @@ function resolveByJsSDK() {
 }
 
 function none() {
-  return [];
+  return { policy: {} };
 }
