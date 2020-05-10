@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.429.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.430.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -244,7 +244,8 @@ function verifyConsentPolicyCategoryIfExists(category) {
 }
 
 function getConsentPolicy() {
-  return resolveByNativeAPI() || resolveByJsSDK() || none();
+  var categories = resolveByNativeAPI() || resolveByJsSDK() || none();
+  return [].concat(categories, ['essential']);
 }
 
 function resolveByNativeAPI() {
