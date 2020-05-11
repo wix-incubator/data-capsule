@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.431.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.432.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -509,7 +509,7 @@ var CONSENT_POLICY_CATEGORIES = ['essential', 'functional', 'analytics', 'advert
 function verifyConsentPolicy(category) {
   var policy = getConsentPolicy();
 
-  if (!policy[category]) {
+  if (typeof policy !== 'undefined' && !policy[category]) {
     throw _utils_constants__WEBPACK_IMPORTED_MODULE_0__[/* COOKIE_CONSENT_DISALLOWED */ "b"];
   }
 }
@@ -540,9 +540,7 @@ function resolveByJsSDK() {
 }
 
 function none() {
-  return {
-    policy: {}
-  };
+  return {};
 }
 
 /***/ }),
