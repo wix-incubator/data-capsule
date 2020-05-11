@@ -223,11 +223,14 @@ describe('localstorage-strategy', () => {
       ).to.eventually.be.rejectedWith(/category must be one of/);
     });
 
-    it('rejects any try to set an item if no consent policy manager exists', async () => {
+    it('allows any try to set an item if no consent policy manager exists', async () => {
       const capsule = new LocalStorageCapsule({ namespace: 'wix' });
-      await expect(
-        capsule.setItem('key', 1, { category: 'advertising' }),
-      ).to.eventually.be.rejectedWith(COOKIE_CONSENT_DISALLOWED);
+      await capsule.setItem('key', 1, { category: 'essential' });
+      await capsule.setItem('key2', 1, { category: 'functional' });
+      expect(await capsule.getAllItems()).to.eql({
+        key: 1,
+        key2: 1,
+      });
     });
   });
 });

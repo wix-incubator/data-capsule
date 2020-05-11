@@ -12,7 +12,7 @@ const CONSENT_POLICY_CATEGORIES = [
 export function verifyConsentPolicy(category) {
   const policy = getConsentPolicy();
 
-  if (!policy[category]) {
+  if (typeof policy !== 'undefined' && !policy[category]) {
     throw COOKIE_CONSENT_DISALLOWED;
   }
 }
@@ -49,5 +49,5 @@ function resolveByJsSDK() {
 }
 
 function none() {
-  return { policy: {} };
+  return {};
 }
