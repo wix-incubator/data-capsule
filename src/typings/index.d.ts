@@ -10,6 +10,7 @@ export interface ConstructorOptions extends Options {
 
 export interface SetOptions extends Options {
   expiration?: number;
+  category?: 'essential' | 'functional' | 'analytics' | 'advertising'
 }
 
 export class BaseStorage {
