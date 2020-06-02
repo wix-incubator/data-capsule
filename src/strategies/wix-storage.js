@@ -18,6 +18,14 @@ function getUserId() {
 }
 
 export default class WixStorageStrategy extends BaseStorage {
+  constructor({ signedInstance } = {}) {
+    super();
+
+    this.axiosInstance = axios.create({
+      headers: headers({ signedInstance }),
+    });
+  }
+
   extendScope(scope) {
     scope = typeof scope === 'string' ? { siteId: scope } : scope;
     return Object.assign({ userId: getUserId() }, scope);
@@ -35,7 +43,7 @@ export default class WixStorageStrategy extends BaseStorage {
     if (options.expiration) {
       payload.TTLInDays = Math.ceil(options.expiration / (60 * 60 * 24));
     }
-    return axios
+    return this.axiosInstance
       .post('/_api/wix-user-preferences-webapp/set', payload)
       .then(() => undefined)
       .catch(() => {
@@ -51,7 +59,7 @@ export default class WixStorageStrategy extends BaseStorage {
     if (options.scope && options.scope.siteId) {
       payload.siteId = options.scope.siteId;
     }
-    return axios
+    return this.axiosInstance
       .post('/_api/wix-user-preferences-webapp/delete', payload)
       .then(() => undefined)
       .catch(() => {
@@ -72,7 +80,7 @@ export default class WixStorageStrategy extends BaseStorage {
       .filter(x => x)
       .join('/');
 
-    return axios
+    return this.axiosInstance
       .get(url)
       .then(res => res.data[key])
       .catch(err => {
@@ -92,11 +100,21 @@ export default class WixStorageStrategy extends BaseStorage {
       .filter(x => x)
       .join('/');
 
-    return axios
+    return this.axiosInstance
       .get(url)
       .then(res => res.data)
       .catch(() => {
         throw SERVER_ERROR;
       });
   }
+}
+
+function headers({ signedInstance }) {
+  const headers = {}; // eslint-disable-line no-shadow
+
+  if (signedInstance) {
+    headers.authorization = signedInstance;
+  }
+
+  return headers;
 }

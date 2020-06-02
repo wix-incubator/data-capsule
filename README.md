@@ -102,14 +102,14 @@ try {
 
 ## CachedStorage
 
-Constructor accepts `options` object with `remoteStrategy` and `localStrategy`. Get operations are first tried against `localStrategy` and if no local cache exists, we then fallback to `remoteStrategy` and eventually cache to `localStrategy`. Set operations are cached to `localStrategy` as well. Note that `localStrategy` cache is always set with expiration period of one hour in order to avoid stale cache issues. The `localStrategy` is `new LocalStorageStrategy()` by default, so you don't have to pass it, but anyway you are better off using the short form below:
+Constructor accepts `options` object with `remoteStrategy` and `localStrategy`. Get operations are first tried against `localStrategy` and if no local cache exists, we then fallback to `remoteStrategy` and eventually cache to `localStrategy`. Set operations are cached to `localStrategy` as well. Note that `localStrategy` cache is always set with expiration period of one hour in order to avoid stale cache issues. On setting up a `WixStorageStrategy` instance, you will be required to pass a Wix signed instance so wix storage will resolve your identity. The `localStrategy` is `new LocalStorageStrategy()` by default, so you don't have to pass it, but anyway you are better off using the short form below:
 
 ```js
 import {DataCapsule, CachedStorageStrategy, LocalStorageStrategy, WixStorageStrategy} from 'data-capsule';
 
 const capsule = new DataCapsule({
   strategy: new CachedStorageStrategy({
-    remoteStrategy: new WixStorageStrategy(),
+    remoteStrategy: new WixStorageStrategy({ signedInstance: 'app-signed-instance' }),
     localStrategy: new LocalStorageStrategy()
   }),
   namespace: '${your-app-namespace}'
@@ -125,7 +125,7 @@ And shorter alternative:
 import {LocalStorageCachedCapsule, WixStorageStrategy} from 'data-capsule';
 
 const capsule = LocalStorageCachedCapsule({
-  remoteStrategy: new WixStorageStrategy(),
+  remoteStrategy: new WixStorageStrategy({ signedInstance: 'app-signed-instance' }),
   namespace: '${your-app-namespace}'
 });
 await capsule.setItem('shahata', 123); //send setItem request to server
@@ -139,7 +139,7 @@ Site scoped example **(can be used only by wix applications)**:
 import {LocalStorageCachedCapsule, WixStorageStrategy} from 'data-capsule';
 
 const capsule = LocalStorageCachedCapsule({
-  remoteStrategy: new WixStorageStrategy(),
+  remoteStrategy: new WixStorageStrategy({ signedInstance: 'app-signed-instance' }),
   scope: '${meta-site-id}',
   namespace: '${your-app-namespace}'
 });

@@ -20,6 +20,23 @@ describe('wix-storage-strategy', () => {
     await capsule.setItem('shahata', 123, { namespace: 'wix' });
   });
 
+  it('passes through signed instance as an authorization header', async () => {
+    const signedInstance = 'foo';
+    const capsule = new DataCapsule({
+      strategy: new WixStorageStrategy({ signedInstance }),
+    });
+    const reqheaders = { authorization: signedInstance };
+
+    nock('http://localhost', { reqheaders })
+      .post('/_api/wix-user-preferences-webapp/set', {
+        nameSpace: 'wix',
+        key: 'shahata',
+        blob: 123,
+      })
+      .reply(200);
+    await capsule.setItem('shahata', 123, { namespace: 'wix' });
+  });
+
   it('should set item with scope', async () => {
     const capsule = new DataCapsule({ strategy: new WixStorageStrategy() });
     nock('http://localhost')
