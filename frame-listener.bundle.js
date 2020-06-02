@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.453.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.454.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -1609,13 +1609,12 @@ var FrameStorageListener = /*#__PURE__*/function () {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 16);
+module.exports = __webpack_require__(/*! ./dist/src/listener/listener */ 15);
 
 
 /***/ }),
 /* 14 */,
-/* 15 */,
-/* 16 */
+/* 15 */
 /*!*********************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listener.js ***!
   \*********************************************************************/
@@ -1631,7 +1630,7 @@ var _constants = __webpack_require__(/*! ../constants */ 9);
 
 var _utils = __webpack_require__(/*! ../utils */ 7);
 
-var _listenFactory = __webpack_require__(/*! ./listen-factory */ 17);
+var _listenFactory = __webpack_require__(/*! ./listen-factory */ 16);
 
 var _listenFactory2 = _interopRequireDefault(_listenFactory);
 
@@ -1683,7 +1682,7 @@ function listener(scope) {
 module.exports = listener;
 
 /***/ }),
-/* 17 */
+/* 16 */
 /*!***************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/listener/listen-factory.js ***!
   \***************************************************************************/
@@ -1727,6 +1726,7 @@ function listenFactory(port, callback) {
 }
 
 /***/ }),
+/* 17 */,
 /* 18 */,
 /* 19 */,
 /* 20 */,

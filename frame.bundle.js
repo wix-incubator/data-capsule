@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.453.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.454.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -1363,14 +1363,13 @@ var FrameStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 18);
+module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 17);
 
 
 /***/ }),
 /* 15 */,
 /* 16 */,
-/* 17 */,
-/* 18 */
+/* 17 */
 /*!*******************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
   \*******************************************************************/
@@ -1386,7 +1385,7 @@ var _constants = __webpack_require__(/*! ../constants */ 9);
 
 var _utils = __webpack_require__(/*! ../utils */ 7);
 
-var _sendFactory = __webpack_require__(/*! ./send-factory */ 19);
+var _sendFactory = __webpack_require__(/*! ./send-factory */ 18);
 
 var _sendFactory2 = _interopRequireDefault(_sendFactory);
 
@@ -1425,7 +1424,7 @@ function connect(scope) {
 module.exports = connect;
 
 /***/ }),
-/* 19 */
+/* 18 */
 /*!************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
   \************************************************************************/
@@ -1444,7 +1443,7 @@ exports.default = sendFactory;
 
 var _utils = __webpack_require__(/*! ../utils */ 7);
 
-var _v = __webpack_require__(/*! uuid/v4 */ 20);
+var _v = __webpack_require__(/*! uuid/v4 */ 19);
 
 var _v2 = _interopRequireDefault(_v);
 
@@ -1488,7 +1487,7 @@ function sendFactory(port, options) {
 }
 
 /***/ }),
-/* 20 */
+/* 19 */
 /*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
@@ -1497,8 +1496,8 @@ function sendFactory(port, options) {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(/*! ./lib/rng */ 21);
-var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ 22);
+var rng = __webpack_require__(/*! ./lib/rng */ 20);
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ 21);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -1529,7 +1528,7 @@ module.exports = v4;
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
@@ -1575,7 +1574,7 @@ if (getRandomValues) {
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
@@ -1613,6 +1612,7 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
+/* 22 */,
 /* 23 */,
 /* 24 */,
 /* 25 */,
