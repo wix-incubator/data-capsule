@@ -43,6 +43,7 @@ export class FrameStorageListener {
 }
 
 export const NOT_FOUND: Error;
+export const COOKIE_CONSENT_DISALLOWED: Error;
 export const LocalStorageCapsule: (options: Options) => DataCapsule;
 export const LocalStorageCachedCapsule: (options: Options) => DataCapsule;
 export const InMemoryStorageCapsule: (options: Options) => DataCapsule;
