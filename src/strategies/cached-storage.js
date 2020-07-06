@@ -1,12 +1,19 @@
 import { NOT_FOUND } from '../utils/constants';
 import BaseStorage from '../base-storage';
 import LocalStorageStrategy from './local-storage';
+import NullStrategy from './null-storage';
+import WixStorageStrategy, { getUserId } from './wix-storage';
 
 const DELETED = '___DELETED___';
 
 export default class CachedStorageStrategy extends BaseStorage {
   constructor({ remoteStrategy, localStrategy = new LocalStorageStrategy() }) {
     super();
+
+    if (shouldIgnoreCache(remoteStrategy)) {
+      localStrategy = new NullStrategy();
+    }
+
     this.remoteStrategy = BaseStorage.verify(remoteStrategy);
     this.localStrategy = BaseStorage.verify(localStrategy);
   }
@@ -77,4 +84,14 @@ export default class CachedStorageStrategy extends BaseStorage {
         ).then(() => items),
       );
   }
+}
+
+// we don't support local strategy in case we cannot
+// identify the user - mainly on viewer flow.
+function shouldIgnoreCache(remoteStrategy) {
+  return (
+    remoteStrategy &&
+    remoteStrategy.constructor === WixStorageStrategy &&
+    getUserId() === ''
+  );
 }
