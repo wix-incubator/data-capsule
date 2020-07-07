@@ -12,6 +12,7 @@ import {
 describe('cached-storage-strategy', () => {
   beforeEach(() => {
     global.localStorage = new LocalStorage('./scratch');
+    global.document = { cookie: '_wixCIDX=wixUser' };
   });
 
   afterEach(() => {
@@ -186,5 +187,38 @@ describe('cached-storage-strategy', () => {
     expect(
       () => new CachedStorageStrategy(new WixStorageStrategy(), {}),
     ).to.throw('must extend BaseStorage');
+  });
+
+  describe('local cache ignorance', () => {
+    beforeEach(() => {
+      global.localStorage.clear();
+      global.document = { cookie: '' };
+    });
+
+    it('ignores in case cannot retrieve user id', async () => {
+      const capsule = new LocalStorageCachedCapsule({
+        remoteStrategy: new WixStorageStrategy(),
+      });
+
+      nock('http://localhost')
+        .post('/_api/wix-user-preferences-webapp/set', {
+          nameSpace: 'wix',
+          key: 'shahata',
+          blob: 123,
+        })
+        .reply(200);
+
+      nock('http://localhost')
+        .get(
+          '/_api/wix-user-preferences-webapp/getVolatilePrefForKey/wix/shahata',
+        )
+        .reply(200, { shahata: 456 });
+
+      await capsule.setItem('shahata', 123, { namespace: 'wix' });
+
+      expect(await capsule.getItem('shahata', { namespace: 'wix' })).to.equal(
+        456,
+      );
+    });
   });
 });

@@ -12,7 +12,7 @@ function getCookieValue(name) {
   }
 }
 
-function getUserId() {
+export function getUserId() {
   const wixClient = getCookieValue('wixClient').split('|');
   return wixClient[6] || getCookieValue('_wixCIDX');
 }

@@ -12,6 +12,7 @@ describe('data-capsule', () => {
   describe('with localstorage strategy', () => {
     beforeEach(() => {
       global.localStorage = new LocalStorage('./scratch');
+      global.document = { cookie: '_wixCIDX=wixUser' };
     });
 
     afterEach(() => {
