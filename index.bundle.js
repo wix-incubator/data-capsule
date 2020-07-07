@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.489.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.490.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -4168,10 +4168,11 @@ module.exports = function spread(callback) {
 /* 52 */,
 /* 53 */
 /*!******************************!*\
-  !*** ./index.js + 3 modules ***!
+  !*** ./index.js + 4 modules ***!
   \******************************/
 /*! exports provided: NOT_FOUND, COOKIE_CONSENT_DISALLOWED, BaseStorage, DataCapsule, FrameStorageListener, FrameStorageStrategy, LocalStorageStrategy, LocalStorageCapsule, WixStorageStrategy, CachedStorageStrategy, LocalStorageCachedCapsule, InMemoryStorageStrategy, InMemoryStorageCapsule */
 /*! all exports used */
+/*! ModuleConcatenation bailout: Cannot concat with ../node_modules/@babel/runtime/regenerator/index.js (<- Module is not an ECMAScript module) */
 /*! ModuleConcatenation bailout: Cannot concat with ../node_modules/axios/index.js (<- Module is not an ECMAScript module) */
 /*! ModuleConcatenation bailout: Cannot concat with ./base-storage.js */
 /*! ModuleConcatenation bailout: Cannot concat with ./data-capsule.js */
@@ -4349,8 +4350,71 @@ function headers(_ref2) {
 
   return headers;
 }
+// EXTERNAL MODULE: ../node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(2);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+
+// CONCATENATED MODULE: ./strategies/null-storage.js
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function null_storage_inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+var null_storage_NullStrategy = /*#__PURE__*/function (_BaseStorage) {
+  null_storage_inheritsLoose(NullStrategy, _BaseStorage);
+
+  function NullStrategy() {
+    return _BaseStorage.apply(this, arguments) || this;
+  }
+
+  var _proto = NullStrategy.prototype;
+
+  _proto.setItem = /*#__PURE__*/function () {
+    var _setItem = _asyncToGenerator( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
+      return regenerator_default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function setItem() {
+      return _setItem.apply(this, arguments);
+    }
+
+    return setItem;
+  }();
+
+  _proto.getItem = function getItem() {
+    return Promise.reject(constants["f" /* NOT_FOUND */]);
+  };
+
+  _proto.removeItem = function removeItem() {
+    return Promise.resolve();
+  };
+
+  _proto.getAllItems = function getAllItems() {
+    return Promise.resolve({});
+  };
+
+  return NullStrategy;
+}(base_storage["a" /* default */]);
+
+
 // CONCATENATED MODULE: ./strategies/cached-storage.js
 function cached_storage_inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
 
 
 
@@ -4367,6 +4431,11 @@ var cached_storage_CachedStorageStrategy = /*#__PURE__*/function (_BaseStorage) 
         _ref$localStrategy = _ref.localStrategy,
         localStrategy = _ref$localStrategy === void 0 ? new local_storage["a" /* default */]() : _ref$localStrategy;
     _this = _BaseStorage.call(this) || this;
+
+    if (shouldIgnoreCache(remoteStrategy)) {
+      localStrategy = new null_storage_NullStrategy();
+    }
+
     _this.remoteStrategy = base_storage["a" /* default */].verify(remoteStrategy);
     _this.localStrategy = base_storage["a" /* default */].verify(localStrategy);
     return _this;
@@ -4447,9 +4516,15 @@ var cached_storage_CachedStorageStrategy = /*#__PURE__*/function (_BaseStorage) 
   };
 
   return CachedStorageStrategy;
-}(base_storage["a" /* default */]);
+}(base_storage["a" /* default */]); // we don't support local strategy in case we cannot
+// identify the user - mainly on viewer flow.
 
 
+
+
+function shouldIgnoreCache(remoteStrategy) {
+  return remoteStrategy && remoteStrategy.constructor === wix_storage_WixStorageStrategy && getUserId() === '';
+}
 // CONCATENATED MODULE: ./strategies/in-memory-storage.js
 function in_memory_storage_inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
