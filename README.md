@@ -102,7 +102,7 @@ try {
 
 ## CachedStorage
 
-Constructor accepts `options` object with `remoteStrategy` and `localStrategy`. Get operations are first tried against `localStrategy` and if no local cache exists, we then fallback to `remoteStrategy` and eventually cache to `localStrategy`. Set operations are cached to `localStrategy` as well. Note that `localStrategy` cache is always set with expiration period of one hour in order to avoid stale cache issues. On setting up a `WixStorageStrategy` instance, you will be required to pass a Wix signed instance so wix storage will resolve your identity. The `localStrategy` is `new LocalStorageStrategy()` by default, so you don't have to pass it, but anyway you are better off using the short form below:
+Constructor accepts `options` object with `remoteStrategy` and `localStrategy`. Get operations are first tried against `localStrategy` and if no local cache exists, we then fallback to `remoteStrategy` and eventually cache to `localStrategy`. Set operations are cached to `localStrategy` as well. Note that `localStrategy` cache is always set with expiration period of one hour in order to avoid stale cache issues. On setting up a `WixStorageStrategy` instance, you may pass a Wix signed instance so wix storage will resolve your identity. The `localStrategy` is `new LocalStorageStrategy()` by default, so you don't have to pass it, but anyway you are better off using the short form below:
 
 ```js
 import {DataCapsule, CachedStorageStrategy, LocalStorageStrategy, WixStorageStrategy} from 'data-capsule';
@@ -147,6 +147,14 @@ await capsule.setItem('shahata', 123); //send setItem request to server
 console.log(await capsule.getItem('shahata')); // logs 123
 // ^ does not send getItem request to server since value is cached
 ```
+
+### new WixStorageStrategy(opts)
+
+**Params:**
+
+- opts (Object):
+  - signedInstance (String) - Wix signed instance, in case auth cookies cannot be attached to the request.
+  - baseUrl (String) - will be prefixed to user pref relative url. Very relevant in case of viewer & freemium sites - auth cookie is set to the relative path and not the whole domain (say, `foo.wixsite.com/my-site` instead of `foo.wixsite.com`).
 
 ## InMemoryStorage
 

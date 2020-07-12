@@ -18,12 +18,14 @@ export function getUserId() {
 }
 
 export default class WixStorageStrategy extends BaseStorage {
-  constructor({ signedInstance } = {}) {
+  constructor({ signedInstance, baseUrl } = {}) {
     super();
 
     this.axiosInstance = axios.create({
       headers: headers({ signedInstance }),
     });
+
+    this.baseUrl = baseUrl;
   }
 
   extendScope(scope) {
@@ -37,14 +39,17 @@ export default class WixStorageStrategy extends BaseStorage {
       key,
       blob: value,
     };
+
     if (options.scope && options.scope.siteId) {
       payload.siteId = options.scope.siteId;
     }
+
     if (options.expiration) {
       payload.TTLInDays = Math.ceil(options.expiration / (60 * 60 * 24));
     }
+
     return this.axiosInstance
-      .post('/_api/wix-user-preferences-webapp/set', payload)
+      .post(this._toFullUrl('/_api/wix-user-preferences-webapp/set'), payload)
       .then(() => undefined)
       .catch(() => {
         throw SERVER_ERROR;
@@ -56,11 +61,16 @@ export default class WixStorageStrategy extends BaseStorage {
       nameSpace: options.namespace,
       key,
     };
+
     if (options.scope && options.scope.siteId) {
       payload.siteId = options.scope.siteId;
     }
+
     return this.axiosInstance
-      .post('/_api/wix-user-preferences-webapp/delete', payload)
+      .post(
+        this._toFullUrl('/_api/wix-user-preferences-webapp/delete'),
+        payload,
+      )
       .then(() => undefined)
       .catch(() => {
         throw SERVER_ERROR;
@@ -81,7 +91,7 @@ export default class WixStorageStrategy extends BaseStorage {
       .join('/');
 
     return this.axiosInstance
-      .get(url)
+      .get(this._toFullUrl(url))
       .then(res => res.data[key])
       .catch(err => {
         throw err.response.status === 404 ? NOT_FOUND : SERVER_ERROR;
@@ -101,11 +111,19 @@ export default class WixStorageStrategy extends BaseStorage {
       .join('/');
 
     return this.axiosInstance
-      .get(url)
+      .get(this._toFullUrl(url))
       .then(res => res.data)
       .catch(() => {
         throw SERVER_ERROR;
       });
+  }
+
+  _toFullUrl(url) {
+    if (this.baseUrl) {
+      return `${this.baseUrl}${url}`;
+    }
+
+    return url;
   }
 }
 

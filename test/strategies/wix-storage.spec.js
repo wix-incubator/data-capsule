@@ -228,4 +228,20 @@ describe('wix-storage-strategy', () => {
       SERVER_ERROR,
     );
   });
+
+  it.only('allows to pass base url', async () => {
+    const capsule = new DataCapsule({
+      strategy: new WixStorageStrategy({ baseUrl: 'http://foo.bar' }),
+    });
+
+    nock('http://foo.bar')
+      .get(
+        '/_api/wix-user-preferences-webapp/getVolatilePrefForKey/wix/shahata',
+      )
+      .reply(200, { shahata: 123 });
+
+    expect(await capsule.getItem('shahata', { namespace: 'wix' })).to.equal(
+      123,
+    );
+  });
 });
