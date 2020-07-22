@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.503.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.504.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -1212,12 +1212,21 @@ var runtime = (function (exports) {
     IteratorPrototype = NativeIteratorPrototype;
   }
 
+  function ensureDefaultToStringTag(object, defaultValue) {
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1644581#c6
+    return toStringTagSymbol in object
+      ? object[toStringTagSymbol]
+      : object[toStringTagSymbol] = defaultValue;
+  }
+
   var Gp = GeneratorFunctionPrototype.prototype =
     Generator.prototype = Object.create(IteratorPrototype);
   GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
   GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunctionPrototype[toStringTagSymbol] =
-    GeneratorFunction.displayName = "GeneratorFunction";
+  GeneratorFunction.displayName = ensureDefaultToStringTag(
+    GeneratorFunctionPrototype,
+    "GeneratorFunction"
+  );
 
   // Helper for defining the .next, .throw, and .return methods of the
   // Iterator interface in terms of a single ._invoke method.
@@ -1244,9 +1253,7 @@ var runtime = (function (exports) {
       Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
     } else {
       genFun.__proto__ = GeneratorFunctionPrototype;
-      if (!(toStringTagSymbol in genFun)) {
-        genFun[toStringTagSymbol] = "GeneratorFunction";
-      }
+      ensureDefaultToStringTag(genFun, "GeneratorFunction");
     }
     genFun.prototype = Object.create(Gp);
     return genFun;
@@ -1516,7 +1523,7 @@ var runtime = (function (exports) {
   // unified ._invoke helper method.
   defineIteratorMethods(Gp);
 
-  Gp[toStringTagSymbol] = "Generator";
+  ensureDefaultToStringTag(Gp, "Generator");
 
   // A Generator should always return itself as the iterator object when the
   // @@iterator function is called on it. Some browsers' implementations of the
