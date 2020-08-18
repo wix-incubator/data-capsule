@@ -1,4 +1,4 @@
-const runStaticHtmlServer = require('./test/run-html-server');
+const runStaticHtmlServer = require('./test/run-html-server.ts');
 
 exports.config = {
   framework: 'mocha',

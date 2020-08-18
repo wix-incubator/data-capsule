@@ -23,20 +23,28 @@
   "dependencies": {
     "axios": "^0.19.2",
     "greedy-split": "^1.0.0",
-    "message-channel": "^2.0.0"
+    "message-channel": "^2.0.0",
+    "tslib": "^2.0.0"
   },
   "private": false,
   "devDependencies": {
+    "@types/chai": "^4.2.12",
+    "@types/chai-as-promised": "^7.1.3",
+    "@types/mocha": "^8.0.1",
+    "@types/node-localstorage": "^1.3.0",
+    "@types/sinon": "^9.0.4",
     "bower-auto-release": "^1.1.11",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "describe-jsdom": "^1.1.2",
     "eslint-config-wix": "^1.1.16",
     "express": "^4.16.1",
-    "nock": "^9.0.2",
+    "mocha": "^8.1.1",
+    "nock": "^13.0.3",
     "node-localstorage": "^1.3.0",
     "protractor": "^5.4.3",
     "sinon": "^9.0.1",
+    "typescript": "^3.9.7",
     "yoshi": "^4.47.1"
   },
   "eslintConfig": {
@@ -49,8 +57,8 @@
   },
   "yoshi": {
     "entry": {
-      "index": "./global.js",
-      "frame": "./global-frame.js",
+      "index": "./global",
+      "frame": "./global-frame",
       "frame-listener": "./global-frame-listener"
     },
     "exports": "data-capsule"
