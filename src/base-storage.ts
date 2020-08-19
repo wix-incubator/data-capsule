@@ -1,6 +1,8 @@
+export type Scope = string | Record<string, any>;
+
 export interface BaseStorageOptions {
   namespace: string;
-  scope?: string | Record<string, any>;
+  scope?: Scope;
 }
 
 export abstract class BaseStorage<TOptions> {
@@ -8,11 +10,11 @@ export abstract class BaseStorage<TOptions> {
     if (strategy instanceof BaseStorage) {
       return strategy;
     } else {
-      throw new Error(`This class must extend BaseStorage!`);
+      throw new Error('This class must extend BaseStorage!');
     }
   }
 
-  extendScope<T = any>(scope: any): any {
+  extendScope(scope: Scope): Scope {
     return scope;
   }
 

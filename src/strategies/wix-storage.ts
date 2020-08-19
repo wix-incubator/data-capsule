@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
-import { BaseStorage, BaseStorageOptions } from '../base-storage';
+import { BaseStorage, BaseStorageOptions, Scope } from '../base-storage';
 import { NOT_FOUND, SERVER_ERROR } from '../utils/constants';
 
 function getCookieValue(name: string) {
@@ -36,7 +36,7 @@ export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
     });
   }
 
-  extendScope(scope: string) {
+  extendScope(scope: Scope) {
     return {
       userId: getUserId(),
       ...(typeof scope === 'string' ? { siteId: scope } : scope),

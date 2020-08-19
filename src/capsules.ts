@@ -22,7 +22,7 @@ export function InMemoryStorageCapsule(options?: BaseStorageOptions) {
   });
 }
 
-export function LocalStorageCachedCapsule<T extends WixStorageStrategy>({
+export function LocalStorageCachedCapsule({
   remoteStrategy,
   ...options
 }: {

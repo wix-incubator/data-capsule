@@ -17,7 +17,7 @@ export type TInterceptor = (
 
 export class FrameStorageListener {
   private storageStrategy: BaseStorage<BaseStorageOptions>;
-  private stopListener?: () => void;
+  private stopListener: () => void;
 
   constructor(strategy = new LocalStorageStrategy()) {
     this.storageStrategy = BaseStorage.verify(strategy);

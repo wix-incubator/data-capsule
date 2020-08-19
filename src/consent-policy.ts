@@ -17,6 +17,7 @@ const CONSENT_POLICY_CATEGORIES = [
 
 export function verifyConsentPolicy(category: ConsentPolicyCategories) {
   verifyConsentPolicyCategoryIfExists(category);
+
   const policy = getConsentPolicy();
 
   if (typeof policy !== 'undefined' && !policy[category]) {

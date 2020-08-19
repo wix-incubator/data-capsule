@@ -1,4 +1,4 @@
-import { BaseStorage } from '../base-storage';
+import { BaseStorage, Scope } from '../base-storage';
 import { NOT_FOUND } from '../utils/constants';
 import {
   LocalStorageStrategy,
@@ -35,7 +35,7 @@ export class CachedStorageStrategy<
     );
   }
 
-  extendScope(scope: any) {
+  extendScope(scope: Scope) {
     return this.remoteStrategy.extendScope(scope);
   }
 
