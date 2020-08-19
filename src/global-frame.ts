@@ -1,9 +1,9 @@
 /* global window */
 
-import * as dataCapsuleTools from './frame';
+const dataCapsuleToolsFrame = require('./frame');
 
 if (typeof window !== 'undefined') {
-  window.DataCapsuleTools = dataCapsuleTools;
+  window.DataCapsuleTools = dataCapsuleToolsFrame;
 }
 
-module.exports = dataCapsuleTools;
+module.exports = dataCapsuleToolsFrame;

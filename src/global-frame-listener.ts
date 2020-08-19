@@ -1,9 +1,9 @@
 /* global window */
 
-import * as dataCapsuleTools from './frame-listener';
+const dataCapsuleToolsFrameListeneer = require('./frame-listener');
 
 if (typeof window !== 'undefined') {
-  window.DataCapsuleTools = dataCapsuleTools;
+  window.DataCapsuleTools = dataCapsuleToolsFrameListeneer;
 }
 
-module.exports = dataCapsuleTools;
+module.exports = dataCapsuleToolsFrameListeneer;
