@@ -25,7 +25,8 @@ describe('base-storage', () => {
       const someStorage = new SomeStorage();
       expect(BaseStorage.verify(someStorage)).to.equal(someStorage);
     });
-    it('should throw error when candidate is ', async () => {
+
+    it('should throw error when candidate does not inherit from BaseStorage', async () => {
       expect(() => BaseStorage.verify({})).to.throw(
         'This class must extend BaseStorage',
       );
