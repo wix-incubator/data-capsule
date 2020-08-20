@@ -10,14 +10,14 @@ export interface ConstructorOptions extends Options {
 
 export interface SetOptions extends Options {
   expiration?: number;
-  category?: 'essential' | 'functional' | 'analytics' | 'advertising'
+  category?: 'essential' | 'functional' | 'analytics' | 'advertising';
 }
 
 export class BaseStorage {
   setItem(key: string, value: any, options?: SetOptions): Promise<void>;
   getItem(key: string, options?: Options): Promise<any>;
   removeItem(key: string, options?: Options): Promise<void>;
-  getAllItems(options?: Options): Promise<{[key: string]: any}>;
+  getAllItems(options?: Options): Promise<{ [key: string]: any }>;
 }
 
 export class DataCapsule extends BaseStorage {
@@ -34,12 +34,14 @@ export class FrameStorageStrategy extends BaseStorage {
   setItem(...params: any[]): Promise<undefined>;
   getItem(...params: any[]): Promise<any>;
   removeItem(...params: any[]): Promise<undefined>;
-  getAllItems(...params: any[]): Promise<{[key: string]: any}>;
+  getAllItems(...params: any[]): Promise<{ [key: string]: any }>;
 }
 
 export class FrameStorageListener {
   constructor(strategy?: any);
-  start(verifier: (source: string, origin: string, token: string) => boolean): void;
+  start(
+    verifier: (source: string, origin: string, token: string) => boolean,
+  ): void;
   stop(): void;
 }
 

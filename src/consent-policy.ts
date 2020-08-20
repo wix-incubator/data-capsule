@@ -2,6 +2,12 @@
 
 import { COOKIE_CONSENT_DISALLOWED } from './utils/constants';
 
+export type ConsentPolicyCategories =
+  | 'essential'
+  | 'functional'
+  | 'analytics'
+  | 'advertising';
+
 const CONSENT_POLICY_CATEGORIES = [
   'essential',
   'functional',
@@ -9,7 +15,9 @@ const CONSENT_POLICY_CATEGORIES = [
   'advertising',
 ];
 
-export function verifyConsentPolicy(category) {
+export function verifyConsentPolicy(category: ConsentPolicyCategories) {
+  verifyConsentPolicyCategoryIfExists(category);
+
   const policy = getConsentPolicy();
 
   if (typeof policy !== 'undefined' && !policy[category]) {
@@ -17,11 +25,17 @@ export function verifyConsentPolicy(category) {
   }
 }
 
-export function verifyConsentPolicyCategoryIfExists(category) {
-  if (!category) return;
+export function verifyConsentPolicyCategoryIfExists(
+  category: ConsentPolicyCategories | undefined,
+) {
+  if (!category) {
+    return;
+  }
 
   if (CONSENT_POLICY_CATEGORIES.indexOf(category) === -1) {
-    const categories = CONSENT_POLICY_CATEGORIES.map(v => `'${v}'`).join(', ');
+    const categories = CONSENT_POLICY_CATEGORIES.map((v) => `'${v}'`).join(
+      ', ',
+    );
     throw new Error(`category must be one of ${categories}`);
   }
 }
@@ -31,6 +45,7 @@ function getConsentPolicy() {
   return policy;
 }
 
+declare const consentPolicyManager: any;
 function resolveByNativeAPI() {
   return (
     typeof consentPolicyManager === 'object' &&
@@ -39,6 +54,7 @@ function resolveByNativeAPI() {
   );
 }
 
+declare const Wix: any;
 function resolveByJsSDK() {
   return (
     typeof Wix === 'object' &&

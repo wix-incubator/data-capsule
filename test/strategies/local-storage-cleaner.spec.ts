@@ -5,20 +5,20 @@ import { NOT_FOUND, LocalStorageCapsule } from '../../src';
 
 describe('local-storage-cleaner', () => {
   const oneKilobyte = new Array(1000).fill('a').join('');
-  let clock;
+  let clock: sinon.SinonFakeTimers;
 
   beforeEach(() => {
     clock = sinon.useFakeTimers(Date.now());
-    global.localStorage = new LocalStorage('./limited', 4000); // only 4k in local storage
+    (global as any).localStorage = new LocalStorage('./limited', 4000); // only 4k in local storage
   });
 
   afterEach(() => {
-    global.localStorage.clear();
+    (global as any).localStorage.clear();
     clock.restore();
   });
 
   it('should clean oldest records first', async () => {
-    const capsule = new LocalStorageCapsule({ namespace: 'w' });
+    const capsule = LocalStorageCapsule({ namespace: 'w' });
     clock.tick(1);
     await capsule.setItem('k1', oneKilobyte);
     clock.tick(1);
@@ -35,7 +35,7 @@ describe('local-storage-cleaner', () => {
   });
 
   it('should clean last accessed records first', async () => {
-    const capsule = new LocalStorageCapsule({ namespace: 'w' });
+    const capsule = LocalStorageCapsule({ namespace: 'w' });
     clock.tick(1);
     await capsule.setItem('k1', oneKilobyte);
     clock.tick(1);
@@ -54,7 +54,7 @@ describe('local-storage-cleaner', () => {
   });
 
   it('should clean expired records first ', async () => {
-    const capsule = new LocalStorageCapsule({ namespace: 'w' });
+    const capsule = LocalStorageCapsule({ namespace: 'w' });
     clock.tick(1);
     await capsule.setItem('k1', oneKilobyte);
     clock.tick(1);

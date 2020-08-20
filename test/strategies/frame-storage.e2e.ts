@@ -240,7 +240,7 @@ describe('frame-storage-strategy when there is a interceptor', () => {
 
     await switchToMainFrame();
 
-    const a = await browser.executeScript(
+    const a: string = await browser.executeScript(
       `return localStorage.getItem('capsule|custom-space|custom-scope#hey')`,
     );
     expect(JSON.parse(a).value).to.equal('ho');

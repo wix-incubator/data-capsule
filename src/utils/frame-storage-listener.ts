@@ -1,15 +1,29 @@
-import listenerMessageChannel from 'message-channel/listener';
 import greedySplit from 'greedy-split';
-import BaseStorage from '../base-storage';
-import LocalStorageStrategy from '../strategies/local-storage';
+import listenerMessageChannel from 'message-channel/listener';
+import { BaseStorage, BaseStorageOptions } from '../base-storage';
+import { LocalStorageStrategy } from '../strategies/local-storage';
 
-export default class FrameStorageListener {
+export type TVerifier = (
+  source: string,
+  origin: string,
+  token: string,
+) => boolean;
+export type TInterceptor = (
+  options: BaseStorageOptions,
+  source: string,
+  origin: string,
+  token: string,
+) => BaseStorageOptions;
+
+export class FrameStorageListener {
+  private storageStrategy: BaseStorage<BaseStorageOptions>;
+  private stopListener: () => void;
+
   constructor(strategy = new LocalStorageStrategy()) {
     this.storageStrategy = BaseStorage.verify(strategy);
-    this.stopListener = undefined;
   }
 
-  start(verifier, interceptor) {
+  start(verifier: TVerifier, interceptor: TInterceptor) {
     if (!verifier || typeof verifier !== 'function') {
       throw new Error(
         'start function must get a verifier function as a first argument',
@@ -23,14 +37,14 @@ export default class FrameStorageListener {
     const storageStrategy = BaseStorage.verify(this.storageStrategy);
     this.stopListener = listenerMessageChannel('data-capsule', messageHandler);
 
-    function messageHandler(e, reply) {
+    function messageHandler(e: any, reply: (data: any) => void) {
       if (typeof e.data !== 'string') {
         return;
       }
 
       const [token, method, payload] = greedySplit(e.data, '|', 3);
 
-      const respond = (status, data) => {
+      const respond = (status: string, data: string) => {
         if (status === 'resolve') {
           const response = [status, JSON.stringify({ data })].join('|');
           return reply(response);
@@ -44,7 +58,9 @@ export default class FrameStorageListener {
         return respond('reject', 'message was not authorized');
       }
 
-      const invoke = storageStrategy[method].bind(storageStrategy);
+      const invoke = storageStrategy[
+        method as keyof typeof storageStrategy
+      ].bind(storageStrategy);
 
       const params = JSON.parse(payload).data;
       const options = params[params.length - 1];
@@ -55,10 +71,10 @@ export default class FrameStorageListener {
       params[params.length - 1] = modifiedOptions;
 
       return invoke(...params)
-        .then(result => {
+        .then((result: any) => {
           return respond('resolve', result);
         })
-        .catch(error => {
+        .catch((error: any) => {
           return respond('reject', error.message || error);
         });
     }

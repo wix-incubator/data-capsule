@@ -1,10 +1,8 @@
-/* global document */
-
-import axios from 'axios';
-import BaseStorage from '../base-storage';
+import axios, { AxiosError, AxiosInstance } from 'axios';
+import { BaseStorage, BaseStorageOptions, Scope } from '../base-storage';
 import { NOT_FOUND, SERVER_ERROR } from '../utils/constants';
 
-function getCookieValue(name) {
+function getCookieValue(name: string) {
   if (typeof document === 'undefined') {
     return '';
   } else {
@@ -17,8 +15,20 @@ export function getUserId() {
   return wixClient[6] || getCookieValue('_wixCIDX');
 }
 
-export default class WixStorageStrategy extends BaseStorage {
-  constructor({ signedInstance } = {}) {
+export interface WixStorageStrategyOptions extends BaseStorageOptions {
+  namespace: string;
+  scope?:
+    | string
+    | {
+        siteId?: string;
+      };
+  expiration: number;
+}
+
+export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
+  private axiosInstance: AxiosInstance;
+
+  constructor({ signedInstance }: { signedInstance?: string } = {}) {
     super();
 
     this.axiosInstance = axios.create({
@@ -26,18 +36,24 @@ export default class WixStorageStrategy extends BaseStorage {
     });
   }
 
-  extendScope(scope) {
-    scope = typeof scope === 'string' ? { siteId: scope } : scope;
-    return Object.assign({ userId: getUserId() }, scope);
+  extendScope(scope: Scope) {
+    return {
+      userId: getUserId(),
+      ...(typeof scope === 'string' ? { siteId: scope } : scope),
+    };
   }
 
-  setItem(key, value, options) {
-    const payload = {
+  setItem<T>(
+    key: string,
+    value: T,
+    options: WixStorageStrategyOptions,
+  ): Promise<void> {
+    const payload: any = {
       nameSpace: options.namespace,
       key,
       blob: value,
     };
-    if (options.scope && options.scope.siteId) {
+    if (typeof options.scope === 'object' && options.scope.siteId) {
       payload.siteId = options.scope.siteId;
     }
     if (options.expiration) {
@@ -51,12 +67,12 @@ export default class WixStorageStrategy extends BaseStorage {
       });
   }
 
-  removeItem(key, options) {
-    const payload = {
+  removeItem(key: string, options: WixStorageStrategyOptions) {
+    const payload: any = {
       nameSpace: options.namespace,
       key,
     };
-    if (options.scope && options.scope.siteId) {
+    if (typeof options.scope === 'object' && options.scope.siteId) {
       payload.siteId = options.scope.siteId;
     }
     return this.axiosInstance
@@ -67,8 +83,12 @@ export default class WixStorageStrategy extends BaseStorage {
       });
   }
 
-  getItem(key, options) {
-    const siteId = options.scope && options.scope.siteId;
+  getItem<T = any>(
+    key: string,
+    options: WixStorageStrategyOptions,
+  ): Promise<T> {
+    const siteId =
+      typeof options.scope === 'object' ? options.scope.siteId : undefined;
     const path = siteId ? 'getVolatilePrefForSite' : 'getVolatilePrefForKey';
     const url = [
       '/_api/wix-user-preferences-webapp',
@@ -77,19 +97,20 @@ export default class WixStorageStrategy extends BaseStorage {
       siteId,
       key,
     ]
-      .filter(x => x)
+      .filter((x) => x)
       .join('/');
 
     return this.axiosInstance
       .get(url)
-      .then(res => res.data[key])
-      .catch(err => {
-        throw err.response.status === 404 ? NOT_FOUND : SERVER_ERROR;
+      .then((res) => res.data[key])
+      .catch((err: AxiosError) => {
+        throw err?.response?.status === 404 ? NOT_FOUND : SERVER_ERROR;
       });
   }
 
-  getAllItems(options) {
-    const siteId = options.scope && options.scope.siteId;
+  getAllItems(options: WixStorageStrategyOptions) {
+    const siteId =
+      typeof options.scope === 'object' ? options.scope.siteId : undefined;
     const path = siteId ? 'getVolatilePrefsForSite' : 'getVolatilePrefs';
     const url = [
       '/_api/wix-user-preferences-webapp',
@@ -97,20 +118,20 @@ export default class WixStorageStrategy extends BaseStorage {
       options.namespace,
       siteId,
     ]
-      .filter(x => x)
+      .filter((x) => x)
       .join('/');
 
     return this.axiosInstance
       .get(url)
-      .then(res => res.data)
+      .then((res) => res.data)
       .catch(() => {
         throw SERVER_ERROR;
       });
   }
 }
 
-function headers({ signedInstance }) {
-  const headers = {}; // eslint-disable-line no-shadow
+function headers({ signedInstance }: { signedInstance?: string }) {
+  const headers: any = {}; // eslint-disable-line no-shadow
 
   if (signedInstance) {
     headers.authorization = signedInstance;

@@ -44,12 +44,12 @@ describe('wix-storage-strategy', () => {
         nameSpace: 'wix',
         key: 'shahata',
         blob: 123,
-        siteId: 456,
+        siteId: '456',
       })
       .reply(200);
     await capsule.setItem('shahata', 123, {
       namespace: 'wix',
-      scope: { siteId: 456 },
+      scope: { siteId: '456' },
     });
   });
 
@@ -126,12 +126,12 @@ describe('wix-storage-strategy', () => {
       .post('/_api/wix-user-preferences-webapp/delete', {
         nameSpace: 'wix',
         key: 'shahata',
-        siteId: 456,
+        siteId: '456',
       })
       .reply(200);
     await capsule.removeItem('shahata', {
       namespace: 'wix',
-      scope: { siteId: 456 },
+      scope: { siteId: '456' },
     });
   });
 
@@ -170,7 +170,7 @@ describe('wix-storage-strategy', () => {
     expect(
       await capsule.getItem('shahata', {
         namespace: 'wix',
-        scope: { siteId: 456 },
+        scope: { siteId: '456' },
       }),
     ).to.equal(123);
   });
@@ -215,7 +215,7 @@ describe('wix-storage-strategy', () => {
       .get('/_api/wix-user-preferences-webapp/getVolatilePrefsForSite/wix/456')
       .reply(200, { shahata: 123 });
     expect(
-      await capsule.getAllItems({ namespace: 'wix', scope: { siteId: 456 } }),
+      await capsule.getAllItems({ namespace: 'wix', scope: { siteId: '456' } }),
     ).to.eql({ shahata: 123 });
   });
 

@@ -1,26 +1,26 @@
-import nock from 'nock';
-import sinon from 'sinon';
 import { expect } from 'chai';
+import nock from 'nock';
 import { LocalStorage } from 'node-localstorage';
+import sinon from 'sinon';
 import {
-  NOT_FOUND,
-  WixStorageStrategy,
   CachedStorageStrategy,
   LocalStorageCachedCapsule,
+  NOT_FOUND,
+  WixStorageStrategy,
 } from '../../src';
 
 describe('cached-storage-strategy', () => {
   beforeEach(() => {
-    global.localStorage = new LocalStorage('./scratch');
-    global.document = { cookie: '_wixCIDX=wixUser' };
+    (global as any).localStorage = new LocalStorage('./scratch');
+    (global as any).document = { cookie: '_wixCIDX=wixUser' };
   });
 
   afterEach(() => {
-    global.localStorage.clear();
+    (global as any).localStorage.clear();
   });
 
   it('should cache items when setting items', async () => {
-    const capsule = new LocalStorageCachedCapsule({
+    const capsule = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -37,8 +37,8 @@ describe('cached-storage-strategy', () => {
   });
 
   it('should cache items per user', async () => {
-    global.document = { cookie: '_wixCIDX=userId1' };
-    const capsule1 = new LocalStorageCachedCapsule({
+    (global as any).document = { cookie: '_wixCIDX=userId1' };
+    const capsule1 = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -50,8 +50,8 @@ describe('cached-storage-strategy', () => {
       .reply(200);
     await capsule1.setItem('shahata', 123, { namespace: 'wix' });
 
-    global.document = { cookie: '_wixCIDX=userId2' };
-    const capsule2 = new LocalStorageCachedCapsule({
+    (global as any).document = { cookie: '_wixCIDX=userId2' };
+    const capsule2 = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -63,18 +63,18 @@ describe('cached-storage-strategy', () => {
       .reply(200);
     await capsule2.setItem('shahata', 456, { namespace: 'wix' });
 
-    global.document = { cookie: '_wixCIDX=userId1' };
+    (global as any).document = { cookie: '_wixCIDX=userId1' };
     expect(await capsule1.getItem('shahata', { namespace: 'wix' })).to.equal(
       123,
     );
-    global.document = { cookie: '_wixCIDX=userId2' };
+    (global as any).document = { cookie: '_wixCIDX=userId2' };
     expect(await capsule2.getItem('shahata', { namespace: 'wix' })).to.equal(
       456,
     );
   });
 
   it('should query server if item is not in cache', async () => {
-    const capsule = new LocalStorageCachedCapsule({
+    const capsule = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -88,7 +88,7 @@ describe('cached-storage-strategy', () => {
   });
 
   it('should cache items when getting items', async () => {
-    const capsule = new LocalStorageCachedCapsule({
+    const capsule = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -106,7 +106,7 @@ describe('cached-storage-strategy', () => {
 
   it('should cache items only for one hour', async () => {
     const clock = sinon.useFakeTimers();
-    const capsule = new LocalStorageCachedCapsule({
+    const capsule = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -133,7 +133,7 @@ describe('cached-storage-strategy', () => {
   });
 
   it('should cache items when getting all items', async () => {
-    const capsule = new LocalStorageCachedCapsule({
+    const capsule = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -148,7 +148,7 @@ describe('cached-storage-strategy', () => {
   });
 
   it('should cache also the knowledge about inexistence of items', async () => {
-    const capsule = new LocalStorageCachedCapsule({
+    const capsule = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -165,7 +165,7 @@ describe('cached-storage-strategy', () => {
   });
 
   it('should cache also the knowledge about removal of items', async () => {
-    const capsule = new LocalStorageCachedCapsule({
+    const capsule = LocalStorageCachedCapsule({
       remoteStrategy: new WixStorageStrategy(),
     });
     nock('http://localhost')
@@ -181,22 +181,26 @@ describe('cached-storage-strategy', () => {
   });
 
   it('should throw if non BaseStorage is passed', () => {
-    expect(() => new CachedStorageStrategy({})).to.throw(
+    expect(() => new CachedStorageStrategy({} as any)).to.throw(
       'must extend BaseStorage',
     );
     expect(
-      () => new CachedStorageStrategy(new WixStorageStrategy(), {}),
+      () =>
+        new CachedStorageStrategy({
+          remoteStrategy: new WixStorageStrategy(),
+          localStrategy: {} as any,
+        }),
     ).to.throw('must extend BaseStorage');
   });
 
   describe('local cache ignorance', () => {
     beforeEach(() => {
-      global.localStorage.clear();
-      global.document = { cookie: '' };
+      (global as any).localStorage.clear();
+      (global as any).document = { cookie: '' };
     });
 
     it('ignores in case cannot retrieve user id', async () => {
-      const capsule = new LocalStorageCachedCapsule({
+      const capsule = LocalStorageCachedCapsule({
         remoteStrategy: new WixStorageStrategy(),
       });
 

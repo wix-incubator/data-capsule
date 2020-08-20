@@ -3,7 +3,7 @@ import { FrameStorageListener } from '../../src';
 
 describe('frame-storage-listener', () => {
   it('should throw if non BaseStorage is passed', () => {
-    expect(() => new FrameStorageListener({})).to.throw(
+    expect(() => new FrameStorageListener({} as any)).to.throw(
       'must extend BaseStorage',
     );
   });
@@ -11,7 +11,7 @@ describe('frame-storage-listener', () => {
   it('should throw if a verifier is not passed', () => {
     const listener = new FrameStorageListener();
     try {
-      listener.start();
+      (listener.start as any)();
       throw new Error();
     } catch (e) {
       expect(e.message).to.equal(
@@ -23,7 +23,7 @@ describe('frame-storage-listener', () => {
   it('should throw if the passed verifier is not a function', () => {
     const listener = new FrameStorageListener();
     try {
-      listener.start('hey-ho');
+      (listener.start as any)('hey-ho');
       throw new Error();
     } catch (e) {
       expect(e.message).to.equal(
@@ -35,7 +35,7 @@ describe('frame-storage-listener', () => {
   it('should throw if the passed interceptor is not a function', () => {
     const listener = new FrameStorageListener();
     try {
-      listener.start(() => {}, 'hey-ho');
+      (listener.start as any)(() => {}, 'hey-ho');
       throw new Error();
     } catch (e) {
       expect(e.message).to.equal('the interceptor must be a function');

@@ -1,13 +1,15 @@
+import { BaseStorage, BaseStorageOptions } from '../base-storage';
 import { NOT_FOUND } from '../utils/constants';
-import BaseStorage from '../base-storage';
 
-export default class InMemoryStrategy extends BaseStorage {
+export class InMemoryStorageStrategy extends BaseStorage<BaseStorageOptions> {
+  private memoryMap: Record<string, any>;
+
   constructor() {
     super();
     this.memoryMap = {};
   }
 
-  setItem(key, value, options = {}) {
+  setItem<T>(key: string, value: T, options: BaseStorageOptions) {
     if (typeof this.memoryMap[options.namespace] === 'undefined') {
       this.memoryMap[options.namespace] = {};
     }
@@ -15,7 +17,7 @@ export default class InMemoryStrategy extends BaseStorage {
     return Promise.resolve();
   }
 
-  getItem(key, options = {}) {
+  getItem(key: string, options: BaseStorageOptions) {
     const data =
       this.memoryMap[options.namespace] &&
       this.memoryMap[options.namespace][key];
@@ -25,12 +27,13 @@ export default class InMemoryStrategy extends BaseStorage {
       : Promise.reject(NOT_FOUND);
   }
 
-  removeItem(key, options = {}) {
+  removeItem(key: string, options: BaseStorageOptions) {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.memoryMap[options.namespace][key];
     return Promise.resolve();
   }
 
-  getAllItems(options = {}) {
+  getAllItems(options: BaseStorageOptions) {
     return Promise.resolve(this.memoryMap[options.namespace]);
   }
 }

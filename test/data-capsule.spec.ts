@@ -1,22 +1,22 @@
-import nock from 'nock';
 import { expect } from 'chai';
+import nock from 'nock';
 import { LocalStorage } from 'node-localstorage';
 import {
+  CachedStorageStrategy,
   DataCapsule,
   LocalStorageStrategy,
-  CachedStorageStrategy,
   WixStorageStrategy,
 } from '../src';
 
 describe('data-capsule', () => {
   describe('with localstorage strategy', () => {
     beforeEach(() => {
-      global.localStorage = new LocalStorage('./scratch');
-      global.document = { cookie: '_wixCIDX=wixUser' };
+      (global as any).localStorage = new LocalStorage('./scratch');
+      (global as any).document = { cookie: '_wixCIDX=wixUser' };
     });
 
     afterEach(() => {
-      global.localStorage.clear();
+      (global as any).localStorage.clear();
     });
 
     it('should store and retrieve information', async () => {
@@ -47,7 +47,7 @@ describe('data-capsule', () => {
     });
 
     it('should throw if non BaseStorage is passed', () => {
-      expect(() => new DataCapsule({ strategy: {} })).to.throw(
+      expect(() => new DataCapsule({ strategy: {} as any })).to.throw(
         'must extend BaseStorage',
       );
     });
