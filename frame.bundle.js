@@ -87,19 +87,281 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.525.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.533.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 49);
+/******/ 	return __webpack_require__(__webpack_require__.s = 47);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/*!******************************************!*\
+  !*** ../node_modules/tslib/tslib.es6.js ***!
+  \******************************************/
+/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __createBinding, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet */
+/*! exports used: __assign, __awaiter, __extends, __generator, __rest */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __extends; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __assign; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __rest; });
+/* unused harmony export __decorate */
+/* unused harmony export __param */
+/* unused harmony export __metadata */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __awaiter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __generator; });
+/* unused harmony export __createBinding */
+/* unused harmony export __exportStar */
+/* unused harmony export __values */
+/* unused harmony export __read */
+/* unused harmony export __spread */
+/* unused harmony export __spreadArrays */
+/* unused harmony export __await */
+/* unused harmony export __asyncGenerator */
+/* unused harmony export __asyncDelegator */
+/* unused harmony export __asyncValues */
+/* unused harmony export __makeTemplateObject */
+/* unused harmony export __importStar */
+/* unused harmony export __importDefault */
+/* unused harmony export __classPrivateFieldGet */
+/* unused harmony export __classPrivateFieldSet */
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var __createBinding = Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+});
+
+function __exportStar(m, o) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) __createBinding(o, m, p);
+}
+
+function __values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+var __setModuleDefault = Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+function __classPrivateFieldGet(receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+}
+
+function __classPrivateFieldSet(receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+}
+
+
+/***/ }),
+/* 1 */
 /*!****************************!*\
-  !*** ./utils/constants.js ***!
+  !*** ./utils/constants.ts ***!
   \****************************/
-/*! exports provided: toError, PREFIX_SEPARATOR, KEY_SEPARATOR, STORAGE_PREFIX, NOT_FOUND, CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT, SERVER_ERROR, LOCAL_STORAGE_UNSUPPORTED, COOKIE_CONSENT_DISALLOWED */
+/*! exports provided: toError, PREFIX_SEPARATOR, KEY_SEPARATOR, STORAGE_PREFIX, CONNECTION_MAX_TIMEOUT, MESSAGE_MAX_TIMEOUT, NOT_FOUND, SERVER_ERROR, LOCAL_STORAGE_UNSUPPORTED, COOKIE_CONSENT_DISALLOWED */
 /*! exports used: CONNECTION_MAX_TIMEOUT, COOKIE_CONSENT_DISALLOWED, KEY_SEPARATOR, LOCAL_STORAGE_UNSUPPORTED, MESSAGE_MAX_TIMEOUT, NOT_FOUND, PREFIX_SEPARATOR, SERVER_ERROR, STORAGE_PREFIX, toError */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -108,269 +370,129 @@ return /******/ (function(modules) { // webpackBootstrap
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PREFIX_SEPARATOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return KEY_SEPARATOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return STORAGE_PREFIX; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return NOT_FOUND; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CONNECTION_MAX_TIMEOUT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return MESSAGE_MAX_TIMEOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return NOT_FOUND; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SERVER_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOCAL_STORAGE_UNSUPPORTED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return COOKIE_CONSENT_DISALLOWED; });
 var errors = {
-  NOT_FOUND: new Error('Key was not found in capsule'),
-  SERVER_ERROR: new Error('Failed to perform operarion on server'),
-  LOCAL_STORAGE_UNSUPPORTED: new Error('LocalStorage is not supported'),
-  COOKIE_CONSENT_DISALLOWED: new Error('The item cannot be set because the user has not approved the category it belongs to')
+    NOT_FOUND: new Error('Key was not found in capsule'),
+    SERVER_ERROR: new Error('Failed to perform operarion on server'),
+    LOCAL_STORAGE_UNSUPPORTED: new Error('LocalStorage is not supported'),
+    COOKIE_CONSENT_DISALLOWED: new Error('The item cannot be set because the user has not approved the category it belongs to'),
 };
 function toError(str) {
-  return Object.keys(errors).map(function (key) {
-    return errors[key];
-  }).find(function (err) {
-    return err.message === str;
-  }) || new Error(str);
+    return (Object.keys(errors)
+        .map(function (key) { return errors[key]; })
+        .find(function (err) { return err.message === str; }) || new Error(str));
 }
 var PREFIX_SEPARATOR = '|';
 var KEY_SEPARATOR = '#';
 var STORAGE_PREFIX = 'capsule';
-var NOT_FOUND = errors.NOT_FOUND;
 var CONNECTION_MAX_TIMEOUT = 2000;
 var MESSAGE_MAX_TIMEOUT = 8000;
+var NOT_FOUND = errors.NOT_FOUND;
 var SERVER_ERROR = errors.SERVER_ERROR;
 var LOCAL_STORAGE_UNSUPPORTED = errors.LOCAL_STORAGE_UNSUPPORTED;
 var COOKIE_CONSENT_DISALLOWED = errors.COOKIE_CONSENT_DISALLOWED;
 
+
 /***/ }),
-/* 1 */
+/* 2 */
 /*!*************************!*\
-  !*** ./base-storage.js ***!
+  !*** ./base-storage.ts ***!
   \*************************/
-/*! exports provided: default */
-/*! exports used: default */
+/*! exports provided: BaseStorage */
+/*! exports used: BaseStorage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseStorage; });
-var BaseStorage = /*#__PURE__*/function () {
-  function BaseStorage() {
-    var _this = this;
-
-    ['setItem', 'getItem', 'removeItem', 'getAllItems'].forEach(function (method) {
-      if (_this[method] === BaseStorage.prototype[method]) {
-        throw new Error("BaseStorage method [" + method + "] must be overriden!");
-      }
-    });
-  }
-
-  var _proto = BaseStorage.prototype;
-
-  _proto.extendScope = function extendScope(scope) {
-    return scope;
-  };
-
-  _proto.setItem = function setItem(key, value, options) {
-    throw options;
-  };
-
-  _proto.getItem = function getItem(key, options) {
-    throw options;
-  };
-
-  _proto.removeItem = function removeItem(key, options) {
-    throw options;
-  };
-
-  _proto.getAllItems = function getAllItems(options) {
-    throw options;
-  };
-
-  BaseStorage.verify = function verify(strategy) {
-    if (strategy instanceof BaseStorage) {
-      return strategy;
-    } else {
-      throw new Error("This class must extend BaseStorage!");
+var BaseStorage = /** @class */ (function () {
+    function BaseStorage() {
     }
-  };
+    BaseStorage.verify = function (strategy) {
+        if (strategy instanceof BaseStorage) {
+            return strategy;
+        }
+        else {
+            throw new Error('This class must extend BaseStorage!');
+        }
+    };
+    BaseStorage.prototype.extendScope = function (scope) {
+        return scope;
+    };
+    return BaseStorage;
+}());
 
-  return BaseStorage;
-}();
-
-
-
-/***/ }),
-/* 2 */
-/*!***********************************************************!*\
-  !*** ../node_modules/@babel/runtime/regenerator/index.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/*! exports used: default */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! regenerator-runtime */ 10);
 
 
 /***/ }),
 /* 3 */,
 /* 4 */,
 /* 5 */
-/*!***************************!*\
-  !*** ./consent-policy.js ***!
-  \***************************/
-/*! exports provided: verifyConsentPolicy, verifyConsentPolicyCategoryIfExists */
-/*! exports used: verifyConsentPolicy, verifyConsentPolicyCategoryIfExists */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return verifyConsentPolicy; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return verifyConsentPolicyCategoryIfExists; });
-/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/constants */ 0);
-/* global consentPolicyManager, Wix */
-
-var CONSENT_POLICY_CATEGORIES = ['essential', 'functional', 'analytics', 'advertising'];
-function verifyConsentPolicy(category) {
-  var policy = getConsentPolicy();
-
-  if (typeof policy !== 'undefined' && !policy[category]) {
-    throw _utils_constants__WEBPACK_IMPORTED_MODULE_0__[/* COOKIE_CONSENT_DISALLOWED */ "b"];
-  }
-}
-function verifyConsentPolicyCategoryIfExists(category) {
-  if (!category) return;
-
-  if (CONSENT_POLICY_CATEGORIES.indexOf(category) === -1) {
-    var categories = CONSENT_POLICY_CATEGORIES.map(function (v) {
-      return "'" + v + "'";
-    }).join(', ');
-    throw new Error("category must be one of " + categories);
-  }
-}
-
-function getConsentPolicy() {
-  var _ref = resolveByNativeAPI() || resolveByJsSDK() || none(),
-      policy = _ref.policy;
-
-  return policy;
-}
-
-function resolveByNativeAPI() {
-  return typeof consentPolicyManager === 'object' && consentPolicyManager.getCurrentConsentPolicy && consentPolicyManager.getCurrentConsentPolicy();
-}
-
-function resolveByJsSDK() {
-  return typeof Wix === 'object' && Wix.Utils && Wix.Utils.getCurrentConsentPolicy && Wix.Utils.getCurrentConsentPolicy();
-}
-
-function none() {
-  return {};
-}
-
-/***/ }),
-/* 6 */
 /*!*************************!*\
-  !*** ./data-capsule.js ***!
+  !*** ./data-capsule.ts ***!
   \*************************/
-/*! exports provided: default */
-/*! exports used: default */
+/*! exports provided: DataCapsule */
+/*! exports used: DataCapsule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DataCapsule; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ 2);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base-storage */ 1);
-/* harmony import */ var _consent_policy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./consent-policy */ 5);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ 0);
+/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base-storage */ 2);
 
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-
-
+var DataCapsule = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__[/* __extends */ "c"])(DataCapsule, _super);
+    function DataCapsule(_a) {
+        var strategy = _a.strategy, options = Object(tslib__WEBPACK_IMPORTED_MODULE_0__[/* __rest */ "e"])(_a, ["strategy"]);
+        var _this = _super.call(this) || this;
+        _this.storageStrategy = _base_storage__WEBPACK_IMPORTED_MODULE_1__[/* BaseStorage */ "a"].verify(strategy);
+        _this._options = options;
+        return _this;
+    }
+    DataCapsule.prototype.setItem = function (key, value, options) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__[/* __awaiter */ "b"])(this, void 0, Promise, function () {
+            var validOptions;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__[/* __generator */ "d"])(this, function (_a) {
+                validOptions = this._buildValidateOptions(this._options, options);
+                return [2 /*return*/, this.storageStrategy.setItem(key, value, validOptions)];
+            });
+        });
+    };
+    DataCapsule.prototype.getItem = function (key, options) {
+        var validOptions = this._buildValidateOptions(this._options, options);
+        return this.storageStrategy.getItem(key, validOptions);
+    };
+    DataCapsule.prototype.removeItem = function (key, options) {
+        var validOptions = this._buildValidateOptions(this._options, options);
+        return this.storageStrategy.removeItem(key, validOptions);
+    };
+    DataCapsule.prototype.getAllItems = function (options) {
+        var validOptions = this._buildValidateOptions(this._options, options);
+        return this.storageStrategy.getAllItems(validOptions);
+    };
+    DataCapsule.prototype._buildValidateOptions = function (capsuleOptions, options) {
+        options = Object(tslib__WEBPACK_IMPORTED_MODULE_0__[/* __assign */ "a"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__[/* __assign */ "a"])({}, capsuleOptions), options);
+        options.scope = this.storageStrategy.extendScope(options.scope);
+        if (!validateNamespace(options)) {
+            throw new Error('namespace is required and should be a string');
+        }
+        return options;
+    };
+    return DataCapsule;
+}(_base_storage__WEBPACK_IMPORTED_MODULE_1__[/* BaseStorage */ "a"]));
 
 function validateNamespace(options) {
-  if (!options.namespace) {
-    throw new Error('namespace is required');
-  } else if (typeof options.namespace !== 'string') {
-    throw new Error('namespace should be a string');
-  }
-
-  Object(_consent_policy__WEBPACK_IMPORTED_MODULE_2__[/* verifyConsentPolicyCategoryIfExists */ "b"])(options.category);
+    return typeof options.namespace === 'string';
 }
-
-var DataCapsule = /*#__PURE__*/function (_BaseStorage) {
-  _inheritsLoose(DataCapsule, _BaseStorage);
-
-  function DataCapsule(_ref) {
-    var _this;
-
-    var strategy = _ref.strategy,
-        namespace = _ref.namespace,
-        scope = _ref.scope;
-    _this = _BaseStorage.call(this) || this;
-    _this.storageStrategy = _base_storage__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].verify(strategy);
-    _this._options = {
-      namespace: namespace,
-      scope: scope
-    };
-    return _this;
-  }
-
-  var _proto = DataCapsule.prototype;
-
-  _proto._buildValidateOptions = function _buildValidateOptions(capsuleOptions, options) {
-    options = Object.assign({}, capsuleOptions, options);
-    options.scope = this.storageStrategy.extendScope(options.scope);
-    validateNamespace(options);
-    return options;
-  };
-
-  _proto.setItem = /*#__PURE__*/function () {
-    var _setItem = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(key, value, options) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              options = this._buildValidateOptions(this._options, options);
-              return _context.abrupt("return", this.storageStrategy.setItem(key, value, options));
-
-            case 2:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function setItem(_x, _x2, _x3) {
-      return _setItem.apply(this, arguments);
-    }
-
-    return setItem;
-  }();
-
-  _proto.getItem = function getItem(key, options) {
-    options = this._buildValidateOptions(this._options, options);
-    return this.storageStrategy.getItem(key, options);
-  };
-
-  _proto.removeItem = function removeItem(key, options) {
-    options = this._buildValidateOptions(this._options, options);
-    return this.storageStrategy.removeItem(key, options);
-  };
-
-  _proto.getAllItems = function getAllItems(options) {
-    options = this._buildValidateOptions(this._options, options);
-    return this.storageStrategy.getAllItems(options);
-  };
-
-  return DataCapsule;
-}(_base_storage__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]);
-
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /*!*********************************************************!*\
   !*** ../node_modules/message-channel/dist/src/utils.js ***!
   \*********************************************************/
@@ -387,7 +509,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.parseConnectionMessage = exports.constructConnectionMessage = exports.parseChannelMessage = exports.constructChannelMessage = undefined;
 
-var _constants = __webpack_require__(/*! ./constants */ 9);
+var _constants = __webpack_require__(/*! ./constants */ 8);
 
 var constructChannelMessage = exports.constructChannelMessage = function constructChannelMessage(payload, id) {
   if (!id) {
@@ -423,7 +545,7 @@ var parseConnectionMessage = exports.parseConnectionMessage = function parseConn
 };
 
 /***/ }),
-/* 8 */
+/* 7 */
 /*!******************************************************!*\
   !*** ../node_modules/greedy-split/dist/src/index.js ***!
   \******************************************************/
@@ -460,7 +582,7 @@ module.exports = greedySplit;
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /*!*************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/constants.js ***!
   \*************************************************************/
@@ -482,898 +604,94 @@ var deafultConnectionMaxTimeout = exports.deafultConnectionMaxTimeout = 200;
 var deafultMessageMaxTimeout = exports.deafultMessageMaxTimeout = 5000;
 
 /***/ }),
-/* 10 */
-/*!**********************************************************************************!*\
-  !*** ../node_modules/@babel/runtime/node_modules/regenerator-runtime/runtime.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var runtime = (function (exports) {
-  "use strict";
-
-  var Op = Object.prototype;
-  var hasOwn = Op.hasOwnProperty;
-  var undefined; // More compressible than void 0.
-  var $Symbol = typeof Symbol === "function" ? Symbol : {};
-  var iteratorSymbol = $Symbol.iterator || "@@iterator";
-  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-
-  function define(obj, key, value) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-    return obj[key];
-  }
-  try {
-    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
-    define({}, "");
-  } catch (err) {
-    define = function(obj, key, value) {
-      return obj[key] = value;
-    };
-  }
-
-  function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-    var generator = Object.create(protoGenerator.prototype);
-    var context = new Context(tryLocsList || []);
-
-    // The ._invoke method unifies the implementations of the .next,
-    // .throw, and .return methods.
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
-
-    return generator;
-  }
-  exports.wrap = wrap;
-
-  // Try/catch helper to minimize deoptimizations. Returns a completion
-  // record like context.tryEntries[i].completion. This interface could
-  // have been (and was previously) designed to take a closure to be
-  // invoked without arguments, but in all the cases we care about we
-  // already have an existing method we want to call, so there's no need
-  // to create a new function object. We can even get away with assuming
-  // the method takes exactly one argument, since that happens to be true
-  // in every case, so we don't have to touch the arguments object. The
-  // only additional allocation required is the completion record, which
-  // has a stable shape and so hopefully should be cheap to allocate.
-  function tryCatch(fn, obj, arg) {
-    try {
-      return { type: "normal", arg: fn.call(obj, arg) };
-    } catch (err) {
-      return { type: "throw", arg: err };
-    }
-  }
-
-  var GenStateSuspendedStart = "suspendedStart";
-  var GenStateSuspendedYield = "suspendedYield";
-  var GenStateExecuting = "executing";
-  var GenStateCompleted = "completed";
-
-  // Returning this object from the innerFn has the same effect as
-  // breaking out of the dispatch switch statement.
-  var ContinueSentinel = {};
-
-  // Dummy constructor functions that we use as the .constructor and
-  // .constructor.prototype properties for functions that return Generator
-  // objects. For full spec compliance, you may wish to configure your
-  // minifier not to mangle the names of these two functions.
-  function Generator() {}
-  function GeneratorFunction() {}
-  function GeneratorFunctionPrototype() {}
-
-  // This is a polyfill for %IteratorPrototype% for environments that
-  // don't natively support it.
-  var IteratorPrototype = {};
-  IteratorPrototype[iteratorSymbol] = function () {
-    return this;
-  };
-
-  var getProto = Object.getPrototypeOf;
-  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-  if (NativeIteratorPrototype &&
-      NativeIteratorPrototype !== Op &&
-      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-    // This environment has a native %IteratorPrototype%; use it instead
-    // of the polyfill.
-    IteratorPrototype = NativeIteratorPrototype;
-  }
-
-  var Gp = GeneratorFunctionPrototype.prototype =
-    Generator.prototype = Object.create(IteratorPrototype);
-  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-  GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunction.displayName = define(
-    GeneratorFunctionPrototype,
-    toStringTagSymbol,
-    "GeneratorFunction"
-  );
-
-  // Helper for defining the .next, .throw, and .return methods of the
-  // Iterator interface in terms of a single ._invoke method.
-  function defineIteratorMethods(prototype) {
-    ["next", "throw", "return"].forEach(function(method) {
-      define(prototype, method, function(arg) {
-        return this._invoke(method, arg);
-      });
-    });
-  }
-
-  exports.isGeneratorFunction = function(genFun) {
-    var ctor = typeof genFun === "function" && genFun.constructor;
-    return ctor
-      ? ctor === GeneratorFunction ||
-        // For the native GeneratorFunction constructor, the best we can
-        // do is to check its .name property.
-        (ctor.displayName || ctor.name) === "GeneratorFunction"
-      : false;
-  };
-
-  exports.mark = function(genFun) {
-    if (Object.setPrototypeOf) {
-      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-    } else {
-      genFun.__proto__ = GeneratorFunctionPrototype;
-      define(genFun, toStringTagSymbol, "GeneratorFunction");
-    }
-    genFun.prototype = Object.create(Gp);
-    return genFun;
-  };
-
-  // Within the body of any async function, `await x` is transformed to
-  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-  // `hasOwn.call(value, "__await")` to determine if the yielded value is
-  // meant to be awaited.
-  exports.awrap = function(arg) {
-    return { __await: arg };
-  };
-
-  function AsyncIterator(generator, PromiseImpl) {
-    function invoke(method, arg, resolve, reject) {
-      var record = tryCatch(generator[method], generator, arg);
-      if (record.type === "throw") {
-        reject(record.arg);
-      } else {
-        var result = record.arg;
-        var value = result.value;
-        if (value &&
-            typeof value === "object" &&
-            hasOwn.call(value, "__await")) {
-          return PromiseImpl.resolve(value.__await).then(function(value) {
-            invoke("next", value, resolve, reject);
-          }, function(err) {
-            invoke("throw", err, resolve, reject);
-          });
-        }
-
-        return PromiseImpl.resolve(value).then(function(unwrapped) {
-          // When a yielded Promise is resolved, its final value becomes
-          // the .value of the Promise<{value,done}> result for the
-          // current iteration.
-          result.value = unwrapped;
-          resolve(result);
-        }, function(error) {
-          // If a rejected Promise was yielded, throw the rejection back
-          // into the async generator function so it can be handled there.
-          return invoke("throw", error, resolve, reject);
-        });
-      }
-    }
-
-    var previousPromise;
-
-    function enqueue(method, arg) {
-      function callInvokeWithMethodAndArg() {
-        return new PromiseImpl(function(resolve, reject) {
-          invoke(method, arg, resolve, reject);
-        });
-      }
-
-      return previousPromise =
-        // If enqueue has been called before, then we want to wait until
-        // all previous Promises have been resolved before calling invoke,
-        // so that results are always delivered in the correct order. If
-        // enqueue has not been called before, then it is important to
-        // call invoke immediately, without waiting on a callback to fire,
-        // so that the async generator function has the opportunity to do
-        // any necessary setup in a predictable way. This predictability
-        // is why the Promise constructor synchronously invokes its
-        // executor callback, and why async functions synchronously
-        // execute code before the first await. Since we implement simple
-        // async functions in terms of async generators, it is especially
-        // important to get this right, even though it requires care.
-        previousPromise ? previousPromise.then(
-          callInvokeWithMethodAndArg,
-          // Avoid propagating failures to Promises returned by later
-          // invocations of the iterator.
-          callInvokeWithMethodAndArg
-        ) : callInvokeWithMethodAndArg();
-    }
-
-    // Define the unified helper method that is used to implement .next,
-    // .throw, and .return (see defineIteratorMethods).
-    this._invoke = enqueue;
-  }
-
-  defineIteratorMethods(AsyncIterator.prototype);
-  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-    return this;
-  };
-  exports.AsyncIterator = AsyncIterator;
-
-  // Note that simple async functions are implemented on top of
-  // AsyncIterator objects; they just return a Promise for the value of
-  // the final result produced by the iterator.
-  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
-    if (PromiseImpl === void 0) PromiseImpl = Promise;
-
-    var iter = new AsyncIterator(
-      wrap(innerFn, outerFn, self, tryLocsList),
-      PromiseImpl
-    );
-
-    return exports.isGeneratorFunction(outerFn)
-      ? iter // If outerFn is a generator, return the full iterator.
-      : iter.next().then(function(result) {
-          return result.done ? result.value : iter.next();
-        });
-  };
-
-  function makeInvokeMethod(innerFn, self, context) {
-    var state = GenStateSuspendedStart;
-
-    return function invoke(method, arg) {
-      if (state === GenStateExecuting) {
-        throw new Error("Generator is already running");
-      }
-
-      if (state === GenStateCompleted) {
-        if (method === "throw") {
-          throw arg;
-        }
-
-        // Be forgiving, per 25.3.3.3.3 of the spec:
-        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-        return doneResult();
-      }
-
-      context.method = method;
-      context.arg = arg;
-
-      while (true) {
-        var delegate = context.delegate;
-        if (delegate) {
-          var delegateResult = maybeInvokeDelegate(delegate, context);
-          if (delegateResult) {
-            if (delegateResult === ContinueSentinel) continue;
-            return delegateResult;
-          }
-        }
-
-        if (context.method === "next") {
-          // Setting context._sent for legacy support of Babel's
-          // function.sent implementation.
-          context.sent = context._sent = context.arg;
-
-        } else if (context.method === "throw") {
-          if (state === GenStateSuspendedStart) {
-            state = GenStateCompleted;
-            throw context.arg;
-          }
-
-          context.dispatchException(context.arg);
-
-        } else if (context.method === "return") {
-          context.abrupt("return", context.arg);
-        }
-
-        state = GenStateExecuting;
-
-        var record = tryCatch(innerFn, self, context);
-        if (record.type === "normal") {
-          // If an exception is thrown from innerFn, we leave state ===
-          // GenStateExecuting and loop back for another invocation.
-          state = context.done
-            ? GenStateCompleted
-            : GenStateSuspendedYield;
-
-          if (record.arg === ContinueSentinel) {
-            continue;
-          }
-
-          return {
-            value: record.arg,
-            done: context.done
-          };
-
-        } else if (record.type === "throw") {
-          state = GenStateCompleted;
-          // Dispatch the exception by looping back around to the
-          // context.dispatchException(context.arg) call above.
-          context.method = "throw";
-          context.arg = record.arg;
-        }
-      }
-    };
-  }
-
-  // Call delegate.iterator[context.method](context.arg) and handle the
-  // result, either by returning a { value, done } result from the
-  // delegate iterator, or by modifying context.method and context.arg,
-  // setting context.delegate to null, and returning the ContinueSentinel.
-  function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
-    if (method === undefined) {
-      // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
-      context.delegate = null;
-
-      if (context.method === "throw") {
-        // Note: ["return"] must be used for ES3 parsing compatibility.
-        if (delegate.iterator["return"]) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined;
-          maybeInvokeDelegate(delegate, context);
-
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
-        }
-
-        context.method = "throw";
-        context.arg = new TypeError(
-          "The iterator does not provide a 'throw' method");
-      }
-
-      return ContinueSentinel;
-    }
-
-    var record = tryCatch(method, delegate.iterator, context.arg);
-
-    if (record.type === "throw") {
-      context.method = "throw";
-      context.arg = record.arg;
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    var info = record.arg;
-
-    if (! info) {
-      context.method = "throw";
-      context.arg = new TypeError("iterator result is not an object");
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    if (info.done) {
-      // Assign the result of the finished delegate to the temporary
-      // variable specified by delegate.resultName (see delegateYield).
-      context[delegate.resultName] = info.value;
-
-      // Resume execution at the desired location (see delegateYield).
-      context.next = delegate.nextLoc;
-
-      // If context.method was "throw" but the delegate handled the
-      // exception, let the outer generator proceed normally. If
-      // context.method was "next", forget context.arg since it has been
-      // "consumed" by the delegate iterator. If context.method was
-      // "return", allow the original .return call to continue in the
-      // outer generator.
-      if (context.method !== "return") {
-        context.method = "next";
-        context.arg = undefined;
-      }
-
-    } else {
-      // Re-yield the result returned by the delegate method.
-      return info;
-    }
-
-    // The delegate iterator is finished, so forget it and continue with
-    // the outer generator.
-    context.delegate = null;
-    return ContinueSentinel;
-  }
-
-  // Define Generator.prototype.{next,throw,return} in terms of the
-  // unified ._invoke helper method.
-  defineIteratorMethods(Gp);
-
-  define(Gp, toStringTagSymbol, "Generator");
-
-  // A Generator should always return itself as the iterator object when the
-  // @@iterator function is called on it. Some browsers' implementations of the
-  // iterator prototype chain incorrectly implement this, causing the Generator
-  // object to not be returned from this call. This ensures that doesn't happen.
-  // See https://github.com/facebook/regenerator/issues/274 for more details.
-  Gp[iteratorSymbol] = function() {
-    return this;
-  };
-
-  Gp.toString = function() {
-    return "[object Generator]";
-  };
-
-  function pushTryEntry(locs) {
-    var entry = { tryLoc: locs[0] };
-
-    if (1 in locs) {
-      entry.catchLoc = locs[1];
-    }
-
-    if (2 in locs) {
-      entry.finallyLoc = locs[2];
-      entry.afterLoc = locs[3];
-    }
-
-    this.tryEntries.push(entry);
-  }
-
-  function resetTryEntry(entry) {
-    var record = entry.completion || {};
-    record.type = "normal";
-    delete record.arg;
-    entry.completion = record;
-  }
-
-  function Context(tryLocsList) {
-    // The root entry object (effectively a try statement without a catch
-    // or a finally block) gives us a place to store values thrown from
-    // locations where there is no enclosing try statement.
-    this.tryEntries = [{ tryLoc: "root" }];
-    tryLocsList.forEach(pushTryEntry, this);
-    this.reset(true);
-  }
-
-  exports.keys = function(object) {
-    var keys = [];
-    for (var key in object) {
-      keys.push(key);
-    }
-    keys.reverse();
-
-    // Rather than returning an object with a next method, we keep
-    // things simple and return the next function itself.
-    return function next() {
-      while (keys.length) {
-        var key = keys.pop();
-        if (key in object) {
-          next.value = key;
-          next.done = false;
-          return next;
-        }
-      }
-
-      // To avoid creating an additional object, we just hang the .value
-      // and .done properties off the next function object itself. This
-      // also ensures that the minifier will not anonymize the function.
-      next.done = true;
-      return next;
-    };
-  };
-
-  function values(iterable) {
-    if (iterable) {
-      var iteratorMethod = iterable[iteratorSymbol];
-      if (iteratorMethod) {
-        return iteratorMethod.call(iterable);
-      }
-
-      if (typeof iterable.next === "function") {
-        return iterable;
-      }
-
-      if (!isNaN(iterable.length)) {
-        var i = -1, next = function next() {
-          while (++i < iterable.length) {
-            if (hasOwn.call(iterable, i)) {
-              next.value = iterable[i];
-              next.done = false;
-              return next;
-            }
-          }
-
-          next.value = undefined;
-          next.done = true;
-
-          return next;
-        };
-
-        return next.next = next;
-      }
-    }
-
-    // Return an iterator with no values.
-    return { next: doneResult };
-  }
-  exports.values = values;
-
-  function doneResult() {
-    return { value: undefined, done: true };
-  }
-
-  Context.prototype = {
-    constructor: Context,
-
-    reset: function(skipTempReset) {
-      this.prev = 0;
-      this.next = 0;
-      // Resetting context._sent for legacy support of Babel's
-      // function.sent implementation.
-      this.sent = this._sent = undefined;
-      this.done = false;
-      this.delegate = null;
-
-      this.method = "next";
-      this.arg = undefined;
-
-      this.tryEntries.forEach(resetTryEntry);
-
-      if (!skipTempReset) {
-        for (var name in this) {
-          // Not sure about the optimal order of these conditions:
-          if (name.charAt(0) === "t" &&
-              hasOwn.call(this, name) &&
-              !isNaN(+name.slice(1))) {
-            this[name] = undefined;
-          }
-        }
-      }
-    },
-
-    stop: function() {
-      this.done = true;
-
-      var rootEntry = this.tryEntries[0];
-      var rootRecord = rootEntry.completion;
-      if (rootRecord.type === "throw") {
-        throw rootRecord.arg;
-      }
-
-      return this.rval;
-    },
-
-    dispatchException: function(exception) {
-      if (this.done) {
-        throw exception;
-      }
-
-      var context = this;
-      function handle(loc, caught) {
-        record.type = "throw";
-        record.arg = exception;
-        context.next = loc;
-
-        if (caught) {
-          // If the dispatched exception was caught by a catch block,
-          // then let that catch block handle the exception normally.
-          context.method = "next";
-          context.arg = undefined;
-        }
-
-        return !! caught;
-      }
-
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        var record = entry.completion;
-
-        if (entry.tryLoc === "root") {
-          // Exception thrown outside of any try block that could handle
-          // it, so set the completion value of the entire function to
-          // throw the exception.
-          return handle("end");
-        }
-
-        if (entry.tryLoc <= this.prev) {
-          var hasCatch = hasOwn.call(entry, "catchLoc");
-          var hasFinally = hasOwn.call(entry, "finallyLoc");
-
-          if (hasCatch && hasFinally) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            } else if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else if (hasCatch) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            }
-
-          } else if (hasFinally) {
-            if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else {
-            throw new Error("try statement without catch or finally");
-          }
-        }
-      }
-    },
-
-    abrupt: function(type, arg) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc <= this.prev &&
-            hasOwn.call(entry, "finallyLoc") &&
-            this.prev < entry.finallyLoc) {
-          var finallyEntry = entry;
-          break;
-        }
-      }
-
-      if (finallyEntry &&
-          (type === "break" ||
-           type === "continue") &&
-          finallyEntry.tryLoc <= arg &&
-          arg <= finallyEntry.finallyLoc) {
-        // Ignore the finally entry if control is not jumping to a
-        // location outside the try/catch block.
-        finallyEntry = null;
-      }
-
-      var record = finallyEntry ? finallyEntry.completion : {};
-      record.type = type;
-      record.arg = arg;
-
-      if (finallyEntry) {
-        this.method = "next";
-        this.next = finallyEntry.finallyLoc;
-        return ContinueSentinel;
-      }
-
-      return this.complete(record);
-    },
-
-    complete: function(record, afterLoc) {
-      if (record.type === "throw") {
-        throw record.arg;
-      }
-
-      if (record.type === "break" ||
-          record.type === "continue") {
-        this.next = record.arg;
-      } else if (record.type === "return") {
-        this.rval = this.arg = record.arg;
-        this.method = "return";
-        this.next = "end";
-      } else if (record.type === "normal" && afterLoc) {
-        this.next = afterLoc;
-      }
-
-      return ContinueSentinel;
-    },
-
-    finish: function(finallyLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.finallyLoc === finallyLoc) {
-          this.complete(entry.completion, entry.afterLoc);
-          resetTryEntry(entry);
-          return ContinueSentinel;
-        }
-      }
-    },
-
-    "catch": function(tryLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc === tryLoc) {
-          var record = entry.completion;
-          if (record.type === "throw") {
-            var thrown = record.arg;
-            resetTryEntry(entry);
-          }
-          return thrown;
-        }
-      }
-
-      // The context.catch method must only be called with a location
-      // argument that corresponds to a known catch block.
-      throw new Error("illegal catch attempt");
-    },
-
-    delegateYield: function(iterable, resultName, nextLoc) {
-      this.delegate = {
-        iterator: values(iterable),
-        resultName: resultName,
-        nextLoc: nextLoc
-      };
-
-      if (this.method === "next") {
-        // Deliberately forget the last sent value so that we don't
-        // accidentally pass it on to the delegate.
-        this.arg = undefined;
-      }
-
-      return ContinueSentinel;
-    }
-  };
-
-  // Regardless of whether this script is executing as a CommonJS module
-  // or not, return the runtime object so that we can declare the variable
-  // regeneratorRuntime in the outer scope, which allows this module to be
-  // injected easily by `bin/regenerator --include-runtime script.js`.
-  return exports;
-
-}(
-  // If this script is executing as a CommonJS module, use module.exports
-  // as the regeneratorRuntime namespace. Otherwise create a new empty
-  // object. Either way, the resulting object will be used to initialize
-  // the regeneratorRuntime variable at the top of this file.
-   true ? module.exports : undefined
-));
-
-try {
-  regeneratorRuntime = runtime;
-} catch (accidentalStrictMode) {
-  // This module should not be running in strict mode, so the above
-  // assignment should always work unless something is misconfigured. Just
-  // in case runtime.js accidentally runs in strict mode, we can escape
-  // strict mode using a global Function call. This could conceivably fail
-  // if a Content Security Policy forbids using Function, but in that case
-  // the proper solution is to fix the accidental strict mode problem. If
-  // you've misconfigured your bundler to force strict mode and applied a
-  // CSP to forbid Function, and you're not willing to fix either of those
-  // problems, please detail your unique predicament in a GitHub issue.
-  Function("r", "regeneratorRuntime = r")(runtime);
-}
-
-
-/***/ }),
-/* 11 */,
-/* 12 */
+/* 9 */
 /*!*************************************!*\
-  !*** ./strategies/frame-storage.js ***!
+  !*** ./strategies/frame-storage.ts ***!
   \*************************************/
-/*! exports provided: default */
-/*! exports used: default */
+/*! exports provided: FrameStorageStrategy */
+/*! exports used: FrameStorageStrategy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FrameStorageStrategy; });
-/* harmony import */ var greedy_split__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! greedy-split */ 8);
-/* harmony import */ var greedy_split__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(greedy_split__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var message_channel_connect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! message-channel/connect */ 14);
-/* harmony import */ var message_channel_connect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(message_channel_connect__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../base-storage */ 1);
-/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/constants */ 0);
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ 0);
+/* harmony import */ var greedy_split__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! greedy-split */ 7);
+/* harmony import */ var greedy_split__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(greedy_split__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var message_channel_connect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! message-channel/connect */ 11);
+/* harmony import */ var message_channel_connect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(message_channel_connect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../base-storage */ 2);
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/constants */ 1);
 
 
 
 
 
-
-var FrameStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
-  _inheritsLoose(FrameStorageStrategy, _BaseStorage);
-
-  function FrameStorageStrategy(target, origin, token, opts) {
-    var _this;
-
-    if (opts === void 0) {
-      opts = {};
+var FrameStorageStrategy = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__[/* __extends */ "c"])(FrameStorageStrategy, _super);
+    function FrameStorageStrategy(target, origin, token, _a) {
+        var _b = _a === void 0 ? {} : _a, _c = _b.connectionMaxTimeout, connectionMaxTimeout = _c === void 0 ? _utils_constants__WEBPACK_IMPORTED_MODULE_4__[/* CONNECTION_MAX_TIMEOUT */ "a"] : _c, _d = _b.messageMaxTimeout, messageMaxTimeout = _d === void 0 ? _utils_constants__WEBPACK_IMPORTED_MODULE_4__[/* MESSAGE_MAX_TIMEOUT */ "e"] : _d;
+        var _this = _super.call(this) || this;
+        _this.target = target;
+        _this.origin = origin;
+        _this.token = token;
+        _this.channel = undefined;
+        _this.connectionMaxTimeout = connectionMaxTimeout;
+        _this.messageMaxTimeout = messageMaxTimeout;
+        return _this;
     }
-
-    _this = _BaseStorage.call(this) || this;
-    _this.target = target;
-    _this.origin = origin;
-    _this.token = token;
-    _this.channel = undefined;
-    _this.opts = opts;
-    var _this$opts = _this.opts,
-        _this$opts$connection = _this$opts.connectionMaxTimeout,
-        connectionMaxTimeout = _this$opts$connection === void 0 ? _utils_constants__WEBPACK_IMPORTED_MODULE_3__[/* CONNECTION_MAX_TIMEOUT */ "a"] : _this$opts$connection,
-        _this$opts$messageMax = _this$opts.messageMaxTimeout,
-        messageMaxTimeout = _this$opts$messageMax === void 0 ? _utils_constants__WEBPACK_IMPORTED_MODULE_3__[/* MESSAGE_MAX_TIMEOUT */ "e"] : _this$opts$messageMax;
-    _this.connectionMaxTimeout = connectionMaxTimeout;
-    _this.messageMaxTimeout = messageMaxTimeout;
-    return _this;
-  }
-
-  var _proto = FrameStorageStrategy.prototype;
-
-  _proto.getChannel = function getChannel() {
-    var _this2 = this;
-
-    if (this.channel) {
-      return Promise.resolve(this.channel);
-    }
-
-    return message_channel_connect__WEBPACK_IMPORTED_MODULE_1___default()('data-capsule', {
-      target: this.target,
-      origin: this.origin,
-      connectionMaxTimeout: this.connectionMaxTimeout,
-      messageMaxTimeout: this.messageMaxTimeout
-    }).then(function (channel) {
-      _this2.channel = channel;
-      return channel;
-    });
-  };
-
-  _proto.sendCommand = function sendCommand(method, params) {
-    var _this3 = this;
-
-    var payload = {
-      data: params
-    };
-    return this.getChannel().then(function (sendToChannel) {
-      var message = [_this3.token, method, JSON.stringify(payload)].join('|');
-      return sendToChannel(message).then(function (e) {
-        var _greedySplit = greedy_split__WEBPACK_IMPORTED_MODULE_0___default()(e.data, '|', 2),
-            status = _greedySplit[0],
-            eventPayload = _greedySplit[1];
-
-        if (status === 'reject') {
-          throw Object(_utils_constants__WEBPACK_IMPORTED_MODULE_3__[/* toError */ "j"])(eventPayload);
+    FrameStorageStrategy.prototype.getChannel = function () {
+        var _this = this;
+        if (this.channel) {
+            return Promise.resolve(this.channel);
         }
-
-        return JSON.parse(eventPayload).data;
-      });
-    });
-  };
-
-  _proto.setItem = function setItem() {
-    for (var _len = arguments.length, params = new Array(_len), _key = 0; _key < _len; _key++) {
-      params[_key] = arguments[_key];
-    }
-
-    return this.sendCommand('setItem', params);
-  };
-
-  _proto.getItem = function getItem() {
-    for (var _len2 = arguments.length, params = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      params[_key2] = arguments[_key2];
-    }
-
-    return this.sendCommand('getItem', params);
-  };
-
-  _proto.removeItem = function removeItem() {
-    for (var _len3 = arguments.length, params = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-      params[_key3] = arguments[_key3];
-    }
-
-    return this.sendCommand('removeItem', params);
-  };
-
-  _proto.getAllItems = function getAllItems() {
-    for (var _len4 = arguments.length, params = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-      params[_key4] = arguments[_key4];
-    }
-
-    return this.sendCommand('getAllItems', params);
-  };
-
-  return FrameStorageStrategy;
-}(_base_storage__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]);
+        return message_channel_connect__WEBPACK_IMPORTED_MODULE_2___default()('data-capsule', {
+            target: this.target,
+            origin: this.origin,
+            connectionMaxTimeout: this.connectionMaxTimeout,
+            messageMaxTimeout: this.messageMaxTimeout,
+        }).then(function (channel) {
+            _this.channel = channel;
+            return channel;
+        });
+    };
+    FrameStorageStrategy.prototype.sendCommand = function (method) {
+        var _this = this;
+        var params = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            params[_i - 1] = arguments[_i];
+        }
+        var payload = { data: params };
+        return this.getChannel().then(function (sendToChannel) {
+            var message = [_this.token, method, JSON.stringify(payload)].join('|');
+            return sendToChannel(message).then(function (e) {
+                var _a = greedy_split__WEBPACK_IMPORTED_MODULE_1___default()(e.data, '|', 2), status = _a[0], eventPayload = _a[1];
+                if (status === 'reject') {
+                    throw Object(_utils_constants__WEBPACK_IMPORTED_MODULE_4__[/* toError */ "j"])(eventPayload);
+                }
+                return JSON.parse(eventPayload).data;
+            });
+        });
+    };
+    FrameStorageStrategy.prototype.setItem = function (key, value, options) {
+        return this.sendCommand('setItem', key, value, options);
+    };
+    FrameStorageStrategy.prototype.getItem = function (key, options) {
+        return this.sendCommand('getItem', key, options);
+    };
+    FrameStorageStrategy.prototype.removeItem = function (key, options) {
+        return this.sendCommand('removeItem', key, options);
+    };
+    FrameStorageStrategy.prototype.getAllItems = function (options) {
+        return this.sendCommand('getAllItems', options);
+    };
+    return FrameStorageStrategy;
+}(_base_storage__WEBPACK_IMPORTED_MODULE_3__[/* BaseStorage */ "a"]));
 
 
 
 /***/ }),
-/* 13 */,
-/* 14 */
+/* 10 */,
+/* 11 */
 /*!**************************************************!*\
   !*** ../node_modules/message-channel/connect.js ***!
   \**************************************************/
@@ -1382,13 +700,12 @@ var FrameStorageStrategy = /*#__PURE__*/function (_BaseStorage) {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 17);
+module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 13);
 
 
 /***/ }),
-/* 15 */,
-/* 16 */,
-/* 17 */
+/* 12 */,
+/* 13 */
 /*!*******************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
   \*******************************************************************/
@@ -1400,11 +717,11 @@ module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 17);
 "use strict";
 
 
-var _constants = __webpack_require__(/*! ../constants */ 9);
+var _constants = __webpack_require__(/*! ../constants */ 8);
 
-var _utils = __webpack_require__(/*! ../utils */ 7);
+var _utils = __webpack_require__(/*! ../utils */ 6);
 
-var _sendFactory = __webpack_require__(/*! ./send-factory */ 18);
+var _sendFactory = __webpack_require__(/*! ./send-factory */ 14);
 
 var _sendFactory2 = _interopRequireDefault(_sendFactory);
 
@@ -1443,7 +760,7 @@ function connect(scope) {
 module.exports = connect;
 
 /***/ }),
-/* 18 */
+/* 14 */
 /*!************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
   \************************************************************************/
@@ -1460,9 +777,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = sendFactory;
 
-var _utils = __webpack_require__(/*! ../utils */ 7);
+var _utils = __webpack_require__(/*! ../utils */ 6);
 
-var _v = __webpack_require__(/*! uuid/v4 */ 19);
+var _v = __webpack_require__(/*! uuid/v4 */ 15);
 
 var _v2 = _interopRequireDefault(_v);
 
@@ -1506,7 +823,7 @@ function sendFactory(port, options) {
 }
 
 /***/ }),
-/* 19 */
+/* 15 */
 /*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
@@ -1515,8 +832,8 @@ function sendFactory(port, options) {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(/*! ./lib/rng */ 20);
-var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ 21);
+var rng = __webpack_require__(/*! ./lib/rng */ 16);
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ 17);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -1547,7 +864,7 @@ module.exports = v4;
 
 
 /***/ }),
-/* 20 */
+/* 16 */
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
@@ -1593,7 +910,7 @@ if (getRandomValues) {
 
 
 /***/ }),
-/* 21 */
+/* 17 */
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
@@ -1631,6 +948,10 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
 /* 22 */,
 /* 23 */,
 /* 24 */,
@@ -1656,11 +977,9 @@ module.exports = bytesToUuid;
 /* 44 */,
 /* 45 */,
 /* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */
+/* 47 */
 /*!*************************!*\
-  !*** ./global-frame.js ***!
+  !*** ./global-frame.ts ***!
   \*************************/
 /*! no static exports found */
 /*! all exports used */
@@ -1668,37 +987,37 @@ module.exports = bytesToUuid;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global window */
-var dataCapsuleTools = __webpack_require__(/*! ./frame */ 50);
-
+var dataCapsuleToolsFrame = __webpack_require__(/*! ./frame */ 48);
 if (typeof window !== 'undefined') {
-  window.DataCapsuleTools = dataCapsuleTools;
+    window.DataCapsuleTools = dataCapsuleToolsFrame;
 }
+module.exports = dataCapsuleToolsFrame;
 
-module.exports = dataCapsuleTools;
 
 /***/ }),
-/* 50 */
+/* 48 */
 /*!******************!*\
-  !*** ./frame.js ***!
+  !*** ./frame.ts ***!
   \******************/
 /*! exports provided: NOT_FOUND, BaseStorage, DataCapsule, FrameStorageStrategy */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is referenced from these modules with unsupported syntax: ./global-frame.js (referenced with cjs require) */
+/*! ModuleConcatenation bailout: Module is referenced from these modules with unsupported syntax: ./global-frame.ts (referenced with cjs require) */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _strategies_frame_storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./strategies/frame-storage */ 12);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FrameStorageStrategy", function() { return _strategies_frame_storage__WEBPACK_IMPORTED_MODULE_0__["a"]; });
+/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base-storage */ 2);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BaseStorage", function() { return _base_storage__WEBPACK_IMPORTED_MODULE_0__["a"]; });
 
-/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/constants */ 0);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOT_FOUND", function() { return _utils_constants__WEBPACK_IMPORTED_MODULE_1__["f"]; });
+/* harmony import */ var _data_capsule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data-capsule */ 5);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DataCapsule", function() { return _data_capsule__WEBPACK_IMPORTED_MODULE_1__["a"]; });
 
-/* harmony import */ var _base_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base-storage */ 1);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BaseStorage", function() { return _base_storage__WEBPACK_IMPORTED_MODULE_2__["a"]; });
+/* harmony import */ var _strategies_frame_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./strategies/frame-storage */ 9);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FrameStorageStrategy", function() { return _strategies_frame_storage__WEBPACK_IMPORTED_MODULE_2__["a"]; });
 
-/* harmony import */ var _data_capsule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./data-capsule */ 6);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DataCapsule", function() { return _data_capsule__WEBPACK_IMPORTED_MODULE_3__["a"]; });
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/constants */ 1);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NOT_FOUND", function() { return _utils_constants__WEBPACK_IMPORTED_MODULE_3__["f"]; });
+
 
 
 
