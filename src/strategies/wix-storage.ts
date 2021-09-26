@@ -35,7 +35,7 @@ export type WixStorageStrategyParams =
 export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
   private readonly httpClient: HttpClient;
 
-  constructor({ httpClient, signedInstance }: WixStorageStrategyParams) {
+  constructor({ httpClient, signedInstance }: WixStorageStrategyParams = {}) {
     super();
 
     this.httpClient =
