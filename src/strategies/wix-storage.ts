@@ -1,4 +1,5 @@
-import axios, { AxiosError, AxiosInstance } from 'axios';
+import type { AxiosError, AxiosInstance } from 'axios';
+import axios from 'axios';
 import { BaseStorage, BaseStorageOptions, Scope } from '../base-storage';
 import { NOT_FOUND, SERVER_ERROR } from '../utils/constants';
 
@@ -25,15 +26,23 @@ export interface WixStorageStrategyOptions extends BaseStorageOptions {
   expiration: number;
 }
 
-export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
-  private axiosInstance: AxiosInstance;
+type HttpClient = Pick<AxiosInstance, 'post' | 'get'>;
 
-  constructor({ signedInstance }: { signedInstance?: string } = {}) {
+export type WixStorageStrategyParams =
+  | { httpClient: HttpClient; signedInstance?: undefined }
+  | { httpClient?: undefined; signedInstance?: string };
+
+export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
+  private readonly httpClient: HttpClient;
+
+  constructor({ httpClient, signedInstance }: WixStorageStrategyParams) {
     super();
 
-    this.axiosInstance = axios.create({
-      headers: headers({ signedInstance }),
-    });
+    this.httpClient =
+      httpClient ??
+      axios.create({
+        headers: headers({ signedInstance }),
+      });
   }
 
   extendScope(scope: Scope) {
@@ -59,7 +68,7 @@ export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
     if (options.expiration) {
       payload.TTLInDays = Math.ceil(options.expiration / (60 * 60 * 24));
     }
-    return this.axiosInstance
+    return this.httpClient
       .post('/_api/wix-user-preferences-webapp/set', payload)
       .then(() => undefined)
       .catch(() => {
@@ -75,7 +84,7 @@ export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
     if (typeof options.scope === 'object' && options.scope.siteId) {
       payload.siteId = options.scope.siteId;
     }
-    return this.axiosInstance
+    return this.httpClient
       .post('/_api/wix-user-preferences-webapp/delete', payload)
       .then(() => undefined)
       .catch(() => {
@@ -100,7 +109,7 @@ export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
       .filter((x) => x)
       .join('/');
 
-    return this.axiosInstance
+    return this.httpClient
       .get(url)
       .then((res) => res.data[key])
       .catch((err: AxiosError) => {
@@ -121,7 +130,7 @@ export class WixStorageStrategy extends BaseStorage<WixStorageStrategyOptions> {
       .filter((x) => x)
       .join('/');
 
-    return this.axiosInstance
+    return this.httpClient
       .get(url)
       .then((res) => res.data)
       .catch(() => {

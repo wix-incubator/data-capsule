@@ -8,7 +8,7 @@
   "main": "dist/src/index.js",
   "module": "dist/es/src/index.js",
   "sideEffects": false,
-  "types": "dist/src/typings/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist"
   ],
@@ -16,6 +16,7 @@
     "start": "yoshi start",
     "pretest": "yoshi build",
     "build": "yoshi build",
+    "lint": "yoshi lint",
     "test": "yoshi test --mocha --protractor",
     "posttest": "yoshi lint",
     "postpublish": "bower-auto-release --dist dist/statics"
