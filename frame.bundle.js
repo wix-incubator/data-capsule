@@ -87,11 +87,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.545.0/";
+/******/ 	__webpack_require__.p = "https://static.parastorage.com/services/data-capsule/1.725.0/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 47);
+/******/ 	return __webpack_require__(__webpack_require__.s = 50);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -99,7 +99,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!******************************************!*\
   !*** ../node_modules/tslib/tslib.es6.js ***!
   \******************************************/
-/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __createBinding, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet */
+/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __createBinding, __exportStar, __values, __read, __spread, __spreadArrays, __spreadArray, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet */
 /*! exports used: __assign, __awaiter, __extends, __generator, __rest */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -118,6 +118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* unused harmony export __read */
 /* unused harmony export __spread */
 /* unused harmony export __spreadArrays */
+/* unused harmony export __spreadArray */
 /* unused harmony export __await */
 /* unused harmony export __asyncGenerator */
 /* unused harmony export __asyncDelegator */
@@ -151,6 +152,8 @@ var extendStatics = function(d, b) {
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -273,19 +276,31 @@ function __read(o, n) {
     return ar;
 }
 
+/** @deprecated */
 function __spread() {
     for (var ar = [], i = 0; i < arguments.length; i++)
         ar = ar.concat(__read(arguments[i]));
     return ar;
 }
 
+/** @deprecated */
 function __spreadArrays() {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
         for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
             r[k] = a[j];
     return r;
-};
+}
+
+function __spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+}
 
 function __await(v) {
     return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -340,19 +355,17 @@ function __importDefault(mod) {
     return (mod && mod.__esModule) ? mod : { default: mod };
 }
 
-function __classPrivateFieldGet(receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
+function __classPrivateFieldGet(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 }
 
-function __classPrivateFieldSet(receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to set private field on non-instance");
-    }
-    privateMap.set(receiver, value);
-    return value;
+function __classPrivateFieldSet(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 }
 
 
@@ -700,12 +713,13 @@ var FrameStorageStrategy = /** @class */ (function (_super) {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 13);
+module.exports = __webpack_require__(/*! ./dist/src/connect/connect */ 14);
 
 
 /***/ }),
 /* 12 */,
-/* 13 */
+/* 13 */,
+/* 14 */
 /*!*******************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/connect.js ***!
   \*******************************************************************/
@@ -721,7 +735,7 @@ var _constants = __webpack_require__(/*! ../constants */ 8);
 
 var _utils = __webpack_require__(/*! ../utils */ 6);
 
-var _sendFactory = __webpack_require__(/*! ./send-factory */ 14);
+var _sendFactory = __webpack_require__(/*! ./send-factory */ 15);
 
 var _sendFactory2 = _interopRequireDefault(_sendFactory);
 
@@ -760,7 +774,7 @@ function connect(scope) {
 module.exports = connect;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /*!************************************************************************!*\
   !*** ../node_modules/message-channel/dist/src/connect/send-factory.js ***!
   \************************************************************************/
@@ -779,7 +793,7 @@ exports.default = sendFactory;
 
 var _utils = __webpack_require__(/*! ../utils */ 6);
 
-var _v = __webpack_require__(/*! uuid/v4 */ 15);
+var _v = __webpack_require__(/*! uuid/v4 */ 16);
 
 var _v2 = _interopRequireDefault(_v);
 
@@ -823,7 +837,7 @@ function sendFactory(port, options) {
 }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
@@ -832,8 +846,8 @@ function sendFactory(port, options) {
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(/*! ./lib/rng */ 16);
-var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ 17);
+var rng = __webpack_require__(/*! ./lib/rng */ 17);
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ 18);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -864,7 +878,7 @@ module.exports = v4;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
@@ -910,7 +924,7 @@ if (getRandomValues) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
@@ -948,7 +962,6 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 18 */,
 /* 19 */,
 /* 20 */,
 /* 21 */,
@@ -977,7 +990,10 @@ module.exports = bytesToUuid;
 /* 44 */,
 /* 45 */,
 /* 46 */,
-/* 47 */
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */
 /*!*************************!*\
   !*** ./global-frame.ts ***!
   \*************************/
@@ -987,7 +1003,7 @@ module.exports = bytesToUuid;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global window */
-var dataCapsuleToolsFrame = __webpack_require__(/*! ./frame */ 48);
+var dataCapsuleToolsFrame = __webpack_require__(/*! ./frame */ 51);
 if (typeof window !== 'undefined') {
     window.DataCapsuleTools = dataCapsuleToolsFrame;
 }
@@ -995,7 +1011,7 @@ module.exports = dataCapsuleToolsFrame;
 
 
 /***/ }),
-/* 48 */
+/* 51 */
 /*!******************!*\
   !*** ./frame.ts ***!
   \******************/
